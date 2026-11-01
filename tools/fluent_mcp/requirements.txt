@@ -1,0 +1,2 @@
+mcp>=1.2,<2
+ansys-fluent-core>=0.43

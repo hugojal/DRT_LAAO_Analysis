@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "ansys-fluent": {
+      "command": "${CLAUDE_PROJECT_DIR}/../mcp/.venv/Scripts/python.exe",
+      "args": ["${CLAUDE_PROJECT_DIR}/tools/fluent_mcp/ansys_fluent_mcp.py"],
+      "env": { "AWP_ROOT261": "C:\\Program Files\\ANSYS Inc\\ANSYS Student\\v261" }
+    }
+  }
+}

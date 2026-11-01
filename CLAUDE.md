@@ -1,0 +1,29 @@
+# DRT_LAAO_Case3 — Modelling of Organs and Systems (UPF) · Left atrium CFD
+
+Goal: replicate a modelling workflow for **device-related thrombus risk after left atrial appendage occlusion (LAAO)**:
+Segmentation (L1) → Meshing (L2) → Solver/physics in Ansys Fluent (L3+L4) → Post-processing (L5) → PDF report.
+The user is a student (third year); Fluent is driven mainly by hand in the GUI and this agent continues from where they stop.
+This folder is meant to become a GitHub repository (see `README.md`, `.gitignore`).
+
+## Read first (in this order)
+1. [docs/agents/STATUS.md](docs/agents/STATUS.md) — what is done / what is next. **Update it at the end of every work session.**
+2. [docs/agents/01-project-overview.md](docs/agents/01-project-overview.md) — labs, deliverables, data and file map.
+3. [docs/agents/02-fluent-pipeline-L3L4.md](docs/agents/02-fluent-pipeline-L3L4.md) — the 34-step Fluent recipe from the course slides.
+4. [docs/agents/03-mcp-ansys.md](docs/agents/03-mcp-ansys.md) — how to connect to Fluent through the `ansys-fluent` MCP.
+5. [docs/agents/04-geometry-meshing-L1L2.md](docs/agents/04-geometry-meshing-L1L2.md) — only if mesh/geometry problems appear.
+6. [docs/agents/05-paraview.md](docs/agents/05-paraview.md) — post-processing: results are visualised in **ParaView**.
+7. [docs/agents/06-submission-criteria.md](docs/agents/06-submission-criteria.md) — **how the work is graded** (segmentation, meshes, simulation, ≤ 2-page PDF + 1 page of references).
+
+## Folder map
+`data/Case_003/` raw CT (never touch, git-ignored) · `1_segmentation/` Slicer scene, CT `.nrrd`, LA and device segmentations · `2_mesh/` surface `.stl`, Meshmixer/MeshLab/Gmsh files, `HugoJal_Case3_gmsh.bdf` (volume mesh used in Fluent) · `3_simulation/` boundary-condition profiles (`boundary_conditions/`, `boundary_conditions_4cycles/`), `cases/` (set-up `case_dm_v3_16102026`, **final run `case_dm_v3_run5_4cycles_20102026`**), `results/run5_4cycles/` EnSight Gold per step, `run_cycle.py` · `4_postprocessing/` analysis scripts, `paraview/` inputs, `run5/` numbers · `5_report/` LaTeX report + `main.pdf` (the deliverable) · `docs/` slides (git-ignored) and agent notes · `tools/fluent_mcp/` Fluent MCP server (venv: `../mcp/.venv`, shared) · `logs/` Fluent transcripts and logs · `archive/` superseded files (git-ignored, do not use).
+Outside this folder (in `MOs/`): `Project/` is a **separate project (Circle of Willis) — don't touch**; `tutorial/` straight-pipe Fluent exercise; `mcp/.venv` shared Python environment (also used by the CoW project — don't move it).
+
+## Rules
+- Source material is `docs/*.pdf` (course slides). Slide values are **an example for the in-class case**; parameters for this case must be justified from the mesh (`Mesh Scale Info`), not copied blindly.
+- Never overwrite user files in `1_segmentation/`, `2_mesh/`, `3_simulation/` or `data/` (CT data, segmentations, meshes, `.cas.h5`). Save new states as new, dated files (e.g. `3_simulation/cases/case_dm_YYYYMMDD.cas.h5`).
+- Before any action that is hard to undo in Fluent (re-initialize, run calculation, change zone types, exit), tell the user and confirm. Never `exit` the user's Fluent GUI. The Student licence allows one Fluent session: check no other session (e.g. the CoW project) is running Fluent first.
+- Fluent Student licence limits: ~1 M cells, 4 cores. Current mesh is far below that.
+- Units: SI in Fluent (mesh is imported in mm → **scale to mm**), time in s, pressure in Pa. Dates DD/MM/YYYY in written output.
+- No patient identifiers: the DICOMs and the CT volume must not be uploaded (they are git-ignored) or described beyond anonymous metadata.
+- Report style (user feedback 01/11/2026): third-year level, qualitative descriptions that let the figures speak, few numbers, few references (4), no AI-use declaration. Segmentation method = manual thresholding + masking + manual paint/erase (LA); device = manual segmentation. Do not claim region growing.
+- Respond in the user's language (the user writes English; documentation here is English).

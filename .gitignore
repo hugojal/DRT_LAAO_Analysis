@@ -1,0 +1,33 @@
+# patient imaging: never commit
+data/
+1_segmentation/*DS_Coronaires*.nrrd
+4_postprocessing/paraview/ct_crop_m.vti
+# Slicer scenes store DICOM metadata (birth date, study IDs)
+*.mrml
+
+# large Fluent files (cases, data, per-step results)
+3_simulation/cases/
+3_simulation/results/
+*.cas.h5
+*.dat.h5
+*.sf
+
+# superseded material
+archive/
+
+# course slides (not ours to publish)
+docs/*.pdf
+
+# logs and build files
+logs/
+5_report/*.aux
+5_report/*.bbl
+5_report/*.blg
+5_report/*.fdb_latexmk
+5_report/*.fls
+5_report/*.log
+5_report/*.out
+5_report/*.synctex.gz
+__pycache__/
+*.pyc
+.venv/
