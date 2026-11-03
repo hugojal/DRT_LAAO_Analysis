@@ -1,0 +1,17 @@
+{
+ "old_mesh": {
+  "tetrahedra": 393557,
+  "negative_volumes": 0,
+  "skew_max": 1.0,
+  "skew_mean": 0.245,
+  "n_above_0_9": 253,
+  "n_above_0_95": 99
+ },
+ "hinge_minus_outline_mm": {
+  "mean": 2.3,
+  "max": 7.9,
+  "min": -0.9
+ },
+ "outline_area_mm2": 862,
+ "outline_eq_diameter_mm": 33.1
+}

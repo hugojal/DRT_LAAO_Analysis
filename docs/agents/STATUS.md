@@ -1,6 +1,27 @@
 # STATUS (update at end of every session)
 
-Last updated: 03/11/2026
+Last updated: 04/11/2026
+
+## 04/11/2026 — New mesh: mitral cut on the CT annulus, z along the valve axis (`2_mesh/mv_aligned_03112026/`, see its README)
+- **Why.** The MV is a rigid body moved by `motion.prof`, which holds a z displacement only (down to **−8.9 mm** at 0.35 s). The old MV cap was 73° off z, so in run5 the valve slid ~8.5 mm in its own plane. This is a limitation of run5 and should be mentioned.
+- **Annulus.** Fitted on the CT from the AV-groove notch tips in radial planes:
+  - centre (22.1, −168.4, 857.1) LPS, axis (0.666, −0.720, −0.194) LA→LV, radius ~18.5 mm;
+  - the old cap was 12° tilted and ~6.7 mm inside the LV.
+- **New surface/volume.**
+  - Cut at the annulus plane; 10 mm extrusion of the outline; flat cap; junction smoothed ±4 mm; 13 isolated creases relaxed.
+  - Rotated so that the annulus centre is the origin and **−z = LA→LV** (sign chosen so the negative systolic displacement moves the annulus towards the LV; flip 180° about x if the user wants +z).
+  - MeshLab isotropic remesh (pymeshlab, installed only in a scratch venv; `PYMESHLAB_PYTHON`), then Gmsh tetrahedra on that surface.
+- **Results.**
+  - 307,927 tetrahedra, skewness max 0.885 (old: 393,557, max 1.00, 253 > 0.9); no negative volumes.
+  - 49,032 surface triangles, closed and manifold.
+  - 30° angle separation gives exactly wall + MV cap (−z, 33 mm) + 4 PV caps.
+  - Away from the valve the surface is unchanged (max 0.38 mm).
+- **Open.**
+  - The MV cap area doubled (862 vs ~420 mm²). The MV BC is a velocity, so the flow per beat roughly doubles: check, and decide whether to scale `velocity_outlet.prof`.
+  - The Fluent case must be rebuilt on the new mesh (not done).
+  - Results are in the model frame: map back with `transform_LPS_to_model.json`.
+  - The cut outline is ~2.3 mm inside the CT hinge points (segmentation).
+  - Committed and pushed 04/11/2026.
 
 ## 03/11/2026 — GitHub repo + device re-segmented with a gamma transform + thrombus check
 - **Thrombus check** (`4_postprocessing/thrombus_check/`, see its README). Method: CT shown with a thrombus window ([-100, 700] HU, gamma 1.5); low-density search in front of the device face; density profiles.

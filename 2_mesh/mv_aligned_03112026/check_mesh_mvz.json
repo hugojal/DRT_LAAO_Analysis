@@ -1,0 +1,139 @@
+{
+ "volume_mesh": {
+  "tetrahedra": 307927,
+  "nodes": 64191,
+  "negative_or_zero_volumes": 0,
+  "total_volume_mL": 172.6,
+  "minSICN": {
+   "min": 0.434,
+   "p1": 0.667,
+   "mean": 0.879
+  },
+  "gamma": {
+   "min": 0.377,
+   "mean": 0.859
+  },
+  "skewness": {
+   "max": 0.885,
+   "mean": 0.238,
+   "n_above_0_8": 29,
+   "n_above_0_9": 0,
+   "n_above_0_95": 0
+  }
+ },
+ "surface": {
+  "triangles": 49032,
+  "edges_used_once": 0,
+  "edges_used_more_than_twice": 0,
+  "closed": true,
+  "volume_mL": 172.6,
+  "same_as_saved_stl": true
+ },
+ "angle_separation_30deg": {
+  "regions": 6,
+  "largest": [
+   {
+    "area_mm2": 18089.4,
+    "eq_diameter_mm": 151.8,
+    "normal": [
+     -0.258,
+     0.248,
+     0.934
+    ],
+    "centre": [
+     0.4,
+     -8.7,
+     34.1
+    ],
+    "max_out_of_plane_mm": 49.52,
+    "angle_to_z_deg": 20.9
+   },
+   {
+    "area_mm2": 861.2,
+    "eq_diameter_mm": 33.1,
+    "normal": [
+     -0.0,
+     0.0,
+     -1.0
+    ],
+    "centre": [
+     -0.6,
+     -0.4,
+     -10.0
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 0.0
+   },
+   {
+    "area_mm2": 312.4,
+    "eq_diameter_mm": 19.9,
+    "normal": [
+     -0.336,
+     -0.541,
+     0.771
+    ],
+    "centre": [
+     -23.5,
+     -46.2,
+     67.2
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 39.6
+   },
+   {
+    "area_mm2": 294.9,
+    "eq_diameter_mm": 19.4,
+    "normal": [
+     0.825,
+     -0.556,
+     0.102
+    ],
+    "centre": [
+     45.8,
+     -24.9,
+     46.5
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 84.2
+   },
+   {
+    "area_mm2": 277.7,
+    "eq_diameter_mm": 18.8,
+    "normal": [
+     -0.537,
+     0.165,
+     0.827
+    ],
+    "centre": [
+     -26.0,
+     -5.3,
+     76.1
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 34.2
+   },
+   {
+    "area_mm2": 220.7,
+    "eq_diameter_mm": 16.8,
+    "normal": [
+     0.536,
+     0.834,
+     -0.131
+    ],
+    "centre": [
+     36.3,
+     24.1,
+     38.1
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 82.5
+   }
+  ]
+ },
+ "shape_change_vs_original_mm": {
+  "region": "surface > 6 mm from the annulus on the LA side",
+  "mean": 0.0,
+  "p95": 0.0,
+  "max": 0.377
+ }
+}

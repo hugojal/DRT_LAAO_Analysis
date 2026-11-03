@@ -32,3 +32,6 @@ logs/
 __pycache__/
 *.pyc
 .venv/
+
+# Gmsh native mesh (same mesh as the .bdf)
+*.msh
