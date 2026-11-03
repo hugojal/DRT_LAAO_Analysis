@@ -1,6 +1,19 @@
 # STATUS (update at end of every session)
 
-Last updated: 01/11/2026
+Last updated: 03/11/2026
+
+## 03/11/2026 — GitHub repo + device re-segmented with a gamma transform
+- Repo: github.com/hugojal/DRT_LAAO_Analysis (`main`, first commit 01/11/2026). The user is the **only author**: no Co-Authored-By or Claude lines in commits or PRs. The Slicer `.mrml` scenes are git-ignored because they contain DICOM metadata (birth date, study IDs).
+- **Layout of `1_segmentation/`** (set by the user): device segmentations kept are only:
+  - the manual `Device.seg.nrrd` (used in the model);
+  - `unet_experiment/Device_unet_wire.seg.nrrd` + `.stl`: the version the user saved from Slicer on 31/10, which differs from the automatic output by 5 425 voxels;
+  - `gamma_experiment/` = v3 below.
+
+  gamma v1/v2 and the exploration images are in `archive/1_segmentation/gamma_v1_v2_03112026/`. Committed and pushed 03/11/2026.
+- v1, in `device_gamma_03112026/` (since moved; see above): wire frame from gamma 0.6 → top-hat 2.5 mm → hysteresis 0.16/0.30 inside the device cylinder. No neural network. 2.34 mL vs 5.02 mL for the manual mask; 92 % lies inside the manual mask; Dice 0.58. The disc, waist and hollow lobe are visible. Hub streak bars remain to be erased.
+- **v3 (current)**, after user feedback that v2 was solid in one part and open in another. Pipeline: gamma 0.3 → Sato ridge filter (0.75–1.5 vox) → v2 allowed region → keep voxels ≥ 50 % of the local ridge max within 1.5 mm → hysteresis at the 60/85 percentiles. Result: an even strut lattice on face and wall (fill 12–27 % / 8–29 % per 45° sector, vs 25–81 % / 17–63 % in v2), complete rim ring, 1.26 mL, 97 % inside the manual mask. Outputs: `Device_gamma_wire_v3_03112026.seg.nrrd`/`.stl`; iteration images `iter*.png`.
+- v2, after user feedback: the device is a **Watchman** (FLX type, ~27 mm). Settings: gamma 0.3; an axisymmetric shape prior from the angle-averaged (axial, radius) map; envelope = manual mask dilated 1.5 mm; hysteresis 0.30/0.50. The antennae are gone and the base rim is found in 100 % of 5° sectors. 2.60 mL; 96 % inside the manual mask; Dice 0.65. Outputs: `Device_gamma_wire_v2_03112026.seg.nrrd`/`.stl`.
+- **Not used yet** in the mesh, figures or report (these still use the manual `Device.seg.nrrd`). Note: older notes (and the archived U-Net README) call the device an Amulet; the user says it is a Watchman.
 
 ## 01/11/2026 — Report v5 + folder reorganisation (read this first)
 - **Folder:** everything for this project now lives in `MOs/DRT_LAAO_Case3/` (future GitHub repo: `README.md`, `.gitignore`). Old → new path map: `logs/reorganisation_01112026.txt`. **The log below this entry uses the OLD paths** (`L1/` → `1_segmentation/`, `L2/` → `2_mesh/`, `L3/mesh/HugoJal_Case3_gmsh.bdf` → `2_mesh/`, `L3/BC*` → `3_simulation/boundary_conditions*`, `L3/cases|results` → `3_simulation/…` (only the v3 set-up and run5 kept; the rest in `archive/`), `postproc/` → `4_postprocessing/` (kept scripts only), `report/latex/` → `5_report/`, `Case_003/` → `data/Case_003/`, `mcp/*.py` → `tools/fluent_mcp/`). Superseded material (run2/run4, old meshes, U-Net and v2 segmentation attempts, quick-look figures, reportlab/docx reports, unused ParaView figures) is in `archive/` (git-ignored), nothing deleted. `MOs/mcp/.venv` stays outside (shared with the CoW project, which was running Fluent from it during this session). Root `fluent-*.trn` files belong to the CoW project and were left in `MOs/`.

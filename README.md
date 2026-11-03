@@ -9,7 +9,7 @@ From a contrast CT of a patient with a left atrial appendage occluder, we segmen
 
 | Step | Folder | Tools | Main files |
 |---|---|---|---|
-| 1. Segmentation | `1_segmentation/` | 3D Slicer | `Hugo_Jal_left_atrium_segmentation.nrrd`, `Device.seg.nrrd`, scene screenshot (the Slicer `.mrml` scene stays local: it holds DICOM metadata) |
+| 1. Segmentation | `1_segmentation/` | 3D Slicer, Python | `Hugo_Jal_left_atrium_segmentation.nrrd`, `Device.seg.nrrd` (manual, used in the model), scene screenshot (the Slicer `.mrml` scene stays local: it holds DICOM metadata); device wire-frame experiments in `gamma_experiment/` (gamma transform + wire filter) and `unet_experiment/` (promptable U-Net) |
 | 2. Mesh | `2_mesh/` | MeshLab, Meshmixer, Gmsh | `HugoJal_Case3.stl` (surface), `HugoJal_Case3_gmsh.bdf` (volume, ~390k tetrahedra) |
 | 3. Simulation | `3_simulation/` | Ansys Fluent 2026 R1 Student, PyFluent | boundary-condition profiles, `run_cycle.py`; cases and results are not in the repo (too large) |
 | 4. Post-processing | `4_postprocessing/` | Python (PyVista, NumPy), ParaView 6.2 | `analyze_cycle.py`, `report_quant.py`, `pv_figures.py`, `paraview/run5_wall_metrics.vtp` |

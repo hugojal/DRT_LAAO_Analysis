@@ -27,7 +27,7 @@ Anatomy: left atrium (LA), 4 pulmonary veins (PV, ~10–25 mm diameter), mitral 
 | Path | Content |
 |---|---|
 | `data/Case_003/` | Raw DICOM CT (sensitive — do not share, git-ignored) |
-| `1_segmentation/` | Slicer scene `2026-10-15-Scene.mrml`, CT volume `.nrrd` (git-ignored), LA segmentation (`Hugo_Jal_left_atrium_segmentation.nrrd`, `HugoJal_Case3_stl.seg.nrrd`), device segmentation (`Device.seg.nrrd`, edited by hand by the user 23/10) |
+| `1_segmentation/` | Slicer scene `2026-10-15-Scene.mrml`, CT volume `.nrrd` (git-ignored), LA segmentation (`Hugo_Jal_left_atrium_segmentation.nrrd`, `HugoJal_Case3_stl.seg.nrrd`), device segmentation (`Device.seg.nrrd`, edited by hand by the user 23/10, the one used in the model); `gamma_experiment/` (wire frame from gamma 0.3 + ridge filter, v3 03/11/2026) and `unet_experiment/` (U-Net wire frame as saved from Slicer 31/10) |
 | `2_mesh/` | `HugoJal_Case3.stl` (final surface), `…_meshlab.stl`, `.mix`/`.geo` project files, `HugoJal_Case3_gmsh.bdf` (**the volume mesh used in Fluent**, 393,557 tets) |
 | `3_simulation/boundary_conditions/*.prof` | `pressure_inlet.prof` (`function_pressure_c`, Pa vs s, ~810–830 Pa), `velocity_outlet.prof` (`velocity_bc_c`, u in m/s, ≈ −0.0116 at t=0; sign already inverted for use as a velocity *inlet* at the MV), `motion.prof` (`mov_bc_c`, z displacement in m vs s, 0.01 s sampling) |
 | `3_simulation/boundary_conditions_4cycles/` | the same extended to 4 heartbeats (used for run5) |

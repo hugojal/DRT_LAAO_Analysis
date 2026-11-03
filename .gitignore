@@ -2,6 +2,7 @@
 data/
 1_segmentation/*DS_Coronaires*.nrrd
 4_postprocessing/paraview/ct_crop_m.vti
+1_segmentation/gamma_experiment/qc_volumes.npz
 # Slicer scenes store DICOM metadata (birth date, study IDs)
 *.mrml
 
