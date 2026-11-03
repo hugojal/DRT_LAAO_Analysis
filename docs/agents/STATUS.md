@@ -6,7 +6,7 @@ Last updated: 03/11/2026
 - **Thrombus check** (`4_postprocessing/thrombus_check/`, see its README). Method: CT shown with a thrombus window ([-100, 700] HU, gamma 1.5); low-density search in front of the device face; density profiles.
   - **Result: no DRT visible.** Blood reaches the face directly: 5th percentile 321 HU, 0.1 % < 250 HU in the first 3 mm. The only low-density pieces are the metal streak beside the hub (thin band along one line, 252 mm³) and a 51 mm³ partial-volume sliver at the rim/wall.
   - Limitation: metal streaks hide the first 1–2 mm around the hub.
-  - The report already says no thrombus is visible, so no figure was added (the user wanted one only if a thrombus was found). Not committed yet.
+  - The report already says no thrombus is visible, so no figure was added (the user wanted one only if a thrombus was found). Committed and pushed 03/11/2026 (b7a76db).
 - Repo: github.com/hugojal/DRT_LAAO_Analysis (`main`, first commit 01/11/2026). The user is the **only author**: no Co-Authored-By or Claude lines in commits or PRs. The Slicer `.mrml` scenes are git-ignored because they contain DICOM metadata (birth date, study IDs).
 - **Layout of `1_segmentation/`** (set by the user): device segmentations kept are only:
   - the manual `Device.seg.nrrd` (used in the model);
