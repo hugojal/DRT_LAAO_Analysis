@@ -1,11 +1,12 @@
-"""Quantitative analysis for the report (analysis cycle of run5): distance bands, low-shear exposure, time course. Writes figures + a VTP for ParaView + a numbers file."""
-import os, numpy as np, json, matplotlib, pyvista as pv
+"""Quantitative analysis for the report (analysis cycle of a run): distance bands, low-shear exposure, time course. Writes figures + a VTP for ParaView + a numbers file.
+usage: python report_quant.py [run] [figure_dir]   (default: run5, 5_report/figures; e.g. run6 4_postprocessing/run6/figures)"""
+import os, sys, numpy as np, json, matplotlib, pyvista as pv
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy.spatial import cKDTree
 plt.rcParams.update({"text.usetex": True, "font.family": "serif", "font.size": 8.5, "axes.linewidth": 0.6})
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/"); FIG = ROOT + "/5_report/figures/"   # ROOT = project folder (DRT_LAAO_Case3)
-Z = np.load(ROOT + "/4_postprocessing/run5/results.npz"); nc = int(Z["nc"]); A, Bc = 0, 1
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/"); RUN = sys.argv[1] if len(sys.argv) > 1 else "run5"; FIG = (sys.argv[2] if len(sys.argv) > 2 else ROOT + "/5_report/figures").rstrip("/") + "/"   # ROOT = project folder (DRT_LAAO_Case3)
+Z = np.load(ROOT + f"/4_postprocessing/{RUN}/results.npz"); nc = int(Z["nc"]); A, Bc = 0, 1
 ref, tri = Z["ref_pts"], Z["tri"]
 dist = cKDTree(Z["dev"] / 1000.0).query(ref)[0] * 1000                     # mm from each wall node to the device segmentation
 P = ref[tri]; ta = 0.5 * np.linalg.norm(np.cross(P[:, 1] - P[:, 0], P[:, 2] - P[:, 0]), axis=1)
@@ -34,9 +35,9 @@ hi = ec > 2; out["share_of_ecap_gt2_area_within_20mm"] = float(area[hi & (dist <
 out["wall_area_within_20mm_share"] = float(area[dist < 20].sum() / area.sum())
 # periodicity per band
 out["periodicity_ecap_rel_change_near"] = float(Z[f"c{Bc}_ecap"][near].mean() / Z[f"c{A}_ecap"][near].mean() - 1)
-json.dump(out, open(ROOT + "/4_postprocessing/run5/report_numbers.json", "w"), indent=1); print(json.dumps(out, indent=1))
+json.dump(out, open(ROOT + f"/4_postprocessing/{RUN}/report_numbers.json", "w"), indent=1); print(json.dumps(out, indent=1))
 # VTP with the extra arrays (for ParaView)
-surf = pv.read(ROOT + "/4_postprocessing/paraview/run5_wall_metrics.vtp"); surf.point_data["LowShearTimeFraction"] = lowfrac; surf.point_data["dist_to_device_mm"] = dist; surf.save(ROOT + "/4_postprocessing/paraview/run5_wall_metrics.vtp")
+VTP = ROOT + f"/4_postprocessing/paraview/{RUN}_wall_metrics.vtp"; surf = pv.read(VTP); surf.point_data["LowShearTimeFraction"] = lowfrac; surf.point_data["dist_to_device_mm"] = dist; surf.save(VTP)
 # ---- Figure: metrics by distance band (box plots, area-weighted quartiles drawn as boxes)
 fig, axs = plt.subplots(1, 3, figsize=(3.45, 1.5))
 for ax, (arr, yl, logy) in zip(axs, ((tw, "TAWSS (Pa)", True), (osi, "OSI", False), (ec, r"ECAP (Pa$^{-1}$)", True))):

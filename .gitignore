@@ -35,3 +35,8 @@ __pycache__/
 
 # Gmsh native mesh (same mesh as the .bdf)
 *.msh
+
+# ParaView package data (1.2 GB): rebuilt by 4_postprocessing/make_paraview_package.py
+6_paraview_package/simulation/
+6_paraview_package/fluent/
+6_paraview_package/surfaces/

@@ -2,6 +2,61 @@
 
 Last updated: 04/11/2026
 
+## 04/11/2026 (afternoon) — report switched to run6, device removed from result figures, ParaView package
+- **Report** (`5_report/main.tex`, figures in `5_report/figures_run6/`): now uses run6; still 2 pages + references.
+  - The previous run5 version is kept in `archive/5_report_run5_01112026/` (and in git).
+  - Two new verified references: Kawel-Boehm 2020 (PMID 33308262) for the flow scaling; Morales 2025 (arXiv:2505.09746) for Q = 500.
+- **Figures.** User feedback: the device must appear only in Fig. 1.
+  - Fig. 1 = (a) gamma CT en-face on the device disc with the wire segmentation; (b) CT along the device axis with the LA and wire outlines (blood reaches the face); (c) transparent LA model + wire device. Made by `4_postprocessing/ct_wire_figure.py` and `pv_figures.py anatomy` (with `PV_TRANSFORM`).
+  - `pv_figures.py`: the device is off by default (`PV_DEVICE=1` to show it). `PV_VMAX_PEAK=0.6` for run6. The run6 slice is the long-axis plane through the mitral axis and the device.
+  - **Bug fixed:** the 2nd ECAP view was double-log-scaled (shared lookup table). Old Fig. 2d (run5) had wrong colours.
+- **ParaView package** `6_paraview_package/` (course criterion 3), built by `4_postprocessing/make_paraview_package.py`:
+  - last heartbeat EnSight + `.encas`, final Fluent case/data, wall metrics `.vtp`, LA/device STLs, `flows.csv`;
+  - `open_in_paraview.py` (tested in pvbatch), `README.md`;
+  - the data (1.2 GB) is git-ignored; README + script are tracked.
+- **U-Net in the report** (user: the professor gives extra credit for it). Fig. 1 is now 5 panels:
+  - (a) U-Net device (`unet_experiment/Device_unet_wire.seg.nrrd`) on the disc plane, plain CT 0–1500 HU; (b) its 3D model, display-smoothed in ParaView only;
+  - (c) gamma CT + wire; (d) CT along the axis + LA + wire; (e) LA + wire 3D;
+  - a methods paragraph, plus the reference Isensee 2025, nnInteractive (arXiv:2503.08373, verified);
+  - U-Net vs others: 2.50 mL, 97 % inside the manual mask, Dice 0.65 vs manual and 0.57 vs gamma.
+  - The U-Net model is also in the ParaView package (`surfaces/device_unet.stl`).
+- Still 2 pages + references. Not committed yet.
+
+## 04/11/2026 — run6 on the new mesh (DONE; see `4_postprocessing/run6/README.md`)
+- **Run.** Finished 12:36, 350/350, with no errors.
+  - Final case: `cases/case_mvz_run6_4cycles_04112026.cas.h5`.
+  - Analysed: `4_postprocessing/run6/` (results.npz, report_numbers.json, figures/).
+  - Comparison: `4_postprocessing/compare_run5_run6.json`.
+- **Physiology (beat 4).**
+  - SV 72.9 mL, CO 5.0 L/min (run5: 46 mL, 3.2 L/min); mitral backflow 0.4 mL.
+  - PV split 20/28/20/31 %.
+  - Max |u| at E-peak 0.57 m/s (run5: 1.72 m/s jet from the narrow mitral zone).
+  - Per-beat SV and PV volumes are periodic in beats 3–4.
+- **Wall.** The 0–5 mm device ring is still the worst band, but the values are milder:
+  - ECAP median 1.02 (run5 3.50); TAWSS 0.21 Pa (0.09); 19 % of the ring has ECAP > 2 (89 %).
+  - 48 % of the ECAP > 2 area lies within 20 mm of the device (20 % of the wall).
+  - Conclusion holds qualitatively; magnitude depends on the inflow.
+- Report switched to run6 the same afternoon (see above).
+
+- **Case.** `3_simulation/cases/case_mvz_setup_04112026.cas.h5`, built by `3_simulation/setup_case_mvz.py`:
+  - imports the new .bdf, scales to mm, separates by angle at 30° → exactly 6 zones;
+  - names the caps by position (same names as the old caps);
+  - `/mesh/replace` into the old set-up case, so all settings are kept;
+  - remeshing lengths 0.3 / 4.5 mm.
+- **Mitral BC** (`3_simulation/boundary_conditions_4cycles_mvz/`, see `scale_mitral_velocity.py` and `scaling.json`):
+  - The course velocity × 0.5616, so that CO = 5.0 L/min (SV 72.9 mL, HR 68.6). Reference: Kawel-Boehm 2020, CMR normal values. Unscaled on the 861 mm² annulus it would be 130 mL/beat and 8.9 L/min.
+  - **Plus the annulus velocity dz/dt**, so the flux through the moving cap = the scaled profile. Without it, the receding cap pulled ~8 mL into the LA in systole through the "closed" valve; found in the 5-step smoke test.
+  - Pressure and motion profiles unchanged.
+- **Run.**
+  - Command: `run_cycle.py 350 3_simulation/results/run6_mvz_4cycles 3_simulation/cases/case_mvz_run6_4cycles_04112026.cas.h5 <setup case> <BC mvz>`
+  - Log: `logs/run6.out`. Started 10:43, ~28 s/step.
+  - Check: the MV cap moves exactly along −z.
+- **Post-processing prepared.**
+  - `analyze_cycle.py` (env `MODEL_TRANSFORM`); `report_quant.py [run] [fig_dir]`; `make_wall_vtp.py <run>`; `compare_runs.py`.
+  - `pv_figures.py` env: `PV_RUN`, `PV_RESULTS`, `PV_OUT`, `PV_Q`, `PV_TRANSFORM`.
+  - `paraview/device_frame_mvz_m.stl` = device in the model frame.
+- **Q-criterion.** Main isovalue now 500 1/s² (Morales et al. 2025, arXiv:2505.09746, LA 4D flow; results consistent for Q > 100), plus 250/700 for sensitivity. The old 4000 kept only fragments. run5 re-rendered in `4_postprocessing/run5/figures_q/`; the report figure is untouched.
+
 ## 04/11/2026 — New mesh: mitral cut on the CT annulus, z along the valve axis (`2_mesh/mv_aligned_03112026/`, see its README)
 - **Why.** The MV is a rigid body moved by `motion.prof`, which holds a z displacement only (down to **−8.9 mm** at 0.35 s). The old MV cap was 73° off z, so in run5 the valve slid ~8.5 mm in its own plane. This is a limitation of run5 and should be mentioned.
 - **Annulus.** Fitted on the CT from the AV-groove notch tips in radial planes:

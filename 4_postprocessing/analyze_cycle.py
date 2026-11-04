@@ -11,6 +11,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\",
 THR = [0.01, 0.025, 0.05]; ROIS = [10.0, 20.0]
 d, h = nrrd.read(ROOT + "/1_segmentation/Device.seg.nrrd")
 dev = np.array(h["space origin"], float) + np.argwhere(d > 0)[:, -3:] @ np.array(h["space directions"], float)   # mm, same LPS frame as the mesh
+if os.environ.get("MODEL_TRANSFORM"):                        # rotated mesh (2_mesh/mv_aligned_03112026): device LPS -> model frame
+    import json; TR = json.load(open(os.environ["MODEL_TRANSFORM"])); dev = (dev - np.array(TR["c_LPS_mm"])) @ np.array(TR["R"]).T
 dev_tree = cKDTree(dev[::4])
 def load(k):
     r = vtk.vtkEnSightGoldBinaryReader(); r.SetCaseFileName(f"{RES}/step_{k:03d}.encas"); r.Update()
