@@ -6,6 +6,7 @@ The user is a student (third year); Fluent is driven mainly by hand in the GUI a
 This folder is meant to become a GitHub repository (see `README.md`, `.gitignore`).
 
 ## Read first (in this order)
+0. [SUBMISSION.md](SUBMISSION.md): **which file to hand in for each rubric item**. Keep it up to date whenever a deliverable changes.
 1. [docs/agents/STATUS.md](docs/agents/STATUS.md) — what is done / what is next. **Update it at the end of every work session.**
 2. [docs/agents/01-project-overview.md](docs/agents/01-project-overview.md) — labs, deliverables, data and file map.
 3. [docs/agents/02-fluent-pipeline-L3L4.md](docs/agents/02-fluent-pipeline-L3L4.md) — the 34-step Fluent recipe from the course slides.

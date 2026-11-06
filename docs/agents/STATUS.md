@@ -2,6 +2,8 @@
 
 Last updated: 06/11/2026
 
+**Hand-in list: [SUBMISSION.md](../../SUBMISSION.md)** (now run6; switch to the run7 column once run7 is run and the report updated).
+
 ## 06/11/2026 (evening): run7 prepared, NOT run. Decisions applied: PV re-cut, unscaled mitral BC, funnel moves with the valve, segmentation fixes
 - **Segmentation v2, the one to hand in:** `1_segmentation/la_v2_06112026/Case3_LA_segmentation_HugoJal_06112026.seg.nrrd` (segment `LA_Case3`; README, `fix_la_segmentation.py`, `qc_la_v2.png`).
   - Device removed: 8 820 → 0 device voxels inside the LA.

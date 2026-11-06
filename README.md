@@ -7,6 +7,9 @@ From a contrast CT of a patient with a left atrial appendage occluder, we segmen
 
 ## Pipeline and folders
 
+**What to hand in:** see [SUBMISSION.md](SUBMISSION.md) (one file per rubric item).
+
+
 | Step | Folder | Tools | Main files |
 |---|---|---|---|
 | 1. Segmentation | `1_segmentation/` | 3D Slicer, Python | `Hugo_Jal_left_atrium_segmentation.nrrd`, scene screenshot (the Slicer `.mrml` scene stays local: it holds DICOM metadata); `device/`: the **Amulet-type** occluder, segmented three ways, each as `.seg.nrrd` + `.stl`: `manual/` (used in the model), `gamma/` (gamma transform + sheet tracing) and `unet/` (promptable U-Net). See `1_segmentation/device/README.md` |
