@@ -36,6 +36,11 @@ Last updated: 06/11/2026
 - **Prepared:**
   - `3_simulation/setup_case_mv53.py` (cap centre (−0.4, −0.1, −6.5) mm);
   - `3_simulation/boundary_conditions_4cycles_mv53/` (cap 529.0 mm²; factor 0.9145, which keeps CO 5.0 L/min and gives a peak orifice velocity of 0.86 m/s).
+- **Plan for run7:** [docs/agents/run7_plan_06112026.md](run7_plan_06112026.md), built from the rubric review and the new mesh. Four decisions are needed before running:
+  - re-cut the misaligned PV extensions;
+  - scaled or unscaled mitral BC;
+  - move the funnel with the cap;
+  - fold the segmentation fixes into the mesh or not.
 - **Next.** Run7 is only on the user's go:
   - run `setup_case_mv53.py`, then `run_cycle.py` (command in the mesh README; about 2 h);
   - then re-run the post-processing with `PV_RUN=run7` and update the report;
