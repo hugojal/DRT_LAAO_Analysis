@@ -1,0 +1,23 @@
+{
+ "scale_factor": 0.9145,
+ "mitral_area_mm2": 529.0,
+ "beat_s": 0.875,
+ "heart_rate_bpm": 68.6,
+ "unscaled": {
+  "stroke_volume_mL": 79.7,
+  "cardiac_output_L_min": 5.47,
+  "peak_velocity_m_s": 0.945
+ },
+ "scaled": {
+  "stroke_volume_mL": 72.9,
+  "cardiac_output_L_min": 5.0,
+  "peak_velocity_m_s": 0.864,
+  "peak_flow_mL_s": 457,
+  "VTI_cm": 13.78
+ },
+ "annulus_velocity_added": {
+  "min_m_s": -0.0418,
+  "max_m_s": 0.0951,
+  "swept_volume_mL": 5.2
+ }
+}

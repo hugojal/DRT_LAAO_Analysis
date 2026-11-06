@@ -9,30 +9,27 @@ From a contrast CT of a patient with a left atrial appendage occluder, we segmen
 
 | Step | Folder | Tools | Main files |
 |---|---|---|---|
-| 1. Segmentation | `1_segmentation/` | 3D Slicer, Python | `Hugo_Jal_left_atrium_segmentation.nrrd`, `Device.seg.nrrd` (manual, used in the model), scene screenshot (the Slicer `.mrml` scene stays local: it holds DICOM metadata); device wire-frame experiments in `gamma_experiment/` (gamma transform + wire filter) and `unet_experiment/` (promptable U-Net) |
-| 2. Mesh | `2_mesh/` | MeshLab, Meshmixer, Gmsh | `HugoJal_Case3.stl` (surface), `HugoJal_Case3_gmsh.bdf` (volume, ~390k tetrahedra) |
-| 3. Simulation | `3_simulation/` | Ansys Fluent 2026 R1 Student, PyFluent | boundary-condition profiles, `run_cycle.py`; cases and results are not in the repo (too large) |
-| 4. Post-processing | `4_postprocessing/` | Python (PyVista, NumPy), ParaView 6.2 | `analyze_cycle.py`, `report_quant.py`, `pv_figures.py`, `paraview/run5_wall_metrics.vtp` |
+| 1. Segmentation | `1_segmentation/` | 3D Slicer, Python | `Hugo_Jal_left_atrium_segmentation.nrrd`, scene screenshot (the Slicer `.mrml` scene stays local: it holds DICOM metadata); `device/`: the **Amulet-type** occluder, segmented three ways, each as `.seg.nrrd` + `.stl`: `manual/` (used in the model), `gamma/` (gamma transform + sheet tracing) and `unet/` (promptable U-Net). See `1_segmentation/device/README.md` |
+| 2. Mesh | `2_mesh/` | MeshLab, Meshmixer, Gmsh | `HugoJal_Case3.stl` (segmented surface). `mv_aligned_03112026/`: mitral cut on the CT annulus, z = valve axis, 308k tetrahedra (**run6, the one in the report**; mitral cap 8.6 cm²). `mv_taper_06112026/`: same atrium with a smooth funnel to a **5.3 cm² mitral outlet** (course range 4–6 cm²), 298k tetrahedra, prepared for run7. Each folder has a README. |
+| 3. Simulation | `3_simulation/` | Ansys Fluent 2026 R1 Student, PyFluent | boundary-condition profiles (`boundary_conditions_4cycles_mvz/` run6, `boundary_conditions_4cycles_mv53/` run7), `setup_case_*.py`, `run_cycle.py`; cases and results are not in the repo (too large) |
+| 4. Post-processing | `4_postprocessing/` | Python (PyVista, NumPy), ParaView 6.2 | `analyze_cycle.py`, `report_quant.py`, `pv_figures.py`, `run6/` (numbers, figures, README) |
 | 5. Report | `5_report/` | LaTeX | `main.tex`, `references.bib`, `figures/`, `main.pdf` |
 
 Other folders: `docs/agents/` (working notes and the Fluent recipe), `tools/fluent_mcp/` (MCP server to drive Fluent from Claude Code), `logs/`.
 
 ## Simulation in short
 - Transient, laminar, Newtonian blood (ρ = 1060 kg/m³, μ = 3.5 mPa·s).
-- Pulmonary veins: pressure curve; mitral valve: velocity curve and valve motion (dynamic mesh with smoothing and remeshing).
+- Pulmonary veins: pressure curve; mitral valve: velocity curve scaled to a cardiac output of 5.0 L/min, and the valve's longitudinal motion along its axis (dynamic mesh with smoothing and remeshing).
 - Time step 0.01 s, taken from the boundary-condition files; 4 heartbeats (350 steps), the last one analysed.
 - Wall metrics: TAWSS, OSI and ECAP = OSI/TAWSS; flow: streamlines, velocity on a plane, Q-criterion.
 
 ## Reproducing
 Python environment: PyFluent 0.43, PyVista, SciPy, pynrrd, matplotlib (here in `../mcp/.venv`); ParaView 6.2 for the figures.
 ```
-python 3_simulation/run_cycle.py 350 3_simulation/results/rerun 3_simulation/cases/case_dm_rerun_YYYYMMDD.cas.h5 3_simulation/cases/case_dm_v3_16102026.cas.h5 3_simulation/boundary_conditions_4cycles
-python 4_postprocessing/analyze_cycle.py 3_simulation/results/run5_4cycles 4_postprocessing/run5 175 88 2
-python 4_postprocessing/report_quant.py
-pvbatch --force-offscreen-rendering 4_postprocessing/pv_figures.py all
-cd 5_report && latexmk -pdf main.tex
+python 3_simulation/setup_case_mvz.py AB
+python 3_simulation/run_cycle.py 350 3_simulation/results/run6_mvz_4cycles 3_simulation/cases/case_mvz_run6_4cycles_DDMMYYYY.cas.h5 3_simulation/cases/case_mvz_setup_04112026.cas.h5 3_simulation/boundary_conditions_4cycles_mvz
 ```
-The first line re-runs the simulation into new files (the published run is `run5_4cycles`, analysed by the following lines); it needs the Fluent case (`3_simulation/cases/`), which is not in the repository.
+The published run is `run6_mvz_4cycles`. The Fluent cases (`3_simulation/cases/`) and results are not in the repository. The post-processing commands are in [4_postprocessing/run6/README.md](4_postprocessing/run6/README.md); the report is built with `cd 5_report && latexmk -pdf main.tex`. The next run (run7, 5.3 cm² mitral outlet) is prepared in [2_mesh/mv_taper_06112026/README.md](2_mesh/mv_taper_06112026/README.md).
 
 ## Data
 The CT images and the DICOM files are patient data and are **not** included (`data/` and the CT volume are git-ignored). Only the segmentations, meshes and derived results are shared.

@@ -1,6 +1,63 @@
 # STATUS (update at end of every session)
 
-Last updated: 04/11/2026
+Last updated: 06/11/2026
+
+## 06/11/2026: device segmentations reorganised — `1_segmentation/device/` (read its README first)
+- The device is an **Amulet-type** occluder. There are three segmentations, each `.seg.nrrd` + `.stl` (LPS mm, closed, manifold):
+  - `manual/Device_manual.seg.nrrd`: the user's `Device.seg.nrrd`, renamed with `git mv`. It now has an STL (`make_stl.py`). It is the one used in the model.
+  - `gamma/`: v4 (below).
+  - `unet/Device_unet_wire.*`.
+- Gamma v1–v3, built on the Watchman assumption, are archived in `archive/1_segmentation/gamma_v3_03112026/`. The old→new path map is in `logs/reorganisation_06112026.txt`. Nothing is committed yet.
+- Paths updated in `4_postprocessing/analyze_cycle.py`, `thrombus_check/thrombus_check.py`, `ct_wire_figure.py` (which now uses gamma **v4**) and the rubric skill. The gamma script, re-run from its new place, gives a byte-identical result.
+- **Open:**
+  - report Fig. 1 and `4_postprocessing/paraview/device_gamma_wire_mvz_m.stl` (ParaView anatomy view) are still made from gamma v3; re-run `ct_wire_figure.py` and re-make the mvz STL from v4 if v4 is accepted;
+  - the report should name the device "Amulet-type" once in the methods.
+
+## 06/11/2026: device gamma segmentation v4 (Amulet-type) — now in `1_segmentation/device/gamma/` (see its README)
+- The user confirms the device is an **Amulet-type** occluder, not a Watchman. The CT agrees: two hubs 11.7 mm apart, a ~28 mm disc, a ~22 mm lobe.
+- v4 traces the braided sheets (disc, lobe wall, distal end, braid lines inside the lobe) in cylindrical coordinates around the hub axis. The hubs and the dense bar between them are taken by CT value.
+  - Result: `Device_gamma_wire_v4_06112026.seg.nrrd` + `.stl` (LPS mm). 1.94 mL, 94 % inside the manual mask, 14 % of voxels at blood level (manual 58 %). Disc and lobe wall are found in 100 % of 5° sectors.
+- Checked and rejected: removing the lobe's inner diagonals and the bar between the hubs as metal streaks. Long-axis CT planes show both at every angle (`qc/explore_long_axis_planes_v4.png`).
+- Limits: the disc is patchy where the hub streaks darken the CT; a few spikes remain near the distal hub.
+- Not yet used in the report or figures, and not checked by the user in Slicer. The gamma README now says Amulet; the 03/11 "Watchman" notes below are wrong.
+
+## 06/11/2026: mitral outlet narrowed to 5.3 cm² (mesh ready, run7 NOT run)
+- **Measured.** The run6 mitral cap is **8.61 cm²** (mesh 861 mm²; Fluent output 8.61 cm²). The course asks for 4–6 cm².
+- **New mesh** `2_mesh/mv_taper_06112026/` (see its README):
+  - **Third version (current).** Above 8 mm over the annulus, the LA is exactly as segmented. From 8 mm down to the annulus, it is rebuilt as a structured polar surface:
+    - each section is the original one, blended into its angular low-pass (10 harmonics);
+    - this removes a ~1 mm ridge/groove of the segmentation, while the neck area is unchanged (8.62 cm² at the annulus, equal to the CT cut; same as run6 from 2 mm up).
+  - **Funnel.** Below the annulus, a C1 Hermite funnel starts with the wall's own slope (47°) and ends on a **convex oval of 5.29 cm²** 5 mm below the annulus. Then come 1.5 mm straight and a flat cap at z = −6.5 mm (was −10 mm).
+  - **Earlier tries (user feedback).** Both are kept, and `check_step_before_after.png` and `check_sections.png` compare them.
+    - `first_try_step/`: a step at the annulus.
+    - `second_try_erase/`: the neck was narrowed by 1.3 cm², and the kidney notch of the annulus ran down the funnel as grooves.
+  - **Automatic repairs** after the MeshLab remesh: needle-edge collapse, flip of MV-rim corner-cutting triangles, and in-plane relaxation of the cap.
+  - Same frame and transform as run6; 297 606 tetrahedra; 6 zones at 30°; skewness max 0.93 (0 > 0.95).
+- **Prepared:**
+  - `3_simulation/setup_case_mv53.py` (cap centre (−0.4, −0.1, −6.5) mm);
+  - `3_simulation/boundary_conditions_4cycles_mv53/` (cap 529.0 mm²; factor 0.9145, which keeps CO 5.0 L/min and gives a peak orifice velocity of 0.86 m/s).
+- **Next.** Run7 is only on the user's go:
+  - run `setup_case_mv53.py`, then `run_cycle.py` (command in the mesh README; about 2 h);
+  - then re-run the post-processing with `PV_RUN=run7` and update the report;
+  - the report still describes run6 (10 mm extension, scaled to 0.56).
+
+## 06/11/2026 — adversarial rubric-review skill
+- Deadline confirmed: **20/11/2026 23:59**. The full rubric (incl. criterion 5, device segmentation, +1) is now in `.claude/skills/rubric-adversary/references/rubric.md`.
+- New skill `/rubric-adversary` (`.claude/skills/rubric-adversary/`): deterministic checks (`scripts/deliverable_checks.py`, read-only) → one strict "examiner" subagent per criterion → a defence pass that tries to refute each finding → dated scorecard in `docs/agents/reviews/`. Arguments: a criterion number, or `quick` (no subagents).
+- First run of the checks (no full review yet) already shows things to look at:
+  - `Hugo_Jal_left_atrium_segmentation.nrrd` has no case id in its name; `HugoJal_Case3_stl.seg.nrrd` has, but it differs (188.6 vs 155.7 mL, 18 components).
+  - ~17 % of `Device.seg.nrrd` voxels fall inside the LA mask; `Device.seg.nrrd` has 15 islands < 50 voxels; no STL of the manual device in `1_segmentation/`.
+  - Old LA STLs give 18 regions at 30° (only the mvz mesh gives exactly 6).
+- **Full review done:** [reviews/rubric_review_06112026.md](reviews/rubric_review_06112026.md).
+  - Mock score about 8.0/10 likely (7.3 if graded harshly), plus about 0.7 for the device.
+  - Blocking:
+    - share the 1.2 GB ParaView package by a tested link;
+    - do NOT hand in the manual `Device.seg.nrrd` as the device (it is a solid plug); hand in the gamma or U-Net STL;
+    - hand in case-named copies.
+  - Fix plan: about 2.5 h, no Fluent needed.
+  - Nothing in the deliverables was changed.
+- **Correction (device type):** the CT shows an **Amulet-type** device. Evidence: two hubs 11.7 mm apart, a ~28 mm disc, a waist and a ~22–24 mm lobe. The "Watchman FLX" in the 03/11 entry below and in `1_segmentation/gamma_experiment/README.md` is wrong, unless the user has a clinical record saying otherwise.
+- **Correction (veins):** R sup and L sup reach their first division. L inf stops about 5 mm short of its main split, R inf about 7–8 mm short. The 31/10 entry ("≈ first branch for all four") was too optimistic.
 
 ## 04/11/2026 (afternoon) — report switched to run6, device removed from result figures, ParaView package
 - **Report** (`5_report/main.tex`, figures in `5_report/figures_run6/`): now uses run6; still 2 pages + references.
