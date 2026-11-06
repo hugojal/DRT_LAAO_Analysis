@@ -1,5 +1,7 @@
 # LA mesh with a 5.3 cm² mitral outlet (06/11/2026)
 
+> **Superseded by `../run7_06112026/`.** That mesh uses the same mitral steps, plus the corrected segmentation and re-cut PV inlets. The scaled BC and set-up script mentioned below (`…_mv53`) were removed. run7 uses `boundary_conditions_4cycles_run7/` (unscaled) and `setup_case_run7.py`.
+
 These are new files. Nothing in `../mv_aligned_03112026/` (the run6 mesh) or in the original mesh is changed. The frame is the same as run6:
 - z is the valve axis;
 - the origin is the centre of the mitral annulus;

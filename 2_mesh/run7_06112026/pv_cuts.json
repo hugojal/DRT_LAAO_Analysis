@@ -1,0 +1,90 @@
+{
+ "RSPV": {
+  "fluent_name": "pv_2",
+  "cut_geodesic_mm": 48.0,
+  "cut_point_LPS": [
+   -42.195,
+   -157.281,
+   884.219
+  ],
+  "axis_LPS": [
+   -0.9112,
+   -0.4119,
+   0.0075
+  ],
+  "lumen_area_at_cut_mm2": 217.3,
+  "D_eq_mm": 16.6,
+  "angle_old_cap_normal_vs_axis_deg": 35.5,
+  "old_cap_centre_LPS": [
+   -55.98,
+   -155.66,
+   887.73
+  ]
+ },
+ "LSPV": {
+  "fluent_name": "pv_4",
+  "cut_geodesic_mm": 40.0,
+  "cut_point_LPS": [
+   14.176,
+   -134.646,
+   900.602
+  ],
+  "axis_LPS": [
+   0.8925,
+   -0.1926,
+   0.4079
+  ],
+  "lumen_area_at_cut_mm2": 189.0,
+  "D_eq_mm": 15.5,
+  "angle_old_cap_normal_vs_axis_deg": 54.5,
+  "old_cap_centre_LPS": [
+   9.89,
+   -130.66,
+   914.57
+  ]
+ },
+ "RIPV": {
+  "fluent_name": "pv_3",
+  "cut_geodesic_mm": 50.0,
+  "cut_point_LPS": [
+   -42.143,
+   -134.571,
+   856.055
+  ],
+  "axis_LPS": [
+   -0.8707,
+   0.0171,
+   -0.4914
+  ],
+  "lumen_area_at_cut_mm2": 61.2,
+  "D_eq_mm": 8.8,
+  "angle_old_cap_normal_vs_axis_deg": 28.4,
+  "old_cap_centre_LPS": [
+   -47.05,
+   -127.1,
+   858.35
+  ]
+ },
+ "LIPV": {
+  "fluent_name": "pv_1",
+  "cut_geodesic_mm": 40.0,
+  "cut_point_LPS": [
+   21.984,
+   -121.032,
+   876.76
+  ],
+  "axis_LPS": [
+   0.9374,
+   0.2229,
+   -0.2678
+  ],
+  "lumen_area_at_cut_mm2": 182.0,
+  "D_eq_mm": 15.2,
+  "angle_old_cap_normal_vs_axis_deg": 23.7,
+  "old_cap_centre_LPS": [
+   29.21,
+   -112.78,
+   871.33
+  ]
+ }
+}

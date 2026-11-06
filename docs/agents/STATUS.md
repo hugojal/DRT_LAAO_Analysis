@@ -2,6 +2,35 @@
 
 Last updated: 06/11/2026
 
+## 06/11/2026 (evening): run7 prepared, NOT run. Decisions applied: PV re-cut, unscaled mitral BC, funnel moves with the valve, segmentation fixes
+- **Segmentation v2, the one to hand in:** `1_segmentation/la_v2_06112026/Case3_LA_segmentation_HugoJal_06112026.seg.nrrd` (segment `LA_Case3`; README, `fix_la_segmentation.py`, `qc_la_v2.png`).
+  - Device removed: 8 820 → 0 device voxels inside the LA.
+  - RIPV and LIPV extended to their first division with threshold + mask (≥ 300 HU, ≤ 10 mm along the lumen).
+  - 1-voxel opening: genus 38 → 0.
+  - 156.0 mL.
+  - **The user should check the vein extensions in Slicer.**
+- **run7 mesh** `2_mesh/run7_06112026/` (README). Built from segmentation v2. The PVs could only be re-cut from the segmentation: the old Meshmixer cylinders replaced the vein stubs.
+  - **PVs:** cut perpendicular to each trunk before its first branch (`find_pv_cuts.py`: RSPV 48, LSPV 40, RIPV 50, LIPV 40 mm geodesic), each with a 10 mm straight oval extension along the trunk.
+    - The old caps were 24–55° off their veins; the new ones are 0–2° off.
+    - D_eq: RSPV 17.7, LSPV 13.5, LIPV 13.0, RIPV 8.9 mm.
+  - **Mitral valve:** as in mv_taper (5.29 cm² oval, cap at z = −6.5 mm).
+  - **Device region:** local Taubin smoothing (the device subtraction left folds).
+  - **Checks:** 272 293 tetrahedra; 6 zones at 30°; skewness max 0.941 (0 > 0.95); genus 0; 156.1 mL; atrial wall median 0.04 mm from the run6 surface. Images: `check_run6_vs_run7.png`, `check_mitral_on_ct.png`, `qc_pv_cuts.png`.
+  - Several build fixes were needed (decimation, cut snapping, even ring spacing, topological local cuts, crease relax after the remesh). They are documented in the README and docstring.
+- **Mitral BC, unscaled:** `3_simulation/boundary_conditions_4cycles_run7/` (`make_mitral_bc.py`): course curve × 1 + valve velocity. SV 79.7 mL, CO 5.47 L/min, peak 0.945 m/s. Replaces the scaled `…_mv53` folder.
+- **Fluent set-up:** `3_simulation/setup_case_run7.py`.
+  - Zones are named by position; `mv_funnel` is split off as the wall with z < 0 (cell register + `sep-face-zone-mark`).
+  - The mesh replaces the run6 set-up case's mesh.
+  - New dynamic zone: `mv_funnel` rigid with `mov_bc_c`, like `mitral_valve`.
+  - Remeshing lengths 0.15 / 4.5 mm.
+  - All steps were tested in scratch sessions.
+  - **Motion preview over systole:** the cap travels 8.9 mm, the funnel is rigid, the mesh stays valid (skewness ≤ 0.87), and the LA volume grows by 11.6 mL (run6: 8.4).
+- **Not done:** the run7 case files were not written. A PyFluent meshing session, started 21:42 and probably the CoW project, held the Student licence. Next:
+  - `python 3_simulation/setup_case_run7.py`, then `run_cycle.py … case_run7_setup_06112026.cas.h5 3_simulation/boundary_conditions_4cycles_run7` (about 2 h);
+  - then post-process with the run7 paths;
+  - then update the report: methods (segmentation v2, PV cuts, 5.3 cm² mitral valve, unscaled BC, funnel motion) and new figures.
+- Superseded and kept for history: `2_mesh/mv_taper_06112026/` (the mitral steps only); `setup_case_mv53.py` and `boundary_conditions_4cycles_mv53/` were removed (never used).
+
 ## 06/11/2026: device segmentations reorganised — `1_segmentation/device/` (read its README first)
 - The device is an **Amulet-type** occluder. There are three segmentations, each `.seg.nrrd` + `.stl` (LPS mm, closed, manifold):
   - `manual/Device_manual.seg.nrrd`: the user's `Device.seg.nrrd`, renamed with `git mv`. It now has an STL (`make_stl.py`). It is the one used in the model.
@@ -21,7 +50,7 @@ Last updated: 06/11/2026
 - Limits: the disc is patchy where the hub streaks darken the CT; a few spikes remain near the distal hub.
 - Not yet used in the report or figures, and not checked by the user in Slicer. The gamma README now says Amulet; the 03/11 "Watchman" notes below are wrong.
 
-## 06/11/2026: mitral outlet narrowed to 5.3 cm² (mesh ready, run7 NOT run)
+## 06/11/2026: mitral outlet narrowed to 5.3 cm² (SUPERSEDED by the run7 entry above; the mitral steps live on in the run7 mesh)
 - **Measured.** The run6 mitral cap is **8.61 cm²** (mesh 861 mm²; Fluent output 8.61 cm²). The course asks for 4–6 cm².
 - **New mesh** `2_mesh/mv_taper_06112026/` (see its README):
   - **Third version (current).** Above 8 mm over the annulus, the LA is exactly as segmented. From 8 mm down to the annulus, it is rebuilt as a structured polar surface:
