@@ -1,6 +1,7 @@
 # 06 · Submission & evaluation criteria (from the professors, received 31/10/2026)
 
-Due: second half of November 2026 (exact date not confirmed). Lab = 20 % of the MOS grade, scored out of 10.
+Due: **20/11/2026 at 23:59** (professors' email, received 06/11/2026). Lab = 20 % of the MOS grade, scored out of 10 (+1 extra for the device segmentation, criterion 5).
+Mock grading against this rubric: skill `/rubric-adversary` (`.claude/skills/rubric-adversary/`).
 
 ## 1. Segmentation (3/10)
 - Pulmonary veins (PV) well segmented **at least up to the first branch**, plus the **mitral valve (MV)**.

@@ -15,7 +15,7 @@ from scipy import ndimage as ndi
 HERE = os.path.dirname(os.path.abspath(__file__)).replace("\\", "/"); ROOT = os.path.dirname(os.path.dirname(HERE)); S = ROOT + "/1_segmentation/"
 ct, h = nrrd.read(S + "5 DS_Coronaires  0.75  B26f  BestDiast 78 %.nrrd"); ct = ct.astype(np.float32)
 la, _ = nrrd.read(S + "Hugo_Jal_left_atrium_segmentation.nrrd"); la = la > 0
-man, _ = nrrd.read(S + "Device.seg.nrrd"); man = man > 0
+man, _ = nrrd.read(S + "device/manual/Device_manual.seg.nrrd"); man = man > 0
 SP = np.diag(h["space directions"]).astype(float)
 # device axis: face centre (voxel index * spacing, mm) and normal into the LAA, from the rim fit of 22/10/2026
 C = np.array([114.181, 156.072, 98.509]); N = np.array([0.57050955, -0.45992626, 0.68043125])

@@ -1,10 +1,10 @@
-"""CT screenshots of the gamma wire-frame device segmentation (1_segmentation/gamma_experiment, v3) for the report, 04/11/2026.
+"""CT screenshots of the gamma wire-frame device segmentation (1_segmentation/device/gamma, v4) for the report, 04/11/2026 (paths updated 06/11/2026).
 (a) en-face slice through the device disc (proximal face): gamma-transformed CT (as used for the segmentation) with the
     wire segmentation outlined in orange -> rim ring and struts.
 (a') the same disc plane with the U-Net (nnInteractive) device segmentation in magenta, plain CT window 0-1500 HU.
 (b) slice along the device axis: CT in a standard contrast window with the LA (blue) and wire device (orange) outlines ->
     contrast-filled blood reaches the atrial face of the device (no hypoattenuating layer = no thrombus).
-Device axis = disc centre and normal of segment_device_gamma_v3.py (index*spacing mm, same grid as the CT).
+Device axis = disc centre and normal of the disc-rim fit (22/10/2026) (index*spacing mm, same grid as the CT).
 usage: python ct_wire_figure.py <out_dir>"""
 import os, sys
 import numpy as np, nrrd, matplotlib
@@ -17,8 +17,8 @@ C = np.array([114.181, 156.072, 98.509]); N = np.array([0.57050955, -0.45992626,
 GAMMA, HI = 0.3, 1500.0
 ct, h = nrrd.read(os.path.join(SEG, "5 DS_Coronaires  0.75  B26f  BestDiast 78 %.nrrd"))
 la, _ = nrrd.read(os.path.join(SEG, "Hugo_Jal_left_atrium_segmentation.nrrd"))
-wire, _ = nrrd.read(os.path.join(SEG, "gamma_experiment", "Device_gamma_wire_v3_03112026.seg.nrrd"))
-unet, _ = nrrd.read(os.path.join(SEG, "unet_experiment", "Device_unet_wire.seg.nrrd"))          # nnInteractive (promptable 3D U-Net), 31/10/2026
+wire, _ = nrrd.read(os.path.join(SEG, "device", "gamma", "Device_gamma_wire_v4_06112026.seg.nrrd"))
+unet, _ = nrrd.read(os.path.join(SEG, "device", "unet", "Device_unet_wire.seg.nrrd"))          # nnInteractive (promptable 3D U-Net), 31/10/2026
 SP = np.diag(h["space directions"]).astype(float)
 blood = float(np.median(ct[la > 0]))
 

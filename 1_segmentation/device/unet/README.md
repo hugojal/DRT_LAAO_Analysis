@@ -1,4 +1,6 @@
-# Device wire frame from a promptable U-Net (31/10/2026)
+# Device wireframe from a promptable U-Net (31/10/2026)
+
+Device: Amulet-type occluder (see `../README.md`).
 
 `Device_unet_wire.seg.nrrd` (CT grid, 3D Slicer) and `Device_unet_wire.stl` (LPS mm, the same frame as `2_mesh/HugoJal_Case3.stl`).
 

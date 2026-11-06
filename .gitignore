@@ -2,7 +2,8 @@
 data/
 1_segmentation/*DS_Coronaires*.nrrd
 4_postprocessing/paraview/ct_crop_m.vti
-1_segmentation/gamma_experiment/qc_volumes.npz
+1_segmentation/device/gamma/qc_volumes.npz
+1_segmentation/device/gamma/qc_cyl_v4.npz
 # Slicer scenes store DICOM metadata (birth date, study IDs)
 *.mrml
 
@@ -40,3 +41,7 @@ __pycache__/
 6_paraview_package/simulation/
 6_paraview_package/fluent/
 6_paraview_package/surfaces/
+
+# superseded mesh tries (kept locally; their .stl and images are committed)
+2_mesh/mv_taper_06112026/first_try_step/*.bdf
+2_mesh/mv_taper_06112026/second_try_erase/*.bdf

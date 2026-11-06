@@ -1,0 +1,33 @@
+{
+ "blood_median_CT": 399.0,
+ "hub_distance_mm": 11.68,
+ "voxels": 19518,
+ "mL": 1.94,
+ "manual_mL": 5.02,
+ "dice_vs_manual": 0.524,
+ "fraction_inside_manual": 0.942,
+ "fraction_blood_level_CT_le_454": 0.143,
+ "angular_coverage_5deg": {
+  "disc": 1.0,
+  "lobe_wall": 1.0
+ },
+ "median_CT": 551.0,
+ "STL_triangles": 63836,
+ "params": {
+  "gamma": 0.3,
+  "hi": 1500.0,
+  "dtheta_deg": 2.5,
+  "dar_mm": 0.25,
+  "hessian_sigma_mm": 0.5,
+  "hysteresis_fraction_of_p99": [
+   0.25,
+   0.45
+  ],
+  "local_max_ratio": 0.5,
+  "sheet_half_thickness_mm": 0.5,
+  "envelope_mm": 1.5,
+  "axis_radius_mm": 3.0,
+  "axis_core_CT": 900.0,
+  "min_vox": 30
+ }
+}

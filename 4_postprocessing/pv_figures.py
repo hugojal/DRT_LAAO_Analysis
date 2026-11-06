@@ -57,13 +57,13 @@ def cam(v, pos, focal, up=(0, 0, 1), scale=None):
 def shot(v, name): Render(v); SaveScreenshot(OUT + name, v, ImageResolution=v.ViewSize, TransparentBackground=0); print("saved", name)
 def blocks(r, names): return MergeBlocks(Input=ExtractBlock(Input=r, Selectors=["/Root/" + n for n in names]))
 
-dev = STLReader(FileNames=[PVD + ("device_frame_mvz_m.stl" if TRF else "device_frame_m.stl")])          # the segmented device (Device.seg.nrrd)
+dev = STLReader(FileNames=[PVD + ("device_frame_mvz_m.stl" if TRF else "device_frame_m.stl")])          # the segmented device (manual mask, now 1_segmentation/device/manual/Device_manual.seg.nrrd)
 la = STLReader(FileNames=[PVD + "la_surface_m.stl"])
 eye_dev = [C[i] + 0.13 * N[i] - 0.02 * PN[i] for i in range(3)]                          # outside the LA, looking at the device side
 eye_front = [B[i] + 0.20 * PN[i] for i in range(3)]
 
 if WHICH in ("anatomy", "all"):
-    # with a transform: simulated LA (new mesh, model frame) + gamma wire-frame device (1_segmentation/gamma_experiment, v3)
+    # with a transform: simulated LA (new mesh, model frame) + gamma wire-frame device (made from gamma v3, now archive/1_segmentation/gamma_v3_03112026; current gamma is 1_segmentation/device/gamma)
     seg = STLReader(FileNames=[PVD + ("device_gamma_wire_mvz_m.stl" if TRF else "device_frame_m.stl")])
     if TRF: la = STLReader(FileNames=[PVD + "la_surface_mvz_m.stl"])
     v = view(900, 820); d1 = Show(la, v); d1.ColorArrayName = ["POINTS", ""]; d1.DiffuseColor = [0.78, 0.80, 0.85]; d1.Opacity = 0.35

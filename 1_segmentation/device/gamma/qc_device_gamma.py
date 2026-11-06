@@ -1,15 +1,15 @@
-"""QC images for segment_device_gamma_v3.py, written to qc/: slices parallel to the disc (gamma, ridge filter, masks)
-and 3D views of the gamma wire frame next to the manual Device.seg.nrrd. Run right after the segmentation script.
-Usage: python qc_device_gamma.py [Device_gamma_wire_v3_03112026] [gamma] [filter label, e.g. "ridge filter"]"""
+"""QC images for segment_device_gamma.py, written to qc/: slices parallel to the disc (gamma, ridge filter, masks)
+and 3D views of the gamma wire frame next to the manual device/manual/Device_manual.seg.nrrd. Run right after the segmentation script.
+Usage: python qc_device_gamma.py [Device_gamma_wire_v4_06112026] [gamma] [filter label, e.g. "ridge filter"]"""
 import os, sys
 import numpy as np, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from scipy import ndimage as ndi
 import pyvista as pv
 
 HERE = os.path.dirname(os.path.abspath(__file__)).replace("\\", "/"); SEG = os.path.dirname(HERE)
-NAME = sys.argv[1] if len(sys.argv) > 1 else "Device_gamma_wire_v3_03112026"
+NAME = sys.argv[1] if len(sys.argv) > 1 else "Device_gamma_wire_v4_06112026"
 GLABEL = sys.argv[2] if len(sys.argv) > 2 else "0.3"
-FLABEL = sys.argv[3] if len(sys.argv) > 3 else "ridge filter"
+FLABEL = sys.argv[3] if len(sys.argv) > 3 else "sheet (v4)"
 SP = np.array([0.4453125, 0.4453125, 0.5]); C = np.array([114.181, 156.072, 98.509]); N = np.array([0.57050955, -0.45992626, 0.68043125])
 q = np.load(HERE + "/qc_volumes.npz"); lo = q["lo"]
 
