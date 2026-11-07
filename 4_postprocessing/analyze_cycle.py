@@ -16,7 +16,8 @@ if os.environ.get("MODEL_TRANSFORM"):                        # rotated mesh (2_m
 dev_tree = cKDTree(dev[::4])
 def load(k):
     r = vtk.vtkEnSightGoldBinaryReader(); r.SetCaseFileName(f"{RES}/step_{k:03d}.encas"); r.Update()
-    o = r.GetOutput(); return pv.wrap(o.GetBlock(0)), pv.wrap(o.GetBlock(1))
+    o = r.GetOutput(); names = [o.GetMetaData(i).Get(vtk.vtkCompositeDataSet.NAME()) for i in range(o.GetNumberOfBlocks())]
+    return pv.wrap(o.GetBlock(0)), pv.wrap(o.GetBlock(names.index("la_wall") if "la_wall" in names else 1))   # pick the wall by name (run7 exports more surfaces)
 steps = list(range(FIRST, FIRST + NC * NCYC))
 ref_k = steps[-NC]                                           # first step of the analysis cycle
 _, wref = load(ref_k); ref = np.asarray(wref.points); tri = wref.cells_dict[5]

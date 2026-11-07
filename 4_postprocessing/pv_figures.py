@@ -57,21 +57,21 @@ def cam(v, pos, focal, up=(0, 0, 1), scale=None):
 def shot(v, name): Render(v); SaveScreenshot(OUT + name, v, ImageResolution=v.ViewSize, TransparentBackground=0); print("saved", name)
 def blocks(r, names): return MergeBlocks(Input=ExtractBlock(Input=r, Selectors=["/Root/" + n for n in names]))
 
-dev = STLReader(FileNames=[PVD + ("device_frame_mvz_m.stl" if TRF else "device_frame_m.stl")])          # the segmented device (manual mask, now 1_segmentation/device/manual/Device_manual.seg.nrrd)
-la = STLReader(FileNames=[PVD + "la_surface_m.stl"])
+dev = STLReader(FileNames=[PVD + "device_manual_model_m.stl"])          # the segmented device (manual mask, now 1_segmentation/device/manual/Device_manual.seg.nrrd)
+la = STLReader(FileNames=[PVD + "la_surface_model_m.stl"])
 eye_dev = [C[i] + 0.13 * N[i] - 0.02 * PN[i] for i in range(3)]                          # outside the LA, looking at the device side
 eye_front = [B[i] + 0.20 * PN[i] for i in range(3)]
 
 if WHICH in ("anatomy", "all"):
     # with a transform: simulated LA (new mesh, model frame) + gamma wire-frame device (made from gamma v3, now archive/1_segmentation/gamma_v3_03112026; current gamma is 1_segmentation/device/gamma)
-    seg = STLReader(FileNames=[PVD + ("device_gamma_wire_mvz_m.stl" if TRF else "device_frame_m.stl")])
-    if TRF: la = STLReader(FileNames=[PVD + "la_surface_mvz_m.stl"])
+    seg = STLReader(FileNames=[PVD + "device_gamma_wire_model_m.stl"])
+    la = STLReader(FileNames=[PVD + "la_surface_model_m.stl"])
     v = view(900, 820); d1 = Show(la, v); d1.ColorArrayName = ["POINTS", ""]; d1.DiffuseColor = [0.78, 0.80, 0.85]; d1.Opacity = 0.35
     d2 = Show(seg, v); d2.ColorArrayName = ["POINTS", ""]; d2.DiffuseColor = [0.85, 0.60, 0.15]; d2.Specular = 0.5
     cam(v, [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [0.6 * C[i] + 0.4 * B[i] for i in range(3)], UP, 0.045); shot(v, "pv_anatomy_wire.png" if TRF else "pv_anatomy_seg.png"); Delete(v)
 
 if WHICH == "unet" and TRF:                                     # 3D model of the U-Net (nnInteractive) device segmentation, device-side view, zoomed
-    un = STLReader(FileNames=[PVD + "device_unet_wire_mvz_m.stl"])
+    un = STLReader(FileNames=[PVD + "device_unet_wire_model_m.stl"])
     sm = Smooth(Input=un); sm.NumberofIterations = 40                  # display only: the saved STL keeps the voxel steps
     un = SurfaceNormals(Input=sm)
     v = view(800, 800); du = Show(un, v); du.ColorArrayName = ["POINTS", ""]; du.DiffuseColor = [0.80, 0.30, 0.80]; du.Specular = 0.4

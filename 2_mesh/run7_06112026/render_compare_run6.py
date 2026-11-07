@@ -4,10 +4,10 @@ import os, json
 import numpy as np, pyvista as pv
 HERE = os.path.dirname(os.path.abspath(__file__)); MESH = os.path.dirname(HERE); ROOT = os.path.dirname(MESH)
 pv.OFF_SCREEN = True
-TR = json.load(open(os.path.join(MESH, "mv_aligned_03112026", "transform_LPS_to_model.json"))); R = np.array(TR["R"]); c = np.array(TR["c_LPS_mm"])
-run6 = pv.read(os.path.join(MESH, "mv_aligned_03112026", "HugoJal_Case3_mvz_03112026.stl"))
+TR = json.load(open(os.path.join(HERE, "transform_LPS_to_model.json"))); R = np.array(TR["R"]); c = np.array(TR["c_LPS_mm"])
+run6 = pv.read(os.path.join(ROOT, "archive", "2_mesh_pre_run7", "mv_aligned_03112026", "HugoJal_Case3_mvz_03112026.stl"))   # archived (local only)
 run7 = pv.read(os.path.join(HERE, "HugoJal_Case3_run7_06112026.stl"))
-caps6 = json.load(open(os.path.join(MESH, "mv_aligned_03112026", "check_mesh_mvz.json")))["angle_separation_30deg"]["largest"][1:6]
+caps6 = json.load(open(os.path.join(HERE, "run6_caps_reference.json")))["angle_separation_30deg"]["largest"][1:6]
 caps7 = json.load(open(os.path.join(HERE, "check_mesh_run7.json")))["angle_separation_30deg"]["largest"][1:6]
 dev = pv.read(os.path.join(ROOT, "1_segmentation", "device", "manual", "Device_manual.stl")); dev.points = (dev.points - c) @ R.T
 dc = np.asarray(dev.center)

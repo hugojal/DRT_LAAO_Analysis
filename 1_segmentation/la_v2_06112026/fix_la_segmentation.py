@@ -54,8 +54,8 @@ seed = np.unravel_index(np.argmax(ndi.distance_transform_edt(m0, sampling=SP)), 
 geo = dijkstra(G, directed=False, indices=idx[seed]); P = O + pts * SP
 
 # vein ends: the PV caps of the run6 mesh (model frame) mapped back to LPS; inferior veins = caps 3 (right) and 4 (left)
-TR = json.load(open(os.path.join(ROOT, "2_mesh", "mv_aligned_03112026", "transform_LPS_to_model.json"))); R = np.array(TR["R"]); c = np.array(TR["c_LPS_mm"])
-caps = json.load(open(os.path.join(ROOT, "2_mesh", "mv_aligned_03112026", "check_mesh_mvz.json")))["angle_separation_30deg"]["largest"][2:]
+TR = json.load(open(os.path.join(ROOT, "2_mesh", "run7_06112026", "transform_LPS_to_model.json"))); R = np.array(TR["R"]); c = np.array(TR["c_LPS_mm"])
+caps = json.load(open(os.path.join(ROOT, "2_mesh", "run7_06112026", "run6_caps_reference.json")))["angle_separation_30deg"]["largest"][2:]
 VEINS = {"RSPV": 0, "LSPV": 1, "RIPV": 2, "LIPV": 3}
 def vein_info(k):
     cl = R.T @ np.array(caps[k]["centre"]) + c

@@ -2,6 +2,7 @@
 usage: python run_cycle.py <n_steps> <out_dir> <out_case.cas.h5> [case_in] [profile_dir]
 profile_dir (optional): folder with pressure_inlet.prof, velocity_outlet.prof, motion.prof that REPLACE the profiles stored in the case (e.g. 3_simulation/boundary_conditions_4cycles)
 Per step: dual_time_iterate(1 step, <=200 iterations), EnSight Gold export (binary, node-based), mass-flow reports -> flows.csv.
+Convergence: Fluent transcript (residuals of every iteration) -> <out_dir>/transcript.trn, residual criteria and methods -> solver_settings.json.
 case+data are also written every 25 steps so a crash keeps the last state. Writes <out_dir>/all_steps.encas at the end."""
 import ansys.fluent.core as pf, time, sys, os, csv
 NSTEPS = int(sys.argv[1]); OUTDIR = sys.argv[2]; SAVE = sys.argv[3]
@@ -17,11 +18,18 @@ NAMES = ["Static_Pressure", "Absolute_Pressure", "Total_Pressure", "Velocity_Mag
 log = lambda m: print(time.strftime("%H:%M:%S"), m, flush=True)
 s = pf.launch_fluent(mode="solver", dimension=3, precision="single", processor_count=4, ui_mode="no_gui", cwd=ROOT + "/logs/fluent", start_transcript=False)
 S = s.settings
+try: s.transcript.start(file_name=os.path.join(OUTDIR, "transcript.trn"))   # every iteration's residuals -> convergence report
+except Exception as e: log(f"transcript not started: {e}")
 S.file.read_case(file_name=CASE_IN)
 if PROFDIR:
     for pf_name in ("pressure_inlet", "velocity_outlet", "motion"):
         s.scheme.eval('(ti-menu-load-string "/file/read-transient-table \\"%s/%s.prof\\"")' % (PROFDIR, pf_name))
 rc = S.solution.run_calculation
+try:
+    import json as _j
+    _j.dump(dict(residuals=S.solution.monitor.residual.get_state(), methods=S.solution.methods.get_state() if hasattr(S.solution, "methods") else None),
+            open(os.path.join(OUTDIR, "solver_settings.json"), "w"), indent=1, default=str)
+except Exception as e: log(f"settings not saved: {e}")
 rc.transient_controls.time_step_size = DT
 S.solution.initialization.defaults["pressure"] = 809.4245264      # = pressure_inlet.prof at t = 0 (gauge)
 S.solution.initialization.standard_initialize()

@@ -44,8 +44,8 @@ seed = np.unravel_index(np.argmax(ndi.distance_transform_edt(m, sampling=SP)), m
 geo = dijkstra(G, directed=False, indices=idx[seed]); P = O + pts * SP
 GV = np.full(m.shape, np.inf, np.float32); GV[tuple(pts.T)] = geo
 
-TR = json.load(open(os.path.join(MESH, "mv_aligned_03112026", "transform_LPS_to_model.json"))); R = np.array(TR["R"]); c = np.array(TR["c_LPS_mm"])
-caps = json.load(open(os.path.join(MESH, "mv_aligned_03112026", "check_mesh_mvz.json")))["angle_separation_30deg"]["largest"][2:]
+TR = json.load(open(os.path.join(HERE, "transform_LPS_to_model.json"))); R = np.array(TR["R"]); c = np.array(TR["c_LPS_mm"])
+caps = json.load(open(os.path.join(HERE, "run6_caps_reference.json")))["angle_separation_30deg"]["largest"][2:]
 ST = np.ones((3, 3, 3), bool); out = {}
 for nm, k in OLD_CAP.items():
     cl = R.T @ np.array(caps[k]["centre"]) + c; n_old = R.T @ np.array(caps[k]["normal"])

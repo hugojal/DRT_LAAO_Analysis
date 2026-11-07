@@ -75,7 +75,7 @@ seg, hs = nrrd.read(ROOT + "/1_segmentation/la_v2_06112026/Case3_LA_segmentation
 SPs = np.diag(np.asarray(hs["space directions"], float)); Os = np.asarray(hs["space origin"], float)
 vs_, fs_, _, _ = measure.marching_cubes(np.pad(seg > 0, 1).astype(np.float32), 0.5, spacing=tuple(SPs))
 segsurf = pv.PolyData(vs_ - SPs + Os, np.c_[np.full(len(fs_), 3), fs_].ravel())
-run6 = pv.read(MESH + "/HugoJal_Case3.stl").clean()
+run6 = pv.read(ROOT + "/archive/2_mesh_pre_run7/HugoJal_Case3.stl").clean()   # run6 surface, archived (local only)
 P_lps = surf.points @ R + c
 n_ax = np.array(TR["valve_axis_LPS"]); dax = (P_lps - c) @ n_ax
 PVC = json.load(open(HERE + "/pv_cuts.json"))

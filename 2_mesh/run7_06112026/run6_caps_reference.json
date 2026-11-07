@@ -1,0 +1,103 @@
+{
+ "note": "PV/MV caps of the run6 mesh (model frame, mm), frozen 07/11/2026 from mv_aligned_03112026/check_mesh_mvz.json (archived). Used only as seeds to find each vein and to report how far the old caps were off; order: MV, RSPV, LSPV, RIPV, LIPV.",
+ "angle_separation_30deg": {
+  "largest": [
+   {
+    "area_mm2": 18089.4,
+    "eq_diameter_mm": 151.8,
+    "normal": [
+     -0.258,
+     0.248,
+     0.934
+    ],
+    "centre": [
+     0.4,
+     -8.7,
+     34.1
+    ],
+    "max_out_of_plane_mm": 49.52,
+    "angle_to_z_deg": 20.9
+   },
+   {
+    "area_mm2": 861.2,
+    "eq_diameter_mm": 33.1,
+    "normal": [
+     -0.0,
+     0.0,
+     -1.0
+    ],
+    "centre": [
+     -0.6,
+     -0.4,
+     -10.0
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 0.0
+   },
+   {
+    "area_mm2": 312.4,
+    "eq_diameter_mm": 19.9,
+    "normal": [
+     -0.336,
+     -0.541,
+     0.771
+    ],
+    "centre": [
+     -23.5,
+     -46.2,
+     67.2
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 39.6
+   },
+   {
+    "area_mm2": 294.9,
+    "eq_diameter_mm": 19.4,
+    "normal": [
+     0.825,
+     -0.556,
+     0.102
+    ],
+    "centre": [
+     45.8,
+     -24.9,
+     46.5
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 84.2
+   },
+   {
+    "area_mm2": 277.7,
+    "eq_diameter_mm": 18.8,
+    "normal": [
+     -0.537,
+     0.165,
+     0.827
+    ],
+    "centre": [
+     -26.0,
+     -5.3,
+     76.1
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 34.2
+   },
+   {
+    "area_mm2": 220.7,
+    "eq_diameter_mm": 16.8,
+    "normal": [
+     0.536,
+     0.834,
+     -0.131
+    ],
+    "centre": [
+     36.3,
+     24.1,
+     38.1
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 82.5
+   }
+  ]
+ }
+}

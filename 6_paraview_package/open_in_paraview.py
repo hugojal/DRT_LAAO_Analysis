@@ -1,7 +1,7 @@
-"""Opens the Case 3 left-atrium simulation (run6) in ParaView with a ready-made pipeline.
+"""Opens the Case 3 left-atrium simulation (run7) in ParaView with a ready-made pipeline.
 ParaView GUI: View > Python Shell > Run Script > this file   (or: paraview --script=open_in_paraview.py from this folder)
 Pipeline (toggle the eye icons; press Play to run the heartbeat, t = 2.63-3.50 s):
-  simulation      run6_last_beat.encas: velocity, pressure, vorticity, Q-criterion, wall shear stress per time step
+  simulation      run7_last_beat.encas: velocity, pressure, vorticity, Q-criterion, wall shear stress per time step
   fluid / la_wall the fluid volume and the atrial wall (wall shown transparent)
   streamlines     streamlines seeded at the four pulmonary-vein inlets, coloured by velocity
   long-axis slice velocity on the plane through the mitral valve axis (z) and the device
@@ -19,7 +19,7 @@ P = lambda *a: os.path.join(HERE, *a).replace("\\", "/")
 T_PEAK = 3.06
 DEVICE_C = [0.0332, -0.0191, 0.0150]                                          # device centre in this frame (m)
 
-sim = EnSightReader(registrationName="simulation", CaseFileName=P("simulation", "run6_last_beat.encas"))
+sim = EnSightReader(registrationName="simulation", CaseFileName=P("simulation", "run7_last_beat.encas"))
 blk = lambda names, nm: MergeBlocks(registrationName=nm, Input=ExtractBlock(Input=sim, Selectors=["/Root/" + n for n in names]))
 fluid = blk(["fluid-1"], "fluid"); wall = blk(["la_wall"], "la_wall"); pvs = blk(["pv_1", "pv_2", "pv_3", "pv_4"], "pv_inlets")
 st = StreamTracerWithCustomSource(registrationName="streamlines", Input=fluid, SeedSource=pvs)
@@ -38,12 +38,15 @@ anim = GetAnimationScene(); anim.UpdateAnimationUsingDataTimeSteps(); anim.Anima
 vel = GetColorTransferFunction("Velocity_Magnitude"); vel.ApplyPreset("Turbo", True); vel.RescaleTransferFunction(0.0, 0.6); vel.AutomaticRescaleRangeMode = "Never"
 dw = Show(wall, v); dw.ColorArrayName = ["POINTS", ""]; dw.DiffuseColor = [0.8, 0.8, 0.83]; dw.Opacity = 0.15
 dt = Show(tube, v); ColorBy(dt, ("POINTS", "Velocity_Magnitude")); dt.SetScalarBarVisibility(v, True)
+for _lut in (vel,):
+    _sb = GetScalarBar(_lut, v); _sb.TitleColor = [0, 0, 0]; _sb.LabelColor = [0, 0, 0]          # readable on the white background
 ds = Show(sl, v); ColorBy(ds, ("POINTS", "Velocity_Magnitude")); Hide(sl, v)
 dq = Show(q, v); ColorBy(dq, ("POINTS", "Velocity_Magnitude")); Hide(q, v)
 de = Show(wm, v); ColorBy(de, ("POINTS", "ECAP_1_per_Pa")); ecap = GetColorTransferFunction("ECAP_1_per_Pa"); ecap.ApplyPreset("Plasma", True)
 ecap.RescaleTransferFunction(0.1, 10.0); ecap.MapControlPointsToLogSpace(); ecap.UseLogScale = 1; ecap.AutomaticRescaleRangeMode = "Never"; Hide(wm, v)
+_sb = GetScalarBar(ecap, v); _sb.TitleColor = [0, 0, 0]; _sb.LabelColor = [0, 0, 0]
 for src, col in ((wire, [0.85, 0.6, 0.15]), (man, [0.85, 0.6, 0.15]), (unet, [0.8, 0.3, 0.8])):
     d = Show(src, v); d.ColorArrayName = ["POINTS", ""]; d.DiffuseColor = col; Hide(src, v)
 v.CameraPosition = [0.02, -0.25, 0.06]; v.CameraFocalPoint = [0.005, -0.01, 0.035]; v.CameraViewUp = [0, 0, 1]; ResetCamera(v)
 SetActiveSource(tube); Render(v)
-print("Loaded run6 (last heartbeat). Shown: streamlines at t = %.2f s. Other items are in the Pipeline Browser (eye icons)." % T_PEAK)
+print("Loaded run7 (last heartbeat). Shown: streamlines at t = %.2f s. Other items are in the Pipeline Browser (eye icons)." % T_PEAK)

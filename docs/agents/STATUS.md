@@ -1,8 +1,38 @@
 # STATUS (update at end of every session)
 
-Last updated: 06/11/2026
+Last updated: 07/11/2026
 
-**Hand-in list: [SUBMISSION.md](../../SUBMISSION.md)** (now run6; switch to the run7 column once run7 is run and the report updated).
+**Hand-in list: [SUBMISSION.md](../../SUBMISSION.md)** (run7 only).
+
+
+## 07/11/2026: run7 done, post-processed, report and package switched to run7; old results archived
+- **run7** (`3_simulation/results/run7_4cycles/`, case `case_run7_4cycles_07112026`): 350 steps, ~20 s per step.
+  - **Convergence** (`4_postprocessing/run7/convergence/`):
+    - all 350 steps met the criteria, median 27 iterations (17–55);
+    - mass balance of the last beat 0.46 mL;
+    - beats 3 → 4: mitral 0.08 %, PV 3.1 %.
+  - **Physiology:**
+    - SV 79.7 mL, CO 5.47 L/min;
+    - PV split 29/33/10/29 %;
+    - LA 157–168 mL;
+    - v_max 1.08 m/s.
+    - About 6 mL/s leaves through the MV in systole. This comes from the unscaled course curve, not an error.
+  - **Wall:** within 5 mm of the device ECAP is highest (median 0.45 vs 0.16–0.30) and TAWSS lowest. The single highest ECAP patches are on the roof and lower wall, far from the device; the report says so.
+  - Details: `4_postprocessing/run7/README.md`.
+- **Fixes:**
+  - `analyze_cycle.py` now picks `la_wall` by name. run7 exports more surfaces, so block 1 was `pv_2`.
+  - `make_paraview_package.py` no longer skips existing files. It had left run6 steps in the package; the stale run6 files were moved to `archive/6_paraview_package_run6/`.
+- **Report:** `5_report/main.tex` and `main.pdf` now use run7 (`figures_run7/`): methods, numbers and results text. It is 2 pages + references.
+- **Package:** `6_paraview_package/` rebuilt for run7 (1.2 GB) with `convergence/`. `open_in_paraview.py` was tested in pvbatch.
+- **Archived** to the git-ignored `archive/*_pre_run7/` and removed from git:
+  - run5/run6 meshes, BCs, cases and results;
+  - run5/run6 post-processing;
+  - the old seg `.nrrd`;
+  - `5_report/figures`, `figures_run6`.
+- **Still to do (user):**
+  - check segmentation v2 in Slicer;
+  - the rubric-review report fixes (bib author names, Morales → Sci Rep 2026, hub-artefact sentence);
+  - zip and upload `6_paraview_package/`, then put the link in the PDF.
 
 ## 06/11/2026 (evening): run7 prepared, NOT run. Decisions applied: PV re-cut, unscaled mitral BC, funnel moves with the valve, segmentation fixes
 - **Segmentation v2, the one to hand in:** `1_segmentation/la_v2_06112026/Case3_LA_segmentation_HugoJal_06112026.seg.nrrd` (segment `LA_Case3`; README, `fix_la_segmentation.py`, `qc_la_v2.png`).
