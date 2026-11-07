@@ -20,6 +20,7 @@ Without the script, open these files directly:
 | `flows.csv` | Mass flow through each PV and the MV, and LA volume, every time step of the 4 beats. In Fluent's sign convention, mitral outflow is negative. |
 | `mitral_bc.json` | Mitral boundary condition: course velocity curve, **unscaled**, on the 5.3 cm² orifice (79.7 mL per beat, 5.47 L/min), plus the valve velocity. |
 | `convergence/` | Convergence evidence: residuals of every iteration, iterations and convergence per time step, mass balance and beat-to-beat periodicity (`convergence_summary.json`, `convergence.png`). |
+| `open_device_sections.py`, `device_sections/` | Region in front of the device: cross-sections at 2–16 mm from the device disc, recirculation and stagnant blood. Run the script like `open_in_paraview.py`; numbers, plots, images and an interpretation are in `device_sections/` (README). |
 | `transform_LPS_to_model.json` | Rotation and translation from the CT (LPS, mm) to this frame. |
 
 **Frame and units**

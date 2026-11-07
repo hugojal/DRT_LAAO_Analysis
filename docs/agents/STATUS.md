@@ -29,6 +29,7 @@ Last updated: 07/11/2026
   - run5/run6 post-processing;
   - the old seg `.nrrd`;
   - `5_report/figures`, `figures_run6`.
+- **Device region** (`4_postprocessing/run7/device_sections/`, README with interpretation): sections 2–16 mm in front of the device. A nearly still layer at 2 mm (73 % < 0.05 m/s); recirculation at 5–16 mm during 78–98 % of the beat. Separate plots and ParaView images (no device drawn); GUI script `6_paraview_package/open_device_sections.py`. Not in the report (user's choice for now).
 - **Still to do (user):**
   - check segmentation v2 in Slicer;
   - the rubric-review report fixes (bib author names, Morales → Sci Rep 2026, hub-artefact sentence);

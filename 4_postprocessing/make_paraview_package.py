@@ -4,7 +4,7 @@ Copies (never moves) from the project:
   fluent/      final Fluent case + data of the 4-heartbeat run (also readable in ParaView with the Fluent CFF reader)
   surfaces/    wall_metrics.vtp (TAWSS, OSI, ECAP, RRT of the last beat + distance to the device), LA surface,
                device wire frame (gamma CT), U-Net (nnInteractive) device and manual device mask, all in the simulation frame (m)
-  flows.csv, mitral_bc.json, transform_LPS_to_model.json, convergence/ (residuals per step, from check_convergence.py)
+  flows.csv, mitral_bc.json, transform_LPS_to_model.json, convergence/ (residuals per step, from check_convergence.py), device_sections/ (sections and recirculation in front of the device)
 The full 4-heartbeat EnSight (350 steps, 4.3 GB) stays in 3_simulation/results/run7_4cycles/.
 usage: python make_paraview_package.py"""
 import os, shutil, re
@@ -35,4 +35,6 @@ shutil.copy2(os.path.join(ROOT, "3_simulation", "boundary_conditions_4cycles_run
 shutil.copy2(os.path.join(ROOT, "2_mesh", "run7_06112026", "transform_LPS_to_model.json"), PKG)
 conv = os.path.join(ROOT, "4_postprocessing", RUN, "convergence")
 if os.path.isdir(conv): shutil.copytree(conv, os.path.join(PKG, "convergence"), dirs_exist_ok=True)
+ds = os.path.join(ROOT, "4_postprocessing", RUN, "device_sections")          # cross-sections in front of the device (device_sections.py)
+if os.path.isdir(ds): shutil.copytree(ds, os.path.join(PKG, "device_sections"), dirs_exist_ok=True)
 print("package written:", PKG)
