@@ -1,0 +1,67 @@
+{
+ "criteria": {
+  "continuity": 0.005,
+  "x-velocity": 0.001,
+  "y-velocity": 0.001,
+  "z-velocity": 0.001
+ },
+ "n_steps": 350,
+ "steps_converged": 350,
+ "iterations_per_step": {
+  "median": 28.0,
+  "max": 50,
+  "min": 18
+ },
+ "steps_hitting_200_iterations": 0,
+ "final_residuals_max_over_steps": {
+  "continuity": 0.0049952,
+  "velocity": 5.6289e-05
+ },
+ "beats": [
+  {
+   "beat": 1,
+   "mitral_outflow_mL": 79.59,
+   "pv_inflow_mL": 82.16,
+   "LA_volume_change_mL": 2.24,
+   "LA_volume_min_max_mL": [
+    156.1,
+    167.6
+   ]
+  },
+  {
+   "beat": 2,
+   "mitral_outflow_mL": 79.74,
+   "pv_inflow_mL": 79.16,
+   "LA_volume_change_mL": -1.04,
+   "LA_volume_min_max_mL": [
+    156.5,
+    167.6
+   ]
+  },
+  {
+   "beat": 3,
+   "mitral_outflow_mL": 79.68,
+   "pv_inflow_mL": 81.07,
+   "LA_volume_change_mL": 1.3,
+   "LA_volume_min_max_mL": [
+    157.4,
+    168.6
+   ]
+  },
+  {
+   "beat": 4,
+   "mitral_outflow_mL": 79.74,
+   "pv_inflow_mL": 78.56,
+   "LA_volume_change_mL": -1.63,
+   "LA_volume_min_max_mL": [
+    156.8,
+    168.2
+   ]
+  }
+ ],
+ "periodicity_last_two_beats_percent": {
+  "mitral_outflow": 0.08,
+  "pv_inflow": 3.1
+ },
+ "mass_balance_last_beat_mL": 0.45
+}

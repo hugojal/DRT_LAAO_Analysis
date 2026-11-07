@@ -1,0 +1,51 @@
+{
+ "la_blood_HU": {
+  "median": 401.0,
+  "p25": 379.0,
+  "p75": 423.0,
+  "n_voxels": 1421180
+ },
+ "atrial_face_layer_0_3mm_HU": {
+  "median": 322.0,
+  "p5": -101.0,
+  "p25": 102.0,
+  "p75": 378.0,
+  "n_voxels": 12303,
+  "ratio_median_to_blood": 0.8029925227165222,
+  "fraction_below_0p33_blood": 0.3061854832154759,
+  "fraction_below_150HU": 0.3269934162399415
+ },
+ "appendage_behind_device_HU": {
+  "median": 281.0,
+  "n_voxels": 10266,
+  "sealed_if_below": 100
+ },
+ "device": {
+  "disc_radius_mm": 14.316081503706199,
+  "proximal_face_offset_mm": -2.020398310915138
+ },
+ "references": {
+  "HAT": "Agudelo et al. 2021 EuroIntervention 17:e944 (enhancement defect on atrial face; >3 mm high grade; LAA <100 HU = sealed)",
+  "ratio": "Li et al. 2022 Front Cardiovasc Med 9:809688 (LAA/AA HU ratio 0.33: thrombus vs stasis)"
+ },
+ "rays_blood_to_device": {
+  "n_rays": 1545,
+  "mean_HU_last_3mm": {
+   "median": 374.8262023925781,
+   "p25": 340.089599609375,
+   "p75": 393.5721130371094
+  },
+  "ratio_median_to_blood": 0.9347286842707684,
+  "fraction_dark_rays": 0.08802588996763754,
+  "dark_rays": {
+   "n": 136,
+   "thickness_mm_median": 0.0,
+   "thickness_mm_p90": 2.5,
+   "thickness_mm_max": 3.25,
+   "min_HU_median": -413.6616973876953,
+   "fraction_reaching_below_0HU": 0.9191176470588235,
+   "distance_from_axis_mm_median": 4.6097722286464435
+  },
+  "hub_max_HU": 3071.0
+ }
+}

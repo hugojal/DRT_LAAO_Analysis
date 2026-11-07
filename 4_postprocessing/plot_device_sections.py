@@ -1,12 +1,14 @@
 """Separate plots of the device cross-sections and recirculation check (run7, last beat), 07/11/2026.
-Reads 4_postprocessing/run7/device_sections/{sections.csv, near_device_volume.csv} (written by device_sections.py) and writes
-one figure per quantity (PNG + PDF) to 4_postprocessing/run7/device_sections/plots/. Legends sit outside the axes.
-usage: python plot_device_sections.py"""
+Reads 4_postprocessing/<run>/device_sections/{sections.csv, near_device_volume.csv} (written by device_sections.py) and writes
+one figure per quantity (PNG + PDF) to 4_postprocessing/<run>/device_sections/plots/. Legends sit outside the axes.
+usage: python plot_device_sections.py [run]"""
 import os, csv
 import numpy as np, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-D = os.path.join(ROOT, "4_postprocessing", "run7", "device_sections"); OUT = os.path.join(D, "plots"); os.makedirs(OUT, exist_ok=True)
+import sys
+RUN = sys.argv[1] if len(sys.argv) > 1 else "run8"
+D = os.path.join(ROOT, "4_postprocessing", RUN, "device_sections"); OUT = os.path.join(D, "plots"); os.makedirs(OUT, exist_ok=True)
 T0, T_E = 2.625, 3.06                                   # start of the analysed beat; peak of rapid filling (E wave)
 plt.rcParams.update({"font.size": 10, "axes.spines.top": False, "axes.spines.right": False})
 rows = list(csv.DictReader(open(os.path.join(D, "sections.csv")))); vol = list(csv.DictReader(open(os.path.join(D, "near_device_volume.csv"))))

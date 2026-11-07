@@ -1,0 +1,257 @@
+{
+ "volume_mesh": {
+  "tetrahedra": 271908,
+  "nodes": 56607,
+  "negative_or_zero_volumes": 0,
+  "total_volume_mL": 156.0,
+  "minSICN": {
+   "min": 0.355,
+   "p1": 0.666,
+   "mean": 0.879
+  },
+  "gamma": {
+   "min": 0.35,
+   "mean": 0.859
+  },
+  "skewness": {
+   "max": 0.907,
+   "mean": 0.238,
+   "n_above_0_8": 41,
+   "n_above_0_9": 2,
+   "n_above_0_95": 0
+  }
+ },
+ "surface": {
+  "triangles": 42980,
+  "edges_used_once": 0,
+  "edges_used_more_than_twice": 0,
+  "closed": true,
+  "volume_mL": 156.0,
+  "same_as_saved_stl": true
+ },
+ "angle_separation_30deg": {
+  "regions": 6,
+  "largest": [
+   {
+    "area_mm2": 16594.1,
+    "eq_diameter_mm": 145.4,
+    "normal": [
+     0.103,
+     0.106,
+     0.989
+    ],
+    "centre": [
+     -0.2,
+     -8.3,
+     33.2
+    ],
+    "max_out_of_plane_mm": 39.94,
+    "angle_to_z_deg": 8.5
+   },
+   {
+    "area_mm2": 529.0,
+    "eq_diameter_mm": 26.0,
+    "normal": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "centre": [
+     -0.3,
+     -0.2,
+     -6.5
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 0.0
+   },
+   {
+    "area_mm2": 246.6,
+    "eq_diameter_mm": 17.7,
+    "normal": [
+     -0.733,
+     -0.605,
+     0.312
+    ],
+    "centre": [
+     -26.1,
+     -44.3,
+     58.7
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 71.8
+   },
+   {
+    "area_mm2": 142.9,
+    "eq_diameter_mm": 13.5,
+    "normal": [
+     0.755,
+     -0.044,
+     -0.654
+    ],
+    "centre": [
+     44.4,
+     -14.8,
+     30.5
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 49.1
+   },
+   {
+    "area_mm2": 132.3,
+    "eq_diameter_mm": 13.0,
+    "normal": [
+     0.5,
+     0.696,
+     -0.516
+    ],
+    "centre": [
+     36.5,
+     19.6,
+     32.4
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 58.9
+   },
+   {
+    "area_mm2": 62.5,
+    "eq_diameter_mm": 8.9,
+    "normal": [
+     -0.867,
+     0.014,
+     0.497
+    ],
+    "centre": [
+     -36.2,
+     -5.8,
+     71.9
+    ],
+    "max_out_of_plane_mm": 0.0,
+    "angle_to_z_deg": 60.2
+   }
+  ]
+ },
+ "distance_to_segmentation_mm": {
+  "region": "atrial wall > 8.5 mm above the annulus, > 12 mm from the PV cuts",
+  "median": 0.06,
+  "p95": 0.183,
+  "max": 0.95
+ },
+ "distance_to_run6_surface_mm": {
+  "region": "atrial wall > 8.5 mm above the annulus, > 12 mm from the PV cuts",
+  "median": 0.037,
+  "p95": 0.823,
+  "max": 5.936
+ },
+ "pv_caps": [
+  {
+   "vein": "RSPV",
+   "fluent_name": "pv_2",
+   "area_mm2": 246.6,
+   "eq_diameter_mm": 17.7,
+   "centre_mm": [
+    -26.1,
+    -44.3,
+    58.7
+   ],
+   "angle_cap_normal_vs_trunk_axis_deg": 0.0
+  },
+  {
+   "vein": "LSPV",
+   "fluent_name": "pv_4",
+   "area_mm2": 142.9,
+   "eq_diameter_mm": 13.5,
+   "centre_mm": [
+    44.4,
+    -14.8,
+    30.5
+   ],
+   "angle_cap_normal_vs_trunk_axis_deg": 1.0
+  },
+  {
+   "vein": "RIPV",
+   "fluent_name": "pv_3",
+   "area_mm2": 62.5,
+   "eq_diameter_mm": 8.9,
+   "centre_mm": [
+    -36.2,
+    -5.8,
+    71.9
+   ],
+   "angle_cap_normal_vs_trunk_axis_deg": 2.0
+  },
+  {
+   "vein": "LIPV",
+   "fluent_name": "pv_1",
+   "area_mm2": 132.3,
+   "eq_diameter_mm": 13.0,
+   "centre_mm": [
+    36.5,
+    19.6,
+    32.4
+   ],
+   "angle_cap_normal_vs_trunk_axis_deg": 0.0
+  }
+ ],
+ "mitral_sections": [
+  {
+   "z_mm": -6.45,
+   "area_cm2": 5.29
+  },
+  {
+   "z_mm": -5.0,
+   "area_cm2": 5.31
+  },
+  {
+   "z_mm": -4.0,
+   "area_cm2": 5.47
+  },
+  {
+   "z_mm": -3.0,
+   "area_cm2": 5.87
+  },
+  {
+   "z_mm": -2.0,
+   "area_cm2": 6.54
+  },
+  {
+   "z_mm": -1.0,
+   "area_cm2": 7.45
+  },
+  {
+   "z_mm": 0.0,
+   "area_cm2": 8.55
+  },
+  {
+   "z_mm": 1.0,
+   "area_cm2": 9.84
+  },
+  {
+   "z_mm": 2.0,
+   "area_cm2": 11.16
+  },
+  {
+   "z_mm": 3.0,
+   "area_cm2": 12.45
+  },
+  {
+   "z_mm": 4.0,
+   "area_cm2": 13.69
+  },
+  {
+   "z_mm": 5.0,
+   "area_cm2": 14.88
+  },
+  {
+   "z_mm": 6.0,
+   "area_cm2": 16.0
+  },
+  {
+   "z_mm": 7.0,
+   "area_cm2": 17.06
+  },
+  {
+   "z_mm": 8.0,
+   "area_cm2": 18.05
+  }
+ ]
+}

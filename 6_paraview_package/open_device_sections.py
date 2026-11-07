@@ -1,4 +1,4 @@
-"""Cross-sections in front of the device and recirculation (run7, last heartbeat), 07/11/2026.
+"""Cross-sections in front of the device and recirculation (run8, last heartbeat), 07/11/2026.
 ParaView GUI: View > Python Shell > Run Script > this file   (or: paraview --script=open_device_sections.py from this folder)
 Pipeline (press Play to run the heartbeat, t = 2.63-3.50 s):
   axial velocity      u_n = velocity along the device axis (m/s); + = towards the device / appendage, - = back into the atrium
@@ -9,7 +9,7 @@ Pipeline (press Play to run the heartbeat, t = 2.63-3.50 s):
   stagnant |v|<0.05   blood slower than 0.05 m/s (iso-volume) near the device
   streamlines (device) streamlines seeded in a sphere (r 8 mm) 5 mm in front of the device
   la_wall             transparent wall (the device itself is not drawn)
-Numbers for the same planes: 4_postprocessing/run7/device_sections/ (device_sections.py) in the project repository.
+Numbers for the same planes: 4_postprocessing/run8/device_sections/ (device_sections.py) in the project repository.
 Frame: metres; z = mitral valve axis; device axis from the CT disc-rim fit."""
 import os, inspect
 from paraview.simple import *
@@ -22,7 +22,7 @@ N = [0.626991, -0.520926, -0.579239]                # device axis, pointing from
 DS = (2, 5, 8, 12, 16); RCOL = 0.020; T_SHOW = 2.90  # late diastole/diastasis, when the region in front of the device is slowest
 pt = lambda d: [C[i] - d / 1000.0 * N[i] for i in range(3)]
 
-sim = EnSightReader(registrationName="simulation", CaseFileName=P("simulation", "run7_last_beat.encas"))
+sim = EnSightReader(registrationName="simulation", CaseFileName=[os.path.join(P("simulation"), f) for f in os.listdir(P("simulation")) if f.endswith("_last_beat.encas")][0].replace("\\", "/"))
 fluid = MergeBlocks(registrationName="fluid", Input=ExtractBlock(Input=sim, Selectors=["/Root/fluid-1"]))
 wall = MergeBlocks(registrationName="la_wall", Input=ExtractBlock(Input=sim, Selectors=["/Root/la_wall"]))
 un = Calculator(registrationName="axial velocity", Input=fluid); un.ResultArrayName = "u_axial"

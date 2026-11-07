@@ -1,0 +1,45 @@
+{
+ "planes": {
+  "2": {
+   "area_mm2_median": 295.7401845869398,
+   "vmean_beat": 0.040582540357768565,
+   "frac_stag_beat": 0.697404517821576,
+   "frac_time_recirculating": 0.09090909090909091,
+   "net_axial_velocity_beat": 0.0026820546057125085
+  },
+  "5": {
+   "area_mm2_median": 618.0647224238459,
+   "vmean_beat": 0.08817467919513867,
+   "frac_stag_beat": 0.2922053444333656,
+   "frac_time_recirculating": 0.9886363636363636,
+   "net_axial_velocity_beat": 0.0014383018396807795
+  },
+  "8": {
+   "area_mm2_median": 787.055485457948,
+   "vmean_beat": 0.11195229817400372,
+   "frac_stag_beat": 0.19110105249224327,
+   "frac_time_recirculating": 0.9090909090909091,
+   "net_axial_velocity_beat": 0.0025929723255833535
+  },
+  "12": {
+   "area_mm2_median": 889.1945284019318,
+   "vmean_beat": 0.1264229787149544,
+   "frac_stag_beat": 0.12498864212282337,
+   "frac_time_recirculating": 0.9204545454545454,
+   "net_axial_velocity_beat": 0.002180474459764567
+  },
+  "16": {
+   "area_mm2_median": 1050.7420374319738,
+   "vmean_beat": 0.13164660256632707,
+   "frac_stag_beat": 0.15624050063955597,
+   "frac_time_recirculating": 1.0,
+   "net_axial_velocity_beat": -0.014654969145832995
+  }
+ },
+ "near_device_10mm": {
+  "vol_mL": 8.294929446888329,
+  "frac_stag_beat": 0.2569442000939962,
+  "frac_vortex_beat": 0.24426799791131837,
+  "vmean_beat": 0.10873049781520484
+ }
+}

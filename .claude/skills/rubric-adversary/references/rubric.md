@@ -49,7 +49,7 @@ Attack:
 - **Smooth, no artefacts.** Islands (`connected_components` > 1), holes, staircase steps, spikes, flat "cut" faces from manual erase, bridges between veins. Marching-cubes the mask and look at it.
 
 ## 2. Left atrial meshes (2/10)
-Submission candidates: **`2_mesh/run7_06112026/HugoJal_Case3_run7_06112026.stl/.bdf`** (from the corrected segmentation, PVs re-cut along the trunks, 5.3 cm² mitral orifice; used by run7 once it is run), `2_mesh/mv_aligned_03112026/HugoJal_Case3_mvz_03112026.stl/.bdf` (used by run6) and the older `2_mesh/HugoJal_Case3.stl`, `HugoJal_Case3_meshlab.stl`, `HugoJal_Case3_gmsh.bdf`.
+Submission candidates: **`2_mesh/run8_07112026/HugoJal_Case3_run8_07112026.stl/.bdf`** (circular PV cylinders, from the corrected segmentation, PVs re-cut along the trunks, 5.3 cm² mitral orifice; used by run8), `2_mesh/mv_aligned_03112026/HugoJal_Case3_mvz_03112026.stl/.bdf` (used by run6) and the older `2_mesh/HugoJal_Case3.stl`, `HugoJal_Case3_meshlab.stl`, `HugoJal_Case3_gmsh.bdf`.
 
 Attack:
 - **Angle-method separability.** `angle_separation_30deg.regions` must equal 1 wall + 1 MV + number of PVs (= 6). More regions (spurious creases) or fewer (a cap merging with the wall) fail "easily separable". Also check at 20° and 40° (the slides' range) — a mesh that only separates at exactly 30° is fragile. Caps should be planar (`planarity` ≈ 1) with ~90° edges.

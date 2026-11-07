@@ -26,6 +26,7 @@
 \makeatother
 \bibliographystyle{unsrtnat}
 \setlength{\bibsep}{1pt}
+\graphicspath{{figures_run8/}}
 
 \title{\vspace{-1.2cm}\textbf{Device-Related Thrombus after LAA Occlusion in Case~3:\\ Image Assessment and Haemodynamic Risk}}
 \author{Hugo Jal\\[1pt]\small Modelling of Organs and Systems, Universitat Pompeu Fabra}
@@ -36,83 +37,77 @@
 \twocolumn[
 \maketitle
 \begin{abstract}
-\noindent \textbf{Is there a device-related thrombus (DRT)?} No. In the CT, contrast-filled blood reaches the atrial face of the occluder and no thrombus can be seen on it. \textbf{Is the patient at risk of developing one?} Yes. A flow simulation of the left atrium (LA) with physiological flow and a mitral valve moving along its axis shows that the device sits in the quietest part of the atrium: the blood around it moves slowly, and the wall next to it has the lowest and most oscillating wall shear stress, which are the conditions linked to thrombus formation.
+\noindent \textbf{Is there a device-related thrombus (DRT)?} I do not think so: on the CT the blood in front of the occluder enhances like the rest of the atrium, and the only dark spots, next to the metal hub, are darker than any clot could be (metal artefact). \textbf{Is the patient at risk of one?} Yes. A flow simulation of the left atrium (LA) shows almost still blood against the device while the mitral valve is closed, recirculation just in front of it, and the lowest, most oscillating wall shear of the atrium around it.
 \end{abstract}
 \vspace{2pt}
 {\begin{center}
-\includegraphics[height=3.3cm]{figures_run7/ct_unet_enface.png}\hfill
-\includegraphics[height=3.3cm]{figures_run7/pv_unet_device.png}\hfill
-\includegraphics[height=3.3cm]{figures_run7/ct_wire_enface.png}\hfill
-\includegraphics[height=3.3cm]{figures_run7/ct_wire_axis.png}\hfill
-\includegraphics[height=3.3cm]{figures_run7/pv_anatomy_wire.png}
-\captionof{figure}{Segmentation. (a) U-Net device segmentation (magenta) on the plane of the device disc and (b) its 3D model. (c) Gamma-transformed CT on the same plane with the wire-frame segmentation (orange): rim, struts and hub. (d) CT along the device axis (LA on the left) with the LA (blue) and wire frame (orange): bright contrast blood reaches the atrial face of the device. (e) LA model (transparent) and device wire frame.}
+\begin{minipage}[b]{0.205\textwidth}\centering\includegraphics[width=\linewidth]{fig_ct_axis.pdf}\\[-1pt]\small (a)\end{minipage}\hfill
+\begin{minipage}[b]{0.25\textwidth}\centering\includegraphics[width=\linewidth]{fig_ct_rays.pdf}\\[-1pt]\small (b)\end{minipage}\hfill
+\begin{minipage}[b]{0.30\textwidth}\centering\includegraphics[width=\linewidth]{fig_ct_profile.pdf}\\[-1pt]\small (c)\end{minipage}\hfill
+\begin{minipage}[b]{0.20\textwidth}\centering\includegraphics[width=\linewidth]{pv_anatomy_wire.png}\\[-1pt]\small (d)\end{minipage}
+\captionof{figure}{Is there a thrombus on the device? (a) Plain CT through the device axis, atrium on the left; dashed: the 3\,mm in front of the device where a thrombus would be. (b) Mean attenuation in those 3\,mm seen from the atrium (cyan: below one third of the blood). (c) Attenuation along the device axis. (d) LA model and device wire frame.}
 \label{fig:ct}
 \end{center}}
 \vspace{2pt}
 ]
 
 \section{Introduction}
-Left atrial appendage occlusion (LAAO) closes the appendage with a device to prevent strokes in patients with atrial fibrillation. A known complication is a thrombus growing on the atrial face of the device. This device-related thrombus (DRT) is not frequent, but patients who develop it have a clearly higher risk of stroke \citep{Dukkipati2018}. In CT, a DRT appears as a dark (hypoattenuating) layer on the atrial side of the device \citep{Korsholm2019}. Patient-specific flow simulations have linked DRT to slow blood and to low, oscillating wall shear stress around the device \citep{Zhong2024,Vogl2024}. In this report I answer two questions for Case~3: is there a DRT, and is the patient at risk of one?
+Left atrial appendage occlusion (LAAO) closes the appendage with a device to prevent strokes in patients with atrial fibrillation. A known complication is a device-related thrombus (DRT) on its atrial face: it is not frequent, but it clearly raises the risk of stroke \citep{Dukkipati2018}. Patient-specific flow simulations have linked DRT to slow blood and to low, oscillating wall shear stress around the device \citep{Zhong2024,Vogl2024}. For Case~3 I answer two questions: is there a DRT on the CT, and is the patient at risk of one?
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.24\textwidth]{figures_run7/pv_streamlines_peak.png}\hfill
-\includegraphics[width=0.24\textwidth]{figures_run7/pv_streamlines_late.png}\hfill
-\includegraphics[width=0.24\textwidth]{figures_run7/pv_slice_peak.png}\hfill
-\includegraphics[width=0.24\textwidth]{figures_run7/pv_qcriterion_peak.png}
-\caption{Flow in the last heartbeat. Streamlines from the pulmonary veins (a) at the peak of mitral flow and (b) in late diastole. (c) Velocity at the peak on a plane through the valve axis (valve at the bottom) and the device, which closes the bulge on the left wall. (d) Vortices at the peak ($Q=500$\,s$^{-2}$ \citep{Morales2025}).}
+\begin{minipage}[b]{0.19\textwidth}\centering\includegraphics[width=\linewidth]{streamlines_side_filling_t306.png}\\[-1pt]\small (a) filling peak\end{minipage}\hfill
+\begin{minipage}[b]{0.19\textwidth}\centering\includegraphics[width=\linewidth]{streamlines_side_systole_t290.png}\\[-1pt]\small (b) valve closed\end{minipage}\hfill
+\begin{minipage}[b]{0.19\textwidth}\centering\includegraphics[width=\linewidth]{longaxis_slice_systole_t290.png}\\[-1pt]\small (c) valve closed\end{minipage}\hfill
+\begin{minipage}[b]{0.19\textwidth}\centering\includegraphics[width=\linewidth]{section_8mm_systole_t290.png}\\[-1pt]\small (d) valve closed, 8\,mm\end{minipage}\hfill
+\begin{minipage}[b]{0.19\textwidth}\centering\includegraphics[width=\linewidth]{pv_wall_ecap_dev.png}\\[-1pt]\small (e) ECAP\end{minipage}
+\caption{Flow and wall shear in front of the device (not drawn; on the right in a--c). (a, b) Streamlines started 5\,mm in front of the device. (c) Velocity along the device axis (red: towards the device) on a plane through it and (d) on the section 8\,mm in front, seen from the atrium. (e) ECAP over the beat; black lines: 10 and 20\,mm from the device.}
 \label{fig:flow}
-\end{figure*}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.24\textwidth]{figures_run7/pv_wall_tawss_dev.png}\hfill
-\includegraphics[width=0.24\textwidth]{figures_run7/pv_wall_osi_dev.png}\hfill
-\includegraphics[width=0.24\textwidth]{figures_run7/pv_wall_ecap_dev.png}\hfill
-\includegraphics[width=0.24\textwidth]{figures_run7/pv_wall_ecap_front.png}
-\caption{Wall shear metrics over the last heartbeat, seen from the device side (a--c) and from the front (d): (a) TAWSS, (b) OSI, (c, d) ECAP (log scale), each with isolines. Black lines: 10 and 20\,mm from the device.}
-\label{fig:wall}
 \end{figure*}
 
 \section{Methods}
 \subsection{Segmentation and mesh}
-The contrast CT (diastolic phase) was segmented in 3D Slicer (Fig.~\ref{fig:ct}). The LA was obtained by manual thresholding of the contrast-filled blood, and then refined with manual painting and erasing, using the threshold range as a mask. The four pulmonary veins (PVs) were kept up to their first branch, the LA was closed at the mitral valve (MV), and the device was left out of the blood volume. A one-voxel opening removed small bridges, leaving a surface without holes. The device was segmented manually, and I tried two ways to extract only its wire frame. First, a pretrained promptable 3D U-Net (nnInteractive \citep{Isensee2025}), prompted with points on bright wires and on the blood around them. Alone it also filled the blood between the wires, so its output was intersected with the local wire contrast of the CT and corrected in 3D Slicer: it finds the rim and the hubs, but the struts merge into thick bands (Fig.~\ref{fig:ct}a,b). Second, a gamma transform of the CT ($\gamma=0.3$) and a filter for thin bright lines gave thinner struts and a closed rim (Fig.~\ref{fig:ct}c). The surface was smoothed and repaired in MeshLab and Meshmixer, and each PV was cut perpendicular to its trunk and extended by 10\,mm along it. The MV was cut on the annulus plane found in the CT, which was made the $z$ axis, and the atrium was narrowed smoothly to a 5.3\,cm$^2$ orifice (normal: 4--6\,cm$^2$). The volume was meshed with tetrahedra in Gmsh (272\,000 elements).
+The contrast CT (diastolic phase) was segmented in 3D Slicer by manual thresholding of the blood, refined by painting and erasing within the threshold range. The four pulmonary veins (PVs) were kept up to their first branch and the device was left out of the blood volume. The device (Amulet-type, a disc and a lobe) was segmented manually, and its wire frame separately from a gamma-transformed CT ($\gamma=0.3$; Fig.~\ref{fig:ct}d). Each PV was cut perpendicular to its trunk and extended with a 10\,mm cylinder of the same area (diameters 9--18\,mm), and the mitral valve (MV) was cut on the annulus plane found in the CT, made the $z$ axis, and narrowed to a 5.3\,cm$^2$ orifice (normal: 4--6\,cm$^2$). The volume was meshed with 272\,000 tetrahedra in Gmsh.
 
-\subsection{Flow simulation}
-The flow was solved in Ansys Fluent as transient and laminar, with blood as a Newtonian fluid ($\rho=1060$\,kg/m$^3$, $\mu=3.5$\,mPa\,s). The PVs received the course pressure curve. The MV received the unchanged course velocity curve, which on the 5.3\,cm$^2$ orifice gives 80\,mL per beat (5.5\,L/min, a normal output \citep{KawelBoehm2020}), and its longitudinal motion (up to 9\,mm in systole), applied along the valve axis with a dynamic mesh (smoothing and remeshing) in which the outlet moves with the valve. With the time step of the boundary-condition files (0.01\,s) I simulated four heartbeats and analysed only the last, free of start-up effects. All 350 time steps met the residual criteria (continuity $5\cdot10^{-3}$, velocity $10^{-3}$), and the last two heartbeats gave the same flow volumes and almost the same wall maps.
+\subsection{Looking for a thrombus on the CT}
+On contrast CT a DRT is a dark (hypoattenuating) thickening on the atrial face of the device: clot does not take up contrast, so it is darker than the blood around it. A layer thicker than 3\,mm is considered a definite DRT \citep{Agudelo2021,Korsholm2019}. Since there is no single HU cut-off, I compared the blood just in front of the device with the blood of the whole atrium. Along lines parallel to the device axis, coming from the atrium, I averaged the attenuation over the last 3\,mm before the device and marked as suspicious anything below one third of the atrial blood, roughly the appendage-to-aorta ratio that separates thrombus from slow blood in \citep{Li2022}.
 
-\subsection{Analysis}
-Results were exported at every time step and visualised in ParaView. From the wall shear stress $\boldsymbol\tau_w$ over one heartbeat of length $T$ I computed
-\begin{align}
-\mathrm{TAWSS}&=\tfrac1T\!\int_0^T\!|\boldsymbol\tau_w|\,dt,\notag\\
-\mathrm{OSI}&=\tfrac12\Big(1-\tfrac{|\int_0^T\boldsymbol\tau_w\,dt|}{\int_0^T|\boldsymbol\tau_w|\,dt}\Big),\quad
-\mathrm{ECAP}=\frac{\mathrm{OSI}}{\mathrm{TAWSS}}.\notag
-\end{align}
-TAWSS is the average shear on the wall, OSI says how much the shear changes direction (0: never, 0.5: half of the time), and ECAP is high where the shear is both low and oscillating, which is the condition linked to thrombus formation \citep{Vogl2024}. To compare the device region with the rest of the atrium, I grouped the wall by distance to the device. For the flow I looked at streamlines, velocity on a plane through the device and vortex structures, shown with a Q-criterion of 500\,s$^{-2}$ as in left-atrium 4D flow MRI \citep{Morales2025}.
-
-\section{Results}
-\subsection{Is there a thrombus?}
-No. In the CT slices the atrial face of the device is in direct contact with bright, contrast-filled blood (Fig.~\ref{fig:ct}d).
-
-\subsection{Flow near the device}
-The flow is physiological: 80\,mL per beat, inflow from all four veins (the small right inferior vein carries about 10\,\%) and velocities up to about 1\,m/s in the mitral orifice. During rapid filling, the streams from the four PVs meet in the middle of the atrium and form a jet towards the MV, with vortex rings at the vein inlets (Fig.~\ref{fig:flow}a,d). The blood at the entrance of the occluded appendage is the slowest of the section even at the peak of filling (Fig.~\ref{fig:flow}c). In late diastole one large vortex fills the body, and the flow next to the appendage is again among the slowest (Fig.~\ref{fig:flow}b).
-
-\subsection{Wall shear metrics}
-The wall maps (Fig.~\ref{fig:wall}) show a region of low TAWSS and high OSI, and therefore high ECAP, at the entrance of the appendage where the device sits, inside the 10\,mm line. Other, separate high-ECAP patches lie on the roof and on the lower wall, far from the device (Fig.~\ref{fig:wall}d). Grouping the wall by distance (Fig.~\ref{fig:quant}) shows the same trend: within 5\,mm of the device the shear is the lowest and the most oscillating, and the median ECAP is about twice that of the rest of the atrium.
+\subsection{Flow simulation and analysis}
+The flow was solved in Ansys Fluent as transient and laminar, with Newtonian blood ($\rho=1060$\,kg/m$^3$, $\mu=3.5$\,mPa\,s). The PVs received the course pressure curve and the MV the course velocity curve (80\,mL per beat, 5.5\,L/min \citep{KawelBoehm2020}) together with its motion along the valve axis (up to 9\,mm), handled with a dynamic mesh. I simulated four heartbeats ($\Delta t=0.01$\,s) and analysed the last. Every time step reached the residual criteria (continuity $5\cdot10^{-3}$, velocity $10^{-3}$), and the last two beats differed by less than 1\,\% in mitral flow. From the wall shear stress $\boldsymbol\tau_w$ over the beat I computed TAWSS ($\tfrac1T\!\int|\boldsymbol\tau_w|dt$), OSI ($\tfrac12(1-|\!\int\boldsymbol\tau_w dt|/\!\int|\boldsymbol\tau_w|dt)$) and ECAP $=$ OSI/TAWSS, which is high where shear is low and changes direction \citep{Vogl2024}. On sections parallel to the device face, 2--16\,mm from it, I measured at every time step the share of slow blood ($|v|<0.05$\,m/s) and the shares flowing towards the device and back into the atrium. If both are large at once, the blood recirculates.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{figures_run7/fig_bands.pdf}
-\caption{TAWSS, OSI and ECAP grouped by distance from the device (box: interquartile range, line: median, whiskers: 5th--95th percentile). Red: near the device.}
-\label{fig:quant}
+\includegraphics[width=0.9\columnwidth]{fig_sections.pdf}
+\caption{Sections parallel to the device face at 2, 8 and 16\,mm. (a) Share of slow blood ($|v|<0.05$\,m/s). (b) Share of the section flowing the less common way (towards or away from the device); high values mean recirculation. Dashed: valve closed (Fig.~\ref{fig:flow}b--d); dotted: filling peak (Fig.~\ref{fig:flow}a).}
+\label{fig:sections}
 \end{figure}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\columnwidth]{fig_bands.pdf}
+\caption{TAWSS, OSI and ECAP of the wall grouped by distance from the device (box: interquartile range, line: median; red: near the device).}
+\label{fig:wall}
+\end{figure}
+
+\section{Results}
+\subsection{Is there a thrombus?}
+My first look was the plane through the device axis (Fig.~\ref{fig:ct}a): the grey, contrast-filled blood reaches the device face along almost its whole height. However, right next to the bright hub there are two black spots, so I measured the whole disc. Over about 90\,\% of the face the 3\,mm of blood in front of the device has 375\,HU, practically the atrial blood (401\,HU; Fig.~\ref{fig:ct}b). The other 10\,\% (cyan) lies only on both sides of the hub, which saturates the scanner. Along the axis the attenuation stays at the blood level up to the device (Fig.~\ref{fig:ct}c). I do not think these spots are a thrombus: in 92\,\% of them the attenuation drops below 0\,HU (median minimum $-$414\,HU), which a clot, being soft tissue, cannot have, and dark bands on both sides of a dense metal part are the typical streak artefact. Even as tissue they would be under 3\,mm thick. I also noticed that the appendage behind the device still has about 280\,HU, above the 100\,HU used to call it sealed \citep{Agudelo2021}, so some contrast may pass the device.
+
+
+\subsection{Flow near the device}
+The flow is physiological (80\,mL per beat; fastest blood, about 1\,m/s, in the mitral orifice). At the peak of filling, the blood from the veins forms a fast stream that passes beside the device on its way to the valve without entering the space in front of it (Fig.~\ref{fig:flow}a). While the valve is closed the picture is different: the blood in front of the device is slow and swirls on itself (Fig.~\ref{fig:flow}b), with flow towards the device and back into the atrium side by side (Fig.~\ref{fig:flow}c), and an in-plane vortex on the 8\,mm section (Fig.~\ref{fig:flow}d).
+
+The sections make this quantitative (Fig.~\ref{fig:sections}). At 2\,mm from the device, 70\,\% of the blood is slower than 0.05\,m/s on average, and it never drops below half, not even at the filling peak, when at 8 and 16\,mm the slow share falls to 10\,\% or less (Fig.~\ref{fig:sections}a). This layer is still, not recirculating (Fig.~\ref{fig:sections}b). Further out it is the opposite: at 5--16\,mm at least 20\,\% of each section flows each way during more than 90\,\% of the beat, most clearly just after the filling peak, so there the blood recirculates. The space in front of the device is a dead end: the main stream passes by, and blood that enters it turns around instead of leaving.
+
+
+\subsection{Wall shear stress}
+In the ECAP map (Fig.~\ref{fig:flow}e) I see high values around the entrance of the occluded appendage, inside the 10\,mm line, but the very highest values are in small separate patches on the roof and on the lower wall. So I grouped the wall by distance to the device (Fig.~\ref{fig:wall}): within 5\,mm the TAWSS is the lowest (30\,\% below the rest of the wall) and the OSI the highest of all groups, and the median ECAP is about 1.7 times that of the rest of the atrium. The wall within 10\,mm is only 10\,\% of the atrium but holds 38\,\% of the area with ECAP above 2\,Pa$^{-1}$.
+
+
 \section{Discussion and conclusion}
-In this atrium, slow blood, low shear and oscillating shear all occur together on and around the atrial face of the device. Patient-specific simulations associate this pattern with a higher DRT risk \citep{Zhong2024}, and in patients who did develop a DRT the thrombi appeared where these maps predicted \citep{Vogl2024}.
+Still blood on the device face, recirculation in front of it and low, oscillating shear around it are the conditions that patient-specific studies relate to DRT \citep{Zhong2024,Vogl2024}. Limitations: the artefact could hide a very small thrombus right on the hub; the boundary conditions are generic course curves and the device is not a solid in the flow, so I compared regions of the same atrium rather than using fixed thresholds.
 
-Limitations: the boundary conditions are generic course curves, not measured for this patient, and the device is not in the flow domain as a solid object. So I compared regions of the same atrium, not fixed thresholds.
-
-\textbf{Conclusion.} There is no device-related thrombus in the CT, but \textbf{the patient is at risk of developing one}: the device region has the slowest blood and the lowest, most oscillating shear of the atrium. Follow-up imaging is advisable.
+\textbf{Conclusion.} I do not see a device-related thrombus in this CT, but \textbf{the patient is at risk of developing one}, because the blood in front of the device is the stillest of the atrium. Follow-up imaging is advisable.
 
 \clearpage
 \onecolumn

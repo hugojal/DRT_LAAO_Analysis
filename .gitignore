@@ -46,5 +46,6 @@ __pycache__/
 2_mesh/mv_taper_06112026/first_try_step/*.bdf
 2_mesh/mv_taper_06112026/second_try_erase/*.bdf
 
-# run7 mesh build cache (MeshLab remesh of the segmentation surface)
-2_mesh/run7_06112026/_seg_remeshed_cache*.stl
+# mesh build cache (MeshLab remesh of the segmentation surface)
+2_mesh/*/_seg_remeshed_cache*.stl
+2_mesh/*/build_run*.log

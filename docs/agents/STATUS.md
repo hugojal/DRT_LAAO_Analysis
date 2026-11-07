@@ -2,8 +2,46 @@
 
 Last updated: 07/11/2026
 
-**Hand-in list: [SUBMISSION.md](../../SUBMISSION.md)** (run7 only).
+**Hand-in list: [SUBMISSION.md](../../SUBMISSION.md)** (run8 only).
 
+
+
+## 07/11/2026 (evening): run8 with circular PV cylinders; report rewritten around the questions; run7 archived
+- **Why:** the course guide asks for **cylindrical** PV inlets; run7 had same-area ovals. The user also noted the 22.5 mm diameter limit.
+- **Mesh** `2_mesh/run8_07112026/` (README):
+  - same build as run7, but each extension blends over 5 mm into a **circle** of the lumen area;
+  - diameters 17.7 / 13.5 / 13.0 / 9.0 mm;
+  - 271 908 tets, skewness max 0.907, 6 zones, genus 0;
+  - same model frame (z = mitral axis).
+- **run8** (`setup_case_run8.py`, same set-up and BC as run7):
+  - all 350 steps converged (median 28 iterations), mass balance 0.45 mL, mitral periodicity 0.08 %;
+  - SV 79.7 mL, PV split 27/37/9/27 %, v_max 1.07 m/s.
+- **Wall metrics:** within 5 mm of the device, ECAP is 1.7× the rest of the wall and TAWSS is 30 % lower. The wall within 10 mm (10 % of the wall) holds 38 % of the area with ECAP > 2. The highest single values are elsewhere (roof, lower wall).
+- **Flow in front of the device** (`4_postprocessing/run8/device_sections/`):
+  - 2 mm: 70 % of the blood is slow (< 0.05 m/s), and the layer is still rather than recirculating.
+  - 5–16 mm: two-way flow during more than 90 % of the beat.
+- **Thrombus on the CT** (`4_postprocessing/device_ct/`, `device_ct_hu.py`; README):
+  - Rays from the blood to the device: the 3 mm in front read 375 HU, against 401 HU in the atrial blood.
+  - The only dark spots (9 %) are on both sides of the 3071 HU hub. 92 % of them reach below 0 HU, which is metal artefact, not clot. They are ≤ 2.5 mm thick.
+  - The appendage behind the device is about 280 HU, above 100 HU, so the occlusion may not be complete.
+  - References verified in PubMed: Agudelo 2021 (HAT definition, > 3 mm, < 100 HU = sealed) and Li 2022 (ratio 0.33).
+  - This agrees with the older `4_postprocessing/thrombus_check/` (03/11), which also gives the limitation that a tiny thrombus on the hub cannot be fully excluded.
+- **Report rewritten** (`5_report/main.tex`, `figures_run8/`), 2 pages + references, first person, figures referenced in the text:
+  - Fig. 1: CT thrombus test (plain CT through the device axis, HU map in front of the device, HU profile, device in the LA).
+  - Fig. 2: flow at the filling peak vs with the valve closed, plus ECAP.
+  - Fig. 3: slow blood and two-way flow on the sections.
+  - Fig. 4: wall-metric bands.
+  - Figure scripts: `make_report_figures.py`, `render_device_views.py` (bars below the model, device not drawn), `pv_figures.py` (`PV_WALL_SHIFT`).
+- **Fixes:**
+  - `device_sections.py` now keeps the largest piece in the column; the nearest piece picked a vein at 12 mm.
+  - `make_paraview_package.py` takes the run and clears stale copies first.
+  - The package scripts find `*_last_beat.encas`.
+  - "Diastasis" (t = 2.90 s) was wrong; that time is ventricular systole, now labelled "valve closed".
+- **Archived** (git-ignored `archive/*_pre_run8/`): the run7 mesh, setup script, cases, results, post-processing, report figures and the run7 package copies.
+- **Still to do (user):**
+  - check segmentation v2 in Slicer;
+  - remaining rubric-review fixes (bib author names, Morales no longer cited);
+  - zip and upload `6_paraview_package/` (run8) and put the link in the PDF.
 
 ## 07/11/2026: run7 done, post-processed, report and package switched to run7; old results archived
 - **run7** (`3_simulation/results/run7_4cycles/`, case `case_run7_4cycles_07112026`): 350 steps, ~20 s per step.

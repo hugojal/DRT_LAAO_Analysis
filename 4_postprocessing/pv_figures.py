@@ -118,7 +118,8 @@ if WHICH in ("wall", "all"):
     spec = (("TAWSS_Pa", "TAWSS (Pa)", (0.0, 1.0), "Viridis", [0.1, 0.2, 0.4], False, "{:.1f}"),
             ("OSI", "OSI (-)", (0.0, 0.5), "Inferno", [0.2, 0.3, 0.4], False, "{:.1f}"),
             ("ECAP_1_per_Pa", "ECAP (1/Pa)", (0.1, 10.0), "Plasma", [1.0, 2.0, 4.0], True, "{:g}"))
-    views = (("dev", [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [0.6 * C[i] + 0.4 * B[i] for i in range(3)], 0.045), ("front", eye_front, B, 0.062))
+    DZ = float(os.environ.get("PV_WALL_SHIFT", "0.0"))         # m: moves the model up in the image, away from the colour bar (report: 0.008)
+    views = (("dev", [C[i] + 0.10 * N[i] + 0.04 * PN[i] - DZ * UP[i] for i in range(3)], [0.6 * C[i] + 0.4 * B[i] - DZ * UP[i] for i in range(3)], 0.045 + DZ), ("front", eye_front, B, 0.062))
     for arr, title, rng, cmap, isov, logc, fmt in spec:
         for vn, eye, foc, sc in views:
             v = view(900, 820)

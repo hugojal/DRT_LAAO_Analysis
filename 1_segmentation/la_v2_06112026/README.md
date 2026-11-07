@@ -22,4 +22,4 @@ The original `../Hugo_Jal_left_atrium_segmentation.nrrd` (manual thresholding + 
 
 **Please check in Slicer** that the vein extensions look right to you. Load the CT, the original segmentation and v2, then look at the inferior veins and at the device. They are automatic and follow the CT; correct them by hand if needed.
 
-**Used for:** the run7 mesh (`2_mesh/run7_06112026/`), which is built from this segmentation.
+**Used for:** the run8 mesh (`2_mesh/run8_07112026/`; also the archived run7), which is built from this segmentation.

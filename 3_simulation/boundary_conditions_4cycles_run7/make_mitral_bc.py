@@ -17,7 +17,7 @@ import os, sys, json
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); SIM = os.path.dirname(HERE); ROOT = os.path.dirname(SIM)
 SRC = os.path.join(SIM, "boundary_conditions_4cycles", "velocity_outlet.prof")
-CHECK = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "2_mesh", "run7_06112026", "check_mesh_run7.json")
+CHECK = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "2_mesh", "run8_07112026", "check_mesh_run8.json")   # same 529 mm2 mitral cap as run7
 A_MV = json.load(open(CHECK))["angle_separation_30deg"]["largest"][1]["area_mm2"] * 1e-6      # m2, the mitral cap
 T_BEAT = 0.875
 zt = np.array([[float(x) for x in l.split()] for l in open(os.path.join(HERE, "motion.prof")).read().split("\n")[3:] if l.strip()])
