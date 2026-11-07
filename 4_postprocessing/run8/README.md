@@ -66,7 +66,25 @@ python device_ct_hu.py            (CT, run-independent -> 4_postprocessing/devic
 python make_report_figures.py run8 ../5_report/figures_run8   (also trims the PNGs copied there)
 ```
 
-To fill the report figure folder:
-- copy from `device_sections/views/`: `streamlines_side_filling_t306`, `streamlines_side_systole_t290`, `longaxis_slice_systole_t290`, `section_8mm_systole_t290`;
-- copy from `figures/`: `pv_anatomy_wire`, `pv_wall_ecap_dev`, `fig_bands.pdf`;
-- run `make_report_figures.py` last.
+To fill the report figure folder (`5_report/figures_run8/`, report version of 07/11/2026 evening):
+```
+python near_device_timecourse.py run8                      (speed, slow blood, vorticity and Q shares per step -> run8/near_device_timecourse.csv)
+PV_RUN=run8 PV_RESULTS=run8_4cycles PV_OUT=$R/4_postprocessing/run8/figures PV_Q=500 PV_Q_LATE=250 PV_TRANSFORM=2_mesh/run8_07112026/transform_LPS_to_model.json pvbatch --force-offscreen-rendering pv_figures.py unet|manual|flow|vortex|wall
+python ct_wire_figure.py run8/figures                      (ct_unet_enface.png)
+copy into 5_report/figures_run8: run8/figures/{ct_unet_enface, pv_unet_device, pv_manual_device, pv_streamlines_peak, pv_streamlines_late,
+     pv_qcriterion_peak, pv_qcriterion_late, pv_wall_ecap_dev}.png, run8/figures/fig_bands.pdf,
+     run8/device_sections/views/streamlines_side_{systole_t290, filling_t306, late_t340}.png
+python thrombus_check/thrombus_report_figure.py ../5_report/figures_run8   (fig_thr_ct.pdf, fig_thr_profile.pdf)
+python make_report_figures.py run8 ../5_report/figures_run8               (fig_timecourse.pdf; trims the PNGs)
+```
+
+## Time course near the device (`near_device_timecourse.csv`, report Fig. 3)
+Beat averages, volume-weighted:
+
+| zone | mean speed | slow blood (|v| < 5 cm/s) | vorticity | rotation-dominated (Q > 0) |
+|---|---|---|---|---|
+| whole LA | 0.122 m/s | 22 % | 44 1/s | 33 % |
+| within 5 mm of the device | 0.083 m/s | 38 % (up to 66 % with the valve closed) | 55 1/s | 19 % |
+| within 10 mm | 0.109 m/s | 26 % | 49 1/s | 24 % |
+
+Vorticity is higher next to the device because next to a wall it mostly measures shear. The Q-criterion separates swirl from shear and shows fewer vortices there.

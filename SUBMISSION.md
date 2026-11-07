@@ -14,7 +14,8 @@
 ## Checklist before handing in
 - [ ] Check segmentation v2 in Slicer (inferior veins, device region).
 - [x] `5_report/main.pdf` is the run8 version (07/11/2026, figures from `5_report/figures_run8/`).
-- [ ] Report fixes from `docs/agents/reviews/rubric_review_06112026.md`: author names in the bib, Morales → Sci Rep 2026, hub-artefact sentence and CT window, "Amulet-type", ParaView link.
+- [x] Report fixes from `docs/agents/reviews/rubric_review_06112026.md`: bib author names, Morales → Sci Rep 2026, hub-artefact sentence, "Amulet-type" (07/11/2026).
+- [ ] ParaView link written in the PDF.
 - [ ] ParaView zip uploaded and the link tested.
 - [ ] Optional: mock grade with `/rubric-adversary` (in Claude Code).
 - [ ] No patient data: never include `data/`, the CT `.nrrd` or the Slicer `.mrml`.

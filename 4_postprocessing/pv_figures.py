@@ -1,6 +1,7 @@
 """ParaView (pvbatch) figures for the report. Run:
 "C:/Program Files/ParaView 6.2.0/bin/pvbatch.exe" --force-offscreen-rendering 4_postprocessing/pv_figures.py [which]
-which: anatomy | flow | vortex | wall | all | ct | unet (unet: needs PV_TRANSFORM)
+which: anatomy | flow | vortex | wall | all | ct | unet | manual (unet/manual: need PV_TRANSFORM)
+  PV_Q_LATE=250 (vortex: also a late-diastole view at this Q)
 Environment (optional, defaults = run5 for the report):
   PV_RUN=run6  PV_RESULTS=run6_mvz_4cycles  PV_OUT=<figure folder>  PV_Q=250,500,700 (Q-criterion isovalues, 1/s2; first = main figure)
   PV_DEVICE=1 (show the device in flow/vortex/wall figures; default off)  PV_VMAX_PEAK=0.6 (velocity colour max at the peak)
@@ -77,6 +78,12 @@ if WHICH == "unet" and TRF:                                     # 3D model of th
     v = view(800, 800); du = Show(un, v); du.ColorArrayName = ["POINTS", ""]; du.DiffuseColor = [0.80, 0.30, 0.80]; du.Specular = 0.4
     cam(v, [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [C[i] - 0.004 * N[i] for i in range(3)], UP, 0.021); shot(v, "pv_unet_device.png"); Delete(v)
 
+if WHICH == "manual" and TRF:                                   # 3D model of the manual device segmentation (solid mask), same view as the U-Net one
+    mn = STLReader(FileNames=[PVD + "device_manual_model_m.stl"])
+    sm = Smooth(Input=mn); sm.NumberofIterations = 40; mn = SurfaceNormals(Input=sm)
+    v = view(800, 800); dm = Show(mn, v); dm.ColorArrayName = ["POINTS", ""]; dm.DiffuseColor = [0.20, 0.65, 0.75]; dm.Specular = 0.4
+    cam(v, [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [C[i] - 0.004 * N[i] for i in range(3)], UP, 0.021); shot(v, "pv_manual_device.png"); Delete(v)
+
 if WHICH in ("flow", "vortex", "all"):
     r = EnSightReader(CaseFileName=ROOT + f"/3_simulation/results/{RESULTS}/all_steps.encas")
     fluid = blocks(r, ["fluid-1"]); wall = blocks(r, ["la_wall"]); pvs = blocks(r, ["pv_1", "pv_2", "pv_3", "pv_4"])
@@ -105,13 +112,14 @@ if WHICH in ("flow", "all"):
 
 if WHICH in ("vortex", "all"):
     # "Q_Criterion_Normalized" is only the EnSight label: the exported field is Fluent's q-criterion in 1/s2
-    for k, qv in enumerate(QISO):
-        v = view(1000, 850); v.ViewTime = T_PEAK
+    QLATE = float(os.environ.get("PV_Q_LATE", "0"))                # also a late-diastole view at this Q (0 = no)
+    for k, (qv, tq, tg) in enumerate([(q_, T_PEAK, "peak") for q_ in QISO] + ([(QLATE, T_LATE, "late")] if QLATE else [])):
+        v = view(1000, 850); v.ViewTime = tq
         q = Contour(Input=fluid); q.ContourBy = ["POINTS", "Q_Criterion_Normalized"]; q.Isosurfaces = [qv]; q.ComputeScalars = 0
         dw = Show(wall, v); dw.ColorArrayName = ["POINTS", ""]; dw.DiffuseColor = [0.80, 0.80, 0.83]; dw.Opacity = 0.15
-        dq = Show(q, v); ColorBy(dq, ("POINTS", "Velocity_Magnitude")); lut = GetColorTransferFunction("Velocity_Magnitude"); lut.ApplyPreset("Turbo", True); lut.RescaleTransferFunction(0.0, VPEAK); bar(dq, v, f"Velocity magnitude (m/s) on Q = {qv:g} 1/s2", "{:.2f}")
+        dq = Show(q, v); ColorBy(dq, ("POINTS", "Velocity_Magnitude")); lut = GetColorTransferFunction("Velocity_Magnitude"); lut.ApplyPreset("Turbo", True); lut.RescaleTransferFunction(0.0, VPEAK if tg == "peak" else 0.15); bar(dq, v, f"Velocity magnitude (m/s) on Q = {qv:g} 1/s2", "{:.2f}")
         if SHOW_DEV: dd = Show(dev, v); dd.ColorArrayName = ["POINTS", ""]; dd.DiffuseColor = [0.85, 0.60, 0.15]
-        cam(v, eye_front, B, UP, 0.062); shot(v, "pv_qcriterion_peak.png" if k == 0 else f"pv_qcriterion_peak_q{qv:g}.png"); Delete(v)
+        cam(v, eye_front, B, UP, 0.062); shot(v, f"pv_qcriterion_{tg}.png" if (k == 0 or tg == "late") else f"pv_qcriterion_peak_q{qv:g}.png"); Delete(v)
 
 if WHICH in ("wall", "all"):
     w = XMLPolyDataReader(FileName=[PVD + f"{RUN}_wall_metrics.vtp"])

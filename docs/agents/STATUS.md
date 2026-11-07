@@ -6,6 +6,24 @@ Last updated: 07/11/2026
 
 
 
+
+## 07/11/2026 (late): report restructured on the user's feedback
+- **U-Net restored** in Fig. 1 (extra credit): CT with the U-Net segmentation, its 3D model and the manual device (`pv_figures.py unet|manual`).
+- **Thrombus check** (Fig. 1d,e) is now the image-based version of `4_postprocessing/thrombus_check/` (`thrombus_report_figure.py`). The HU-ray panels are kept in `device_ct/` but no longer used in the report.
+  - Panel (d): long-axis CT in the thrombus window, with only the candidate regions (< 250 HU) outlined.
+  - Panel (e): density profiles against the blood and soft-tissue ranges.
+  - Honest finding: through the centre of the dark region beside the hub the density is about 70–100 HU (soft-tissue range) over about 2.5 mm. The text therefore relies on shape (a band beside and in line with the hub), alternation with < 0 HU and bright bands (streak), and thickness < 3 mm. Conclusion: no definite DRT; a small low-grade HAT at the hub cannot be fully excluded.
+- **Flow figure** (Fig. 2):
+  - full-atrium streamlines at the E-wave peak and in late diastole;
+  - Q-criterion at both (500 / 250 1/s²; `PV_Q_LATE`);
+  - device side views at valve closed / E peak / late diastole (`streamlines_side_late_t340` added).
+- **Fig. 3:** the early-project style time course (`near_device_timecourse.py`): mean speed and share of slow blood, whole LA vs ≤ 5 / ≤ 10 mm. Vorticity is evaluated with Q: 19 % rotation-dominated within 5 mm vs 33 % in the LA. This replaces the cluttered section plot.
+- **Text:** formal, no equations, image-based diagnosis with few numbers. Still 2 pages + references.
+- **Bibliography corrected from PubMed:**
+  - Zhong 2024: 5 first names;
+  - Vogl 2024: 8 first names;
+  - Morales → Sci Rep 2026;16:5426 (also Adelina Doltra, Ana García-Alvarez); Morales is cited again for the Q threshold.
+
 ## 07/11/2026 (evening): run8 with circular PV cylinders; report rewritten around the questions; run7 archived
 - **Why:** the course guide asks for **cylindrical** PV inlets; run7 had same-area ovals. The user also noted the 22.5 mm diameter limit.
 - **Mesh** `2_mesh/run8_07112026/` (README):
@@ -40,7 +58,6 @@ Last updated: 07/11/2026
 - **Archived** (git-ignored `archive/*_pre_run8/`): the run7 mesh, setup script, cases, results, post-processing, report figures and the run7 package copies.
 - **Still to do (user):**
   - check segmentation v2 in Slicer;
-  - remaining rubric-review fixes (bib author names, Morales no longer cited);
   - zip and upload `6_paraview_package/` (run8) and put the link in the PDF.
 
 ## 07/11/2026: run7 done, post-processed, report and package switched to run7; old results archived

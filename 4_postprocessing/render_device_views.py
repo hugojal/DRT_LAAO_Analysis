@@ -41,6 +41,7 @@ for g in (gl, lag): g.ScaleArray = ["POINTS", "No scale array"]; g.GlyphMode = "
 gl.ScaleFactor = 0.0018; gl.Stride = 4; lag.ScaleFactor = 0.0018; lag.Stride = 10
 shot("streamlines_side_systole_t290.png", [tube], 2.90, "side", vm, VEL, tube)
 shot("streamlines_side_filling_t306.png", [tube], 3.06, "side", vm, VEL, tube)
+shot("streamlines_side_late_t340.png", [tube], 3.40, "side", vm, VEL, tube)
 shot("streamlines_from_atrium_systole_t290.png", [tube], 2.90, "atrium", vm, VEL, tube)
 shot("longaxis_slice_systole_t290.png", [la, lag], 2.90, "side", ua, AX, la)
 shot("longaxis_slice_filling_t306.png", [la, lag], 3.06, "side", ua, AX, la)
