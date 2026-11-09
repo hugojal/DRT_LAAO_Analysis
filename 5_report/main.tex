@@ -30,86 +30,84 @@
 \newcommand{\pnl}[3]{\begin{minipage}[b]{#1}\centering\includegraphics[width=\linewidth]{#2}\\[-1pt]\small #3\end{minipage}}
 
 \title{\vspace{-1.2cm}\textbf{Device-Related Thrombus after LAA Occlusion in Case~3:\\ Image Assessment and Haemodynamic Risk}}
-\author{Hugo Jal\\[1pt]\small Modelling of Organs and Systems, Universitat Pompeu Fabra}
-\date{\small 07/11/2026\vspace{-0.45cm}}
+\author{Hugo Jal}
+\date{\vspace{-0.6cm}}
 
 \begin{document}
 
 \twocolumn[
 \maketitle
 \begin{abstract}
-\noindent \textbf{Is there a device-related thrombus (DRT)?} No definite DRT is identified. Contrast-filled blood reaches the atrial face of the occluder, and the only low-density region lies beside the metal hub, with the shape of a streak artefact and a thickness below the 3\,mm that defines a definite DRT. \textbf{Is the patient at risk of developing one?} Yes. A computational fluid dynamics (CFD) model of the left atrium (LA) shows that the blood next to the device is slower and less renewed than in the rest of the atrium, that the mixing vortices do not reach it, and that the surrounding wall has the lowest, most oscillating shear.
+\noindent After left atrial appendage occlusion (LAAO), a thrombus can form on the atrial side of the occluder. This report examines the CT of Case~3 for such a device-related thrombus (DRT), and uses a patient-specific computational fluid dynamics (CFD) model of the left atrium (LA) to assess whether the blood flow around the device favours its formation.
 \end{abstract}
 \vspace{2pt}
 {\begin{center}
-\pnl{0.17\textwidth}{ct_unet_enface.png}{(a)}\hfill
-\pnl{0.17\textwidth}{pv_unet_device.png}{(b)}\hfill
-\pnl{0.17\textwidth}{pv_manual_device.png}{(c)}\hfill\vrule\hfill
-\pnl{0.18\textwidth}{fig_thr_ct.pdf}{(d)}\hfill
-\pnl{0.26\textwidth}{fig_thr_profile.pdf}{(e)}
-\captionof{figure}{Device segmentation: (a) CT on the disc plane with the U-Net (nnInteractive) segmentation and (b) its 3D model; (c) manual segmentation, used in the analysis. Thrombus check: (d) CT along the device axis, thrombus window; red: the only regions below 250\,HU in front of the device; (e) density along the lines in (d), from the device face into the LA (dashed: through the red region).}
+\pnl{0.15\textwidth}{ct_unet_enface.png}{(a)}\hfill
+\pnl{0.15\textwidth}{pv_unet_device.png}{(b)}\hfill
+\pnl{0.15\textwidth}{pv_device_segmentation.png}{(c)}\hfill\vrule\hfill
+\pnl{0.46\textwidth}{fig_thr_views.pdf}{(d)}
+\captionof{figure}{Device segmentation: (a) CT on the plane of the device disc with the U-Net (nnInteractive) segmentation and (b) its 3D model; (c) segmentation used in the analysis (gamma-enhanced CT, manually corrected). (d) Thrombus check: CT around the device seen from the side and from the front (from the LA); red outlines: the only regions in front of the device that are darker than the blood. The grey scale shows how contrast-filled blood and a clot look in these images.}
 \label{fig:ct}
 \end{center}}
 \vspace{2pt}
 ]
 
 \section{Introduction}
-Left atrial appendage occlusion (LAAO) prevents stroke in atrial fibrillation by closing the appendage with a device. A device-related thrombus (DRT) on the atrial face of the occluder is uncommon but increases the risk of stroke \citep{Dukkipati2018}. On contrast CT it appears as a hypoattenuating thickening (HAT) of the device surface \citep{Korsholm2019}. Patient-specific CFD studies relate DRT to slow blood and to low, oscillating wall shear stress around the device \citep{Zhong2024,Vogl2024}. This report assesses Case~3 for an existing DRT and for the haemodynamic risk of developing one.
+LAAO prevents stroke in atrial fibrillation by closing the appendage with a device. A thrombus on the atrial face of the device is uncommon but increases the risk of stroke \citep{Dukkipati2018}. Patient-specific CFD studies relate it to slow blood and to low, oscillating wall shear stress around the device \citep{Zhong2024,Vogl2024}. Two questions are addressed for Case~3: is there a DRT on the CT, and is the patient at risk of developing one?
 
 \begin{figure*}[t]
 \centering
-\pnl{0.24\textwidth}{pv_streamlines_peak.png}{(a) E-wave peak}\hfill
-\pnl{0.24\textwidth}{pv_streamlines_late.png}{(b) late diastole}\hfill
-\pnl{0.24\textwidth}{pv_qcriterion_peak.png}{(c) E-wave peak}\hfill
-\pnl{0.24\textwidth}{pv_qcriterion_late.png}{(d) late diastole}\\[3pt]
-\pnl{0.19\textwidth}{streamlines_side_systole_t290.png}{(e) valve closed}\hspace{0.06\textwidth}
-\pnl{0.19\textwidth}{streamlines_side_filling_t306.png}{(f) E-wave peak}\hspace{0.06\textwidth}
-\pnl{0.19\textwidth}{streamlines_side_late_t340.png}{(g) late diastole}
-\caption{Flow in the last beat. (a, b) Streamlines from the pulmonary veins; (c, d) vortex structures (Q-criterion, $Q=500$ and $250$\,s$^{-2}$ \citep{Morales2026}); (e--g) region in front of the device (not drawn, on the right), streamlines started 5\,mm in front of it.}
+\pnl{0.19\textwidth}{pv_streamlines_peak.png}{(a) E-wave peak}\hfill
+\pnl{0.19\textwidth}{pv_streamlines_late.png}{(b) late diastole}\hfill\vrule\hfill
+\pnl{0.19\textwidth}{streamlines_side_systole_t290.png}{(c) valve closed}\hfill
+\pnl{0.19\textwidth}{streamlines_side_filling_t306.png}{(d) E-wave peak}\hfill
+\pnl{0.19\textwidth}{streamlines_side_late_t340.png}{(e) late diastole}
+\caption{Flow in the last beat. (a, b) Whole atrium: streamlines from the pulmonary veins. (c--e) Region in front of the device (device not drawn, on the right): streamlines started 5\,mm in front of it.}
 \label{fig:flow}
 \end{figure*}
 
 \section{Methods}
 \subsection{Segmentation and mesh}
-The contrast CT (diastolic phase) was segmented in 3D Slicer: the LA by manual thresholding of the contrast-filled blood, refined by painting and erasing within the threshold range, with the four pulmonary veins (PVs) up to their first branch and the device excluded. The Amulet-type device was segmented manually (Fig.~\ref{fig:ct}c) and with a pretrained promptable 3D U-Net (nnInteractive \citep{Isensee2025}), prompted on the wires and the surrounding blood; its output was intersected with the local wire contrast of the CT and corrected in 3D Slicer. The U-Net recovers the rim and the hub, but the struts merge into thick bands (Fig.~\ref{fig:ct}a,b). On the LA surface each PV was cut perpendicular to its trunk and extended by a 10\,mm cylinder of the same area (diameters 9--18\,mm); the mitral valve (MV) was cut on the annulus plane, aligned with the $z$ axis and narrowed to a 5.3\,cm$^2$ orifice. The volume was meshed with 272\,000 tetrahedra (Gmsh).
+The contrast CT was segmented in 3D Slicer: the LA by manual thresholding of the contrast-filled blood, refined by painting and erasing, with the four pulmonary veins (PVs) up to their first branch and the device left out. The Amulet-type device was segmented in two ways (Fig.~\ref{fig:ct}a--c): with a pretrained promptable 3D U-Net (nnInteractive \citep{Isensee2025}), whose output was intersected with the bright wires of the CT and corrected in 3D Slicer, and from a gamma-enhanced CT that makes the thin wires stand out, corrected by hand. The U-Net finds the rim and the hubs, but merges the wires into thick bands; the second segmentation is used in the analysis. Each PV was cut perpendicular to its trunk and extended by a 10\,mm cylinder, and the mitral valve (MV) was cut on its annulus, aligned with the $z$ axis and narrowed to a 5.3\,cm$^2$ orifice. The volume was meshed with 272\,000 tetrahedra (Gmsh).
 
-\subsection{Thrombus assessment}
-The CT was read in a thrombus window ($-100$ to 700\,HU), in planes along and parallel to the device axis. Regions below 250\,HU inside the LA, within 10\,mm of the device face, were marked as candidates, and density profiles were taken from the face into the atrium. A DRT was defined as a non-enhancing layer of soft-tissue density on the atrial face; a layer thicker than 3\,mm is a definite DRT \citep{Agudelo2021,Korsholm2019}.
+\subsection{Looking for a thrombus}
+In a contrast CT the blood is bright, while a clot does not take up contrast and looks darker. A thrombus on the device therefore appears as a dark layer or lump attached to its atrial side; a thickness above 3\,mm, a stalk or an irregular surface point to a thrombus, whereas a thin, smooth layer is usually healing tissue covering the device \citep{Korsholm2024}. The CT was inspected around the device, the regions darker than the blood in front of it were outlined (Fig.~\ref{fig:ct}d), and they were judged by their shape, size and brightness.
 
 \subsection{Flow simulation and analysis}
-Transient laminar flow of Newtonian blood ($\rho=1060$\,kg/m$^3$, $\mu=3.5$\,mPa\,s) was solved in Ansys Fluent, with the course pressure curve at the PVs and the course velocity curve at the MV (80\,mL per beat, a normal output \citep{KawelBoehm2020}) together with the longitudinal motion of the valve (dynamic mesh). Four beats were simulated ($\Delta t=0.01$\,s); all time steps met the residual criteria and the last beat, analysed, repeated the previous one. Streamlines and the Q-criterion, which separates swirl from wall shear, were examined in three phases (valve closed, E-wave peak, late diastole), and the mean speed and share of slow blood ($|v|<5$\,cm/s) were tracked within 5 and 10\,mm of the device and in the whole LA. On the wall, the endothelial cell activation potential (ECAP, the oscillatory shear index divided by the time-averaged wall shear stress, TAWSS) marks regions of low and oscillating shear \citep{Vogl2024}.
+Transient laminar flow of blood ($\rho=1060$\,kg/m$^3$, $\mu=3.5$\,mPa\,s) was solved in Ansys Fluent, with the course pressure curve at the PVs and the course velocity curve at the MV (80\,mL per beat, a normal output \citep{KawelBoehm2020}), plus the motion of the valve along its axis (dynamic mesh). Four beats were simulated ($\Delta t=0.01$\,s); every time step converged and the last beat, analysed, repeated the previous one. The flow was examined in three phases of the beat (valve closed, peak of the E wave, late diastole). Near the device, the mean blood speed was compared with the whole atrium, and vortices were identified with the Q-criterion \citep{Morales2026}. On the wall, the endothelial cell activation potential (ECAP) marks where the shear stress is both low and changing direction \citep{Vogl2024}.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.95\columnwidth]{fig_timecourse.pdf}
-\caption{Blood near the device over the beat vs the whole LA. Vertical lines: phases of Fig.~\ref{fig:flow} (valve closed, E-wave peak, late diastole).}
+\includegraphics[width=\columnwidth]{fig_timecourse.pdf}
+\caption{Mean blood speed over the beat near the device and in the whole LA. Vertical lines: the three phases of Fig.~\ref{fig:flow} (valve closed, E-wave peak, late diastole).}
 \label{fig:time}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\pnl{0.33\columnwidth}{pv_wall_ecap_dev.png}{(a)}\hfill
-\pnl{0.64\columnwidth}{fig_bands.pdf}{(b)}
-\caption{(a) ECAP, device side (lines: 10 and 20\,mm from the device). (b) Wall metrics by distance from the device.}
+\pnl{0.62\columnwidth}{pv_wall_ecap_dev.png}{(a)}\\[3pt]
+\pnl{\columnwidth}{fig_bands.pdf}{(b)}
+\caption{(a) ECAP over the last beat, seen from the device side; black lines: 10 and 20\,mm from the device. (b) Time-averaged wall shear stress (TAWSS), oscillatory shear index (OSI) and ECAP grouped by distance from the device (red: closest to the device).}
 \label{fig:wall}
 \end{figure}
 
 \section{Results}
 \subsection{Is there a thrombus?}
-In the CT, contrast-filled blood reaches the atrial face of the device over its whole height, without an interposed layer of soft-tissue density (Fig.~\ref{fig:ct}d). Below the hub, the density profiles pass directly from the device into blood density (Fig.~\ref{fig:ct}e). The only candidate region is a thin dark band beside the metal hub, on both sides of it and in line with it. Its density is not uniform: soft-tissue values alternate with values below 0\,HU, which a clot cannot have, and with bright bands, the typical pattern of a metal streak artefact; it is also thinner than 3\,mm. No definite DRT is therefore present; a small low-grade HAT hidden by the artefact at the hub cannot be fully excluded on this single phase. Contrast is also visible in the appendage behind the device, which suggests incomplete sealing \citep{Agudelo2021}.
+Bright, contrast-filled blood reaches the atrial side of the device over its whole surface (Fig.~\ref{fig:ct}d). The only darker regions lie right next to the metal hub and do not have the appearance of a thrombus: in the front view they form a straight band that crosses the hub on both sides, the typical streak produced by metal; they are thin (below 3\,mm) and flat, with no lump or stalk; and parts of them are darker than any clot, next to bright streaks. No DRT is therefore identified, although a very small one hidden by the streak at the hub cannot be fully excluded on this single CT. Contrast is also visible in the appendage behind the device, which suggests that the appendage is not completely sealed \citep{Korsholm2024}.
 
 \subsection{Flow near the device}
-At the E-wave peak, the flow from the four PVs converges into a jet towards the MV, with vortex rings at the vein inlets (Fig.~\ref{fig:flow}a,c). In late diastole the flow slows down and a large vortex occupies the atrial body (Fig.~\ref{fig:flow}b,d). The region in front of the device follows a different pattern. At the E-wave peak the main stream passes beside it without entering (Fig.~\ref{fig:flow}f); with the valve closed and in late diastole the blood there is slow and turns on itself (Fig.~\ref{fig:flow}e,g).
+At the E-wave peak the flow from the four PVs joins into a jet towards the MV, with vortex rings at the vein inlets (Fig.~\ref{fig:flow}a); in late diastole the flow slows down and one large vortex fills the atrial body (Fig.~\ref{fig:flow}b). The region in front of the device behaves differently. At the E-wave peak the main stream passes beside it without entering (Fig.~\ref{fig:flow}d), while with the valve closed and in late diastole the blood there is slow and turns on itself (Fig.~\ref{fig:flow}c,e).
 
-The time course confirms this (Fig.~\ref{fig:time}): within 5\,mm of the device the mean speed is about one third lower than in the whole LA, most clearly during filling, and the share of slow blood is higher at all times, up to two thirds while the valve is closed. The vorticity near the device is high, but mostly as shear along the wall: the share of rotation-dominated blood ($Q>0$) is 19\,\% within 5\,mm against 33\,\% in the whole LA, and the vortex structures stay in the atrial body (Fig.~\ref{fig:flow}c,d).
+The mean speed confirms this (Fig.~\ref{fig:time}): the blood within 5\,mm of the device is slower than the rest of the atrium during the whole beat, by about one third on average, and it gains much less speed during filling. The vortices detected by the Q-criterion stay in the atrial body: only 18\,\% of the blood within 5\,mm of the device rotates, against 33\,\% in the whole atrium. The blood next to the device is therefore slow and poorly mixed.
 
 \subsection{Wall shear stress}
-High ECAP appears at the entrance of the occluded appendage, inside the 10\,mm line, and in small patches on the roof and the lower wall (Fig.~\ref{fig:wall}a). Grouped by distance (Fig.~\ref{fig:wall}b), the wall within 5\,mm of the device has the lowest TAWSS and the highest OSI of the atrium, and a median ECAP about 1.7 times that of the remaining wall.
+High ECAP appears at the entrance of the occluded appendage, inside the 10\,mm line, and in small patches on the roof and the lower wall (Fig.~\ref{fig:wall}a). Grouped by distance (Fig.~\ref{fig:wall}b), the wall within 5\,mm of the device has the lowest TAWSS and the highest OSI, and a median ECAP about 1.7 times that of the remaining wall.
 
-\section{Discussion and conclusion}
-The device region combines slow, poorly renewed blood, few vortices and low, oscillating wall shear, the conditions associated with DRT in patient-specific studies \citep{Zhong2024,Vogl2024}. As the boundary conditions are generic and the device is not a solid in the flow domain, regions of the same atrium are compared rather than fixed thresholds.
+\section{Discussion}
+The CT does not show a thrombus, but the flow around the device has the features that patient-specific studies link to one. Zhong et al.\ found that positions leaving more stagnant blood and higher ECAP around the device increase the expected risk \citep{Zhong2024}, and Vogl et al.\ found lower TAWSS and higher OSI and ECAP in patients who developed a DRT, with the thrombi where these maps predicted \citep{Vogl2024}. In Case~3 the device region combines the three: slow, poorly renewed blood, few vortices to wash it, and low, oscillating shear on the surrounding wall. The model has limitations. The inflow and outflow curves are generic, not measured in this patient, so absolute values are uncertain and regions of the same atrium were compared instead of fixed thresholds. The device is not a solid object in the flow, the atrial wall does not contract, and the possible leak into the appendage seen on the CT is not modelled.
 
-\textbf{Conclusion.} No definite device-related thrombus is present on this CT, but \textbf{the patient is at risk of developing one}: the blood in front of the device is the slowest and least renewed of the atrium. Follow-up imaging is advisable.
+\section{Conclusion}
+No device-related thrombus is visible on the CT of Case~3. However, the blood in front of the device is the slowest and least renewed of the atrium, and the surrounding wall has the lowest and most oscillating shear, so the patient is at risk of developing one. Follow-up imaging of the device is advisable.
 
 \clearpage
 \onecolumn

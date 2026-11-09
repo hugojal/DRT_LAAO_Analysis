@@ -24,7 +24,7 @@ All three are on the CT grid (`.seg.nrrd`, opens in 3D Slicer). Each has an `.st
 - The manual mask is a solid plug: it fills the space between the disc and the lobe.
 - The gamma segmentation is the closest to "wireframe only".
 
-For the hand-in, use the gamma STL (or the U-Net STL), not the manual mask. See `docs/agents/reviews/rubric_review_06112026.md`.
+For the hand-in, use the **manually edited gamma STL** (`gamma/Device_gamma_wire_v4_edited_09112026.stl`, 09/11/2026), or the U-Net STL, not the manual mask. The edited gamma segmentation is also the device used in the analysis since 09/11/2026 (the manual mask before). See `docs/agents/reviews/rubric_review_06112026.md`.
 
 ## Files
 ```

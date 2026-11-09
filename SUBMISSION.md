@@ -9,7 +9,7 @@
 | 2b | Volume mesh (.bdf) | `2_mesh/run8_07112026/HugoJal_Case3_run8_07112026.bdf` | 271 908 tetrahedra, max skewness 0.91, 6 zones at 30°; PV inlets are circular cylinders (9–18 mm). |
 | 3 | Simulation files for ParaView | the folder `6_paraview_package/`, as one zip | Contents: last beat of run8, final Fluent case/data, wall metrics, surfaces, flows, **convergence data** (`convergence/`), and the `open_in_paraview.py` script. About 1.2 GB, too large for git and most upload forms: **upload the zip (OneDrive/Drive, "anyone with the link"), test the link in a private window, write the link in the PDF.** Rebuild with `python 4_postprocessing/make_paraview_package.py run8`. |
 | 4 | DRT report (PDF, ≤ 2 pages + references) | `5_report/main.pdf` | Run8 results (figures in `5_report/figures_run8/`). Explicit answers: no DRT on the CT (HU argument, Fig. 1), patient at risk (Figs. 2–4). |
-| 5 | Device segmentation (.stl, extra point) | `1_segmentation/device/gamma/Device_gamma_wire_v4_06112026.stl` | Wire-frame only (Amulet-type). The alternative is `device/unet/Device_unet_wire.stl`. **Not** `device/manual/` (a solid plug). |
+| 5 | Device segmentation (.stl, extra point) | `1_segmentation/device/gamma/Device_gamma_wire_v4_edited_09112026.stl` | Gamma wireframe corrected by hand in Slicer on 09/11/2026 (Amulet-type); also the device used in the analysis. The alternative is `device/unet/Device_unet_wire.stl`. **Not** `device/manual/` (a solid plug). |
 
 ## Checklist before handing in
 - [ ] Check segmentation v2 in Slicer (inferior veins, device region).

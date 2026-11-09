@@ -10,7 +10,7 @@ import numpy as np, pyvista as pv, vtk
 from scipy.spatial import cKDTree
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUN = sys.argv[1] if len(sys.argv) > 1 else "run8"; RES = os.path.join(ROOT, "3_simulation", "results", f"{RUN}_4cycles")
-dev = pv.read(os.path.join(ROOT, "4_postprocessing", "paraview", "device_manual_model_m.stl")); tree = cKDTree(np.asarray(dev.points))
+dev = pv.read(os.path.join(ROOT, "4_postprocessing", "paraview", "device_analysis_model_m.stl")); tree = cKDTree(np.asarray(dev.points))
 rows = []
 for k in range(263, 351):
     r = vtk.vtkEnSightGoldBinaryReader(); r.SetCaseFileName(os.path.join(RES, f"step_{k:03d}.encas")); r.Update()

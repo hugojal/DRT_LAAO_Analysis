@@ -1,4 +1,6 @@
-# Device wireframe from a gamma-transformed CT (v4, 06/11/2026)
+# Device wireframe from a gamma-transformed CT (v4, 06/11/2026; manually edited 09/11/2026)
+
+**09/11/2026:** the user corrected `Device_gamma_wire_v4_06112026.seg.nrrd` by hand in 3D Slicer (38 664 voxels, 3.83 mL; before: 19 518 voxels). The STL of the edited segmentation is `Device_gamma_wire_v4_edited_09112026.stl` (`make_stl_edited.py`, same method as the other STLs). This is the device to hand in and the device used for every analysis since 09/11/2026: the distances to the device, the near-device zones and the thrombus check. The unedited STL `Device_gamma_wire_v4_06112026.stl` is kept for reference. The description below is the original v4.
 
 `Device_gamma_wire_v4_06112026.seg.nrrd` (3D Slicer, CT grid) and `.stl` (LPS mm, the same frame as `2_mesh/HugoJal_Case3.stl`).
 

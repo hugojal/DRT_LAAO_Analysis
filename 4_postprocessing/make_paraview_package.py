@@ -32,7 +32,7 @@ for f in os.listdir(cases):
 srf = os.path.join(PKG, "surfaces"); os.makedirs(srf, exist_ok=True)
 PV = os.path.join(ROOT, "4_postprocessing", "paraview")
 for src, dst in ((f"{RUN}_wall_metrics.vtp", "wall_metrics_last_beat.vtp"), ("la_surface_model_m.stl", "la_surface.stl"),
-                 ("device_gamma_wire_model_m.stl", "device_wire_frame.stl"), ("device_manual_model_m.stl", "device_manual_mask.stl"),
+                 ("device_gamma_wire_model_m.stl", "device_wire_frame.stl"), ("device_manual_model_m.stl", "device_manual_mask.stl"), ("device_analysis_model_m.stl", "device_segmentation.stl"),
                  ("device_unet_wire_model_m.stl", "device_unet.stl")):
     shutil.copy2(os.path.join(PV, src), os.path.join(srf, dst))
 shutil.copy2(os.path.join(RES, "flows.csv"), PKG)

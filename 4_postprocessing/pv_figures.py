@@ -58,7 +58,7 @@ def cam(v, pos, focal, up=(0, 0, 1), scale=None):
 def shot(v, name): Render(v); SaveScreenshot(OUT + name, v, ImageResolution=v.ViewSize, TransparentBackground=0); print("saved", name)
 def blocks(r, names): return MergeBlocks(Input=ExtractBlock(Input=r, Selectors=["/Root/" + n for n in names]))
 
-dev = STLReader(FileNames=[PVD + "device_manual_model_m.stl"])          # the segmented device (manual mask, now 1_segmentation/device/manual/Device_manual.seg.nrrd)
+dev = STLReader(FileNames=[PVD + "device_analysis_model_m.stl"])   # gamma + manual edits (09/11/2026)          # the segmented device (manual mask, now 1_segmentation/device/manual/Device_manual.seg.nrrd)
 la = STLReader(FileNames=[PVD + "la_surface_model_m.stl"])
 eye_dev = [C[i] + 0.13 * N[i] - 0.02 * PN[i] for i in range(3)]                          # outside the LA, looking at the device side
 eye_front = [B[i] + 0.20 * PN[i] for i in range(3)]
@@ -79,10 +79,10 @@ if WHICH == "unet" and TRF:                                     # 3D model of th
     cam(v, [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [C[i] - 0.004 * N[i] for i in range(3)], UP, 0.021); shot(v, "pv_unet_device.png"); Delete(v)
 
 if WHICH == "manual" and TRF:                                   # 3D model of the manual device segmentation (solid mask), same view as the U-Net one
-    mn = STLReader(FileNames=[PVD + "device_manual_model_m.stl"])
+    mn = STLReader(FileNames=[PVD + "device_analysis_model_m.stl"])   # since 09/11/2026: gamma wireframe + manual edits
     sm = Smooth(Input=mn); sm.NumberofIterations = 40; mn = SurfaceNormals(Input=sm)
     v = view(800, 800); dm = Show(mn, v); dm.ColorArrayName = ["POINTS", ""]; dm.DiffuseColor = [0.20, 0.65, 0.75]; dm.Specular = 0.4
-    cam(v, [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [C[i] - 0.004 * N[i] for i in range(3)], UP, 0.021); shot(v, "pv_manual_device.png"); Delete(v)
+    cam(v, [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [C[i] - 0.004 * N[i] for i in range(3)], UP, 0.021); shot(v, "pv_device_segmentation.png"); Delete(v)
 
 if WHICH in ("flow", "vortex", "all"):
     r = EnSightReader(CaseFileName=ROOT + f"/3_simulation/results/{RESULTS}/all_steps.encas")

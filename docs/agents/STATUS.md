@@ -7,6 +7,26 @@ Last updated: 07/11/2026
 
 
 
+
+## 09/11/2026: edited device segmentation used for the analysis; report simplified on the user's feedback
+- **Device:** the user corrected `1_segmentation/device/gamma/Device_gamma_wire_v4_06112026.seg.nrrd` by hand in Slicer (19 518 → 38 664 voxels).
+  - New STL `Device_gamma_wire_v4_edited_09112026.stl` (`make_stl_edited.py`); the old STL is kept.
+  - It is now the device to hand in (SUBMISSION item 5).
+  - It is now the device in every analysis: `analyze_cycle.py` distances, `device_analysis_model_m.stl` (device_sections, near_device_timecourse, pv_figures), the thrombus figure, `device_ct_hu.py`.
+  - Mesh and run8 are unchanged (the device is not in the flow domain).
+- **Results with the edited device** (hardly changed):
+  - within 5 mm: mean speed 0.081 vs 0.122 m/s (whole LA); Q > 0 18 % vs 33 %;
+  - wall within 5 mm: TAWSS 0.50 vs 0.72 Pa, OSI 0.22 vs 0.19, ECAP 1.7×.
+- **Report:**
+  - title and author only; the abstract introduces the topic without answering it; no bold answers; Discussion and Conclusion are separate.
+  - Fig. 1:
+    - (a–c) U-Net CT + 3D and the edited device;
+    - (d) thrombus check = CT side and front views with the candidate regions in red and a grey scale (blood, clot); the profile plot was dropped (`thrombus_report_figure.py` → `fig_thr_views.pdf`).
+  - Fig. 2: one row (full-atrium streamlines at the E peak and in late diastole + three device side views). The Q-criterion is only in the text.
+  - Fig. 3: mean speed only (the 5 cm/s threshold had no reference).
+  - Fig. 4: larger.
+  - Sections 2.2 and 3.1 are in plain language (shape, size, brightness), with one source: Korsholm 2024 JACC Cardiovasc Interv position statement (PMID 39142755), replacing Korsholm 2019 and Agudelo 2021.
+
 ## 07/11/2026 (late): report restructured on the user's feedback
 - **U-Net restored** in Fig. 1 (extra credit): CT with the U-Net segmentation, its 3D model and the manual device (`pv_figures.py unet|manual`).
 - **Thrombus check** (Fig. 1d,e) is now the image-based version of `4_postprocessing/thrombus_check/` (`thrombus_report_figure.py`). The HU-ray panels are kept in `device_ct/` but no longer used in the report.

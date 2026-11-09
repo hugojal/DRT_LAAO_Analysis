@@ -26,7 +26,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); S = os.path.
 OUT = os.path.join(ROOT, "4_postprocessing", "device_ct")                    # independent of the simulation run; os.makedirs(OUT, exist_ok=True)
 ct, h = nrrd.read(os.path.join(S, "5 DS_Coronaires  0.75  B26f  BestDiast 78 %.nrrd")); ct = ct.astype(np.float32)
 la, _ = nrrd.read(os.path.join(S, "la_v2_06112026", "Case3_LA_segmentation_HugoJal_06112026.seg.nrrd")); la = la > 0
-dv, _ = nrrd.read(os.path.join(S, "device", "manual", "Device_manual.seg.nrrd")); dv = (dv[-3:] if dv.ndim == 4 else dv) > 0
+dv, _ = nrrd.read(os.path.join(S, "device", "gamma", "Device_gamma_wire_v4_06112026.seg.nrrd"))   # gamma + manual edits (09/11/2026); dv = (dv[-3:] if dv.ndim == 4 else dv) > 0
 SP = np.diag(h["space directions"]).astype(float)
 C = np.array([114.181, 156.072, 98.509]); N = np.array([0.57050955, -0.45992626, 0.68043125]); N /= np.linalg.norm(N)   # device disc centre/normal (index*spacing mm), N into the appendage, as in ct_wire_figure.py
 

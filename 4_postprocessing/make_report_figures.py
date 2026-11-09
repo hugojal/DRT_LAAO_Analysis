@@ -73,25 +73,23 @@ if EXTRA:
         axs[0].legend(title="distance from the device", loc="lower center", bbox_to_anchor=(0.5, 1.12), ncol=3, frameon=False, title_fontsize=7.5, handlelength=1.6)
         save(fig, "fig_sections.pdf")
 
-# (e) time course near the device vs the whole atrium (near_device_timecourse.py): mean speed and share of slow blood
+# (e) time course near the device vs the whole atrium (near_device_timecourse.py): mean blood speed only (09/11/2026: the
+#     share-of-slow-blood panel was dropped, its 5 cm/s threshold has no reference)
 TC = os.path.join(ROOT, "4_postprocessing", RUN, "near_device_timecourse.csv")
 if os.path.exists(TC):
     r_ = list(csv.DictReader(open(TC))); A_ = {k: np.array([float(x[k]) for x in r_]) for k in r_[0]}; t_ = A_["t_in_beat"]
-    fig, axs = plt.subplots(2, 1, figsize=(3.3, 2.0), sharex=True, gridspec_kw=dict(hspace=0.32))
+    fig, ax = plt.subplots(figsize=(3.3, 1.55))
     for lab, c, nm in (("all", "k", "whole atrium"), ("10mm", "tab:orange", "within 10 mm"), ("5mm", "tab:red", "within 5 mm of the device")):
-        axs[0].plot(t_, 100 * A_["vmean_" + lab], color=c, lw=1.0, label=nm); axs[1].plot(t_, 100 * A_["stag0.05_" + lab], color=c, lw=1.0)
-    axs[0].set_ylabel("cm/s", labelpad=2); axs[1].set_ylabel(r"\%", labelpad=2); axs[1].set_ylim(0, 70)
-    axs[0].set_title(r"(a) mean blood speed", loc="left", fontsize=7.5, pad=2); axs[1].set_title(r"(b) slow blood, $|v|<5$ cm/s", loc="left", fontsize=7.5, pad=2)
-    axs[1].set_xlabel("time in the heartbeat (s)"); axs[1].set_xlim(0, 0.875)
-    for a_ in axs:
-        for tt, ls in ((2.90, "--"), (3.06, ":"), (3.40, "-.")): a_.axvline(tt - 2.625, color="0.55", ls=ls, lw=0.6)
-    axs[0].legend(loc="lower center", bbox_to_anchor=(0.5, 1.1), ncol=3, frameon=False, handlelength=1.4, columnspacing=0.8, fontsize=7)
+        ax.plot(t_, 100 * A_["vmean_" + lab], color=c, lw=1.1, label=nm)
+    ax.set_ylabel("mean blood speed (cm/s)", labelpad=2); ax.set_xlabel("time in the heartbeat (s)"); ax.set_xlim(0, 0.875); ax.set_ylim(0, None)
+    for tt, ls in ((2.90, "--"), (3.06, ":"), (3.40, "-.")): ax.axvline(tt - 2.625, color="0.55", ls=ls, lw=0.6)
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=3, frameon=False, handlelength=1.4, columnspacing=0.8, fontsize=7)
     save(fig, "fig_timecourse.pdf")
 
 # ParaView images copied into the report folder: trim the white margins (keeps the colour bar)
 from PIL import Image, ImageChops
 for f in sorted(os.listdir(OUT)):
-    if f.endswith(".png") and (f.startswith(("streamlines_", "longaxis_", "section_", "pv_wall_", "pv_anatomy", "pv_streamlines_", "pv_qcriterion_", "pv_unet_", "pv_manual_"))):
+    if f.endswith(".png") and (f.startswith(("streamlines_", "longaxis_", "section_", "pv_wall_", "pv_anatomy", "pv_streamlines_", "pv_qcriterion_", "pv_unet_", "pv_manual_", "pv_device_"))):
         im = Image.open(os.path.join(OUT, f)).convert("RGB"); bb = ImageChops.difference(im, Image.new("RGB", im.size, (255, 255, 255))).getbbox()
         if bb and bb != (0, 0) + im.size:
             pad = 6; im.crop((max(bb[0] - pad, 0), max(bb[1] - pad, 0), min(bb[2] + pad, im.width), min(bb[3] + pad, im.height))).save(os.path.join(OUT, f)); print("trimmed", f)

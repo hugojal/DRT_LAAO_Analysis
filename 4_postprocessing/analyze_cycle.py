@@ -9,7 +9,7 @@ RES, OUT = sys.argv[1], sys.argv[2]
 FIRST, NC, NCYC = int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/"); DT = 0.01   # ROOT = project folder (DRT_LAAO_Case3)
 THR = [0.01, 0.025, 0.05]; ROIS = [10.0, 20.0]
-d, h = nrrd.read(ROOT + "/1_segmentation/device/manual/Device_manual.seg.nrrd")
+d, h = nrrd.read(ROOT + "/1_segmentation/device/gamma/Device_gamma_wire_v4_06112026.seg.nrrd")   # device used for the distances: gamma wireframe with the user's manual edits (09/11/2026; was the manual mask)
 dev = np.array(h["space origin"], float) + np.argwhere(d > 0)[:, -3:] @ np.array(h["space directions"], float)   # mm, same LPS frame as the mesh
 if os.environ.get("MODEL_TRANSFORM"):                        # rotated mesh (2_mesh/mv_aligned_03112026): device LPS -> model frame
     import json; TR = json.load(open(os.environ["MODEL_TRANSFORM"])); dev = (dev - np.array(TR["c_LPS_mm"])) @ np.array(TR["R"]).T

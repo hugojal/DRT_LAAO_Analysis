@@ -25,7 +25,7 @@ TR = json.load(open(os.path.join(ROOT, "2_mesh", "run8_07112026", "transform_LPS
 nl = (N / SP) @ D; nl /= np.linalg.norm(nl)
 CM = R @ (O + (C / SP) @ D - c) / 1000.0; NM = R @ nl
 json.dump(dict(centre_m=CM.tolist(), normal_into_appendage=NM.tolist(), planes_mm=list(DS), column_radius_mm=RCOL * 1000), open(os.path.join(OUT, "axis.json"), "w"), indent=1)
-dev = pv.read(os.path.join(ROOT, "4_postprocessing", "paraview", "device_manual_model_m.stl")); dtree = cKDTree(np.asarray(dev.points))
+dev = pv.read(os.path.join(ROOT, "4_postprocessing", "paraview", "device_analysis_model_m.stl")); dtree = cKDTree(np.asarray(dev.points))
 
 def load(k):
     r = vtk.vtkEnSightGoldBinaryReader(); r.SetCaseFileName(os.path.join(RES, f"step_{k:03d}.encas")); r.Update()
