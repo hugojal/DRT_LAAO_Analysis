@@ -1,6 +1,6 @@
 """Report panels of the thrombus check (07/11/2026), same method as thrombus_check.py (03/11/2026):
   fig_thr_views.pdf    (report, since 09/11/2026) CT side view along the device axis and front view parallel to the device face,
-                       candidate regions in red, and a grey scale marking contrast blood and soft tissue (clot, approx. 40-150 HU).
+                       candidate regions circled in red (a circle round each region, not its pixel outline; 16/11/2026), and a grey scale marking contrast blood and soft tissue (clot, approx. 40-150 HU).
   (until 07/11/2026:) fig_thr_ct.pdf  CT on the long-axis plane through the largest low-density region in front of the device, thrombus
                        window [-100, 700] HU with gamma 1.5 (soft tissue dark, contrast blood bright). Only the regions that could
                        be thrombus are outlined (red: < 250 HU, inside the LA cavity, 0-10 mm in front of the device face, >= 2 mm3);
@@ -51,7 +51,13 @@ fig = plt.figure(figsize=(3.9, 1.75)); gs = fig.add_gridspec(1, 3, width_ratios=
 for k, (Pk, ttl) in enumerate(((P1, "side view"), (P2, "front view"))):
     a = fig.add_subplot(gs[0, k]); xs = t + 3 if k == 0 else t
     a.imshow(gw(samp(ct, Pk)).T, cmap="gray", origin="lower", extent=[xs[0], xs[-1], t[0], t[-1]], vmin=0, vmax=1)
-    a.contour(xs, t, samp(full, Pk, 0).T, [0.5], colors="red", linewidths=0.9)
+    M = samp(full, Pk, 0) > 0.5                                         # candidate regions cut by this plane, indexed [axis 0 = x, axis 1 = y]
+    lb, nb = ndi.label(ndi.binary_dilation(M, np.ones((11, 11))))        # fragments closer than ~1 mm count as one region
+    for j in range(1, nb + 1):
+        q = np.argwhere(M & (lb == j))
+        if len(q) < 40: continue                                        # < ~0.4 mm2 in the plane: not drawn
+        cx, cy = xs[0] + 0.1 * q[:, 0].mean(), t[0] + 0.1 * q[:, 1].mean(); r_ = max(1.3, np.sqrt(len(q) * 0.01 / np.pi) + 0.7)      # circle of the same area as the region, plus a margin (mm)
+        a.add_patch(plt.Circle((cx, cy), r_, fill=False, ec="red", lw=0.9))     # a simple circle round the region instead of its pixel outline
     if k == 0:
         a.text(-14.5, 16, "LA", color="w", fontsize=7.5, va="top"); a.text(4, 16, "device", color="w", fontsize=7.5, va="top"); a.set_xlim(-16, 21)
     else:
@@ -63,7 +69,7 @@ for k, (Pk, ttl) in enumerate(((P1, "side view"), (P2, "front view"))):
 cb_ax = fig.add_subplot(gs[0, 2]); hu = np.linspace(-100, 700, 200)
 cb_ax.imshow(gw(hu)[:, None], cmap="gray", origin="lower", extent=[0, 1, -100, 700], aspect="auto", vmin=0, vmax=1)
 cb_ax.set_xticks([]); cb_ax.yaxis.tick_right(); cb_ax.set_yticks([0, 200, 400, 600]); cb_ax.tick_params(labelsize=6.5, length=2, pad=1)
-for (lo_, hi_, lab_) in ((blood[0], 520, "blood"), (40, 150, "clot")):
+for (lo_, hi_, lab_) in ((blood[0], 520, "blood"), (40, 150, "thrombus")):
     cb_ax.annotate("", xy=(-0.7, lo_), xytext=(-0.7, hi_), xycoords=("axes fraction", "data"), arrowprops=dict(arrowstyle="-", color="k", lw=0.8))
     cb_ax.text(-1.25, 0.5 * (lo_ + hi_), lab_, rotation=90, fontsize=6.5, ha="center", va="center", transform=cb_ax.get_yaxis_transform())
 cb_ax.set_title("HU", fontsize=6.5, pad=2)

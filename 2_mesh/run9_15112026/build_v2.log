@@ -1,0 +1,15 @@
+spur + global smoothing done
+RSPV T_far 7.0 mm, far outline area 246 mm2 (cap 247), ring pts 64, bad edges 0
+LSPV T_far 14.0 mm, far outline area 181 mm2 (cap 144), ring pts 57, bad edges 0
+RIPV T_far 14.5 mm, far outline area 80 mm2 (cap 63), ring pts 37, bad edges 0
+LIPV T_far 16.0 mm, far outline area 157 mm2 (cap 134), ring pts 51, bad edges 0
+seam softened
+collapse pass 0 34
+collapse pass 1 14
+collapse pass 2 6
+collapse pass 3 2
+flip pass 0 868
+flip pass 1 1
+flip pass 2 1
+flip pass 3 0
+triangles 44166 volume mL 156.512

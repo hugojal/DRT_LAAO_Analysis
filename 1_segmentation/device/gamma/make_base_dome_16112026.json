@@ -1,0 +1,40 @@
+{
+ "base": {
+  "voxel_volume_mL": 1.376,
+  "mesh_volume_mL": 1.295,
+  "triangles": 65916,
+  "open_edges": 0,
+  "axial_range_mm": [
+   -2.34,
+   1.55
+  ]
+ },
+ "dome": {
+  "voxel_volume_mL": 4.083,
+  "mesh_volume_mL": 3.904,
+  "triangles": 69844,
+  "open_edges": 0,
+  "axial_range_mm": [
+   2.05,
+   13.47
+  ]
+ },
+ "min_distance_base_to_dome_mm": 0.484,
+ "dome_points_inside_base": 0,
+ "axis_N": [
+  0.57468,
+  -0.46094,
+  0.67622
+ ],
+ "base_model": {
+  "rim_radius_mm": [
+   13.47,
+   14.16
+  ],
+  "plate_a_range_mm": [
+   -2.37,
+   1.55
+  ],
+  "fraction_of_mask_within_0p6mm_of_model": 0.97
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "mask_mL": 3.833,
+ "iso_level": 0.494,
+ "pieces": 3,
+ "triangles": 175822,
+ "mesh_mL": 3.83,
+ "base": {
+  "triangles": 65294,
+  "mL": 1.049,
+  "open_edges": 0
+ },
+ "dome": {
+  "triangles": 115052,
+  "mL": 2.781,
+  "open_edges": 0
+ }
+}

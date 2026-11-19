@@ -1,0 +1,16 @@
+# Findings C2 (meshes, max 2) — submission 17/11/2026 — saved by orchestrator from the adversary's reply
+Estimate ~1.7/2 (1.6–1.85). No hard fails, no majors. Work: r17/c2/ (a1_mesh.py … a12_axis.py; r_mv_ct_zoom.png, r_mv_ct_longaxis.png, r_pv_ct_axis_zoom.png, r_pv_views.png, r_spur_laa_ct.png, r_stl_vs_seg.png, r_seg_dist.png).
+
+## Findings
+- C2-1 | minor | "PVs and MV cut as explained in class": PV extensions don't follow the veins. STL/seg section area along cap normal: RSPV 5.4 (0.5 mm) → 1.4 (7 mm), cap 247 mm² vs lumen 46–122; LSPV 2.6–1.5; LIPV 1.7–1.6 (seg 2 components → maybe bifurcation); RIPV 0.96–0.99. Lumen centroid offset / axis angle at cap: RSPV 5.8 mm / 46°, LIPV 3.7 / 41°, LSPV 1.8 / 25°, RIPV 0.1 / 13°. r_pv_ct_axis_zoom.png: RSPV nozzle top edge ~9 mm outside lumen; LIPV/LSPV 2–3 mm. Method itself (flat cut, circular end, smooth blend, 90° rims) matches L2. cost 0.15–0.2. fix: re-centre/resize + remesh (needs rerun) or defend.
+- C2-2 | minor | "MV cut … consistent with the anatomy in the CT": orientation exact (hinge-plane SVD angle to z 0.00°, centre 0.26 mm off); but outlet is a designed nozzle 6.5 mm below annulus (2.8 mm below lowest hinge point), vertical walls below z ≈ 0 cut through vestibule in 30/90/120° planes; outlet 32.2 × 19.3 mm oval, 529 mm², eq. diameter 26.0 mm (< slide "MV around 28-42mm"); neck at annulus 40.9 × 26.8 mm (855 mm²). Cap plane ≈ atrial surface of leaflets (seg floor z −6 to −7.5) → defensible as leaflet level. "4–6 cm²" target (STATUS l.179) not found in slide text. Report states it but gives no reason. cost ~0.1. fix: half sentence with reason/source.
+- C2-3 | minor (uncertain) | "not oversmoothed … preserve anatomical features": run9 "spur" removed is a ~5 mm contrast-filled vessel between RSPV and RIPV ostia, likely accessory right middle PV (r_spur_laa_ct.png top; stub LPS (−38.2, −132.8, 869.8); up to 7.4 mm seg beyond STL; build_surface_run9v2.py SPIKE). cost 0–0.1. fix: defend in one clause; trace in Slicer.
+- C2-4 | minor | MV vs CT / ".stl": STL and BDF in rotated model frame; seg, CT and device STLs in LPS; transform_LPS_to_model.json not in submission/ (only inside zip). cost 0.1. fix 10 min: add transform + instruction, or CT-frame copy of STL.
+- C2-5 | note | main.tex l.71 "cut perpendicular to its trunk and extended by a smooth 10 mm tube" inaccurate: circular part 3.5 mm, loft 7–16 mm; all caps inside segmented veins; perpendicular to ostium not trunk. cost 0 here (C4 accuracy). fix: reword.
+- C2-6 | note | STL binary; L2 slides say unselect binary for MeshLab export. cost 0.
+
+## Checked and OK
+STL/BDF byte-identical to run9 files imported in Fluent. STL closed, manifold, 1 piece, 44,166 tris, min angle 25.7°, edges 0.40–1.51 mm; BDF boundary = STL (1.4e-4 mm), 274,425 tets all positive, no other cards. Skewness max 0.875 (0 > 0.9), edge ratio max 3.41; ~12 cells across RIPV. 6 regions at 20–60°, planar caps, 90° rims (MV 86.5–90.5°), max in-region dihedral 30.5°. No oversmoothing: body mean |d| 0.19 mm (p5/p95 −0.25/+0.27), volume 156.5 vs 156.0 mL, LAA–LSPV ridge and device face preserved. MV orientation = hinge plane. RIPV extension matches lumen. Report meshing numbers match.
+
+## Open questions
+1. Source of "4–6 cm²"? 2. Is the stub a right middle PV? 3. Will the grader get the transform or a CT-frame STL?

@@ -1,4 +1,4 @@
-"""Cross-sections in front of the device and recirculation (run8, last heartbeat), 07/11/2026.
+"""Cross-sections in front of the device and recirculation (run9, last heartbeat), 15/11/2026.
 ParaView GUI: View > Python Shell > Run Script > this file   (or: paraview --script=open_device_sections.py from this folder)
 Pipeline (press Play to run the heartbeat, t = 2.63-3.50 s):
   axial velocity      u_n = velocity along the device axis (m/s); + = towards the device / appendage, - = back into the atrium
@@ -9,7 +9,7 @@ Pipeline (press Play to run the heartbeat, t = 2.63-3.50 s):
   stagnant |v|<0.05   blood slower than 0.05 m/s (iso-volume) near the device
   streamlines (device) streamlines seeded in a sphere (r 8 mm) 5 mm in front of the device
   la_wall             transparent wall (the device itself is not drawn)
-Numbers for the same planes: 4_postprocessing/run8/device_sections/ (device_sections.py) in the project repository.
+Numbers for the same planes: 4_postprocessing/run9/device_sections/ (device_sections.py) in the project repository.
 Frame: metres; z = mitral valve axis; device axis from the CT disc-rim fit."""
 import os, inspect
 from paraview.simple import *

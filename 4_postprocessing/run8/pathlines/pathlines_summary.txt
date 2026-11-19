@@ -1,0 +1,7 @@
+t2.63 release 2.63 s  device inside the fluid  117, still in the LA after one beat   29 (25 %)
+t2.63 release 2.63 s  body   inside the fluid  200, still in the LA after one beat   85 (42 %)
+t2.63 release 2.63 s  pv     inside the fluid  362, still in the LA after one beat  361 (100 %)
+t1.75 release 1.75 s  device inside the fluid  117, still in the LA after one beat   71 (61 %)
+t1.75 release 1.75 s  body   inside the fluid  200, still in the LA after one beat   63 (32 %)
+t2.63 release 2.63 s  pv     inside the fluid  368, still in the LA after one beat  365 (99 %)
+t2.63 release 2.63 s  pv     inside the fluid  368, still in the LA after one beat  365 (99 %)

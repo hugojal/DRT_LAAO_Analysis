@@ -79,8 +79,7 @@ if WHICH == "unet" and TRF:                                     # 3D model of th
     cam(v, [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [C[i] - 0.004 * N[i] for i in range(3)], UP, 0.021); shot(v, "pv_unet_device.png"); Delete(v)
 
 if WHICH == "manual" and TRF:                                   # 3D model of the manual device segmentation (solid mask), same view as the U-Net one
-    mn = STLReader(FileNames=[PVD + "device_analysis_model_m.stl"])   # since 09/11/2026: gamma wireframe + manual edits
-    sm = Smooth(Input=mn); sm.NumberofIterations = 40; mn = SurfaceNormals(Input=sm)
+    mn = SurfaceNormals(Input=STLReader(FileNames=[PVD + "device_display_model_m.stl"]))   # 16/11/2026: closed, smoothed edited gamma segmentation (already smooth)
     v = view(800, 800); dm = Show(mn, v); dm.ColorArrayName = ["POINTS", ""]; dm.DiffuseColor = [0.20, 0.65, 0.75]; dm.Specular = 0.4
     cam(v, [C[i] + 0.10 * N[i] + 0.04 * PN[i] for i in range(3)], [C[i] - 0.004 * N[i] for i in range(3)], UP, 0.021); shot(v, "pv_device_segmentation.png"); Delete(v)
 

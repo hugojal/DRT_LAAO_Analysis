@@ -1,12 +1,57 @@
 # STATUS (update at end of every session)
 
-Last updated: 07/11/2026
+Last updated: 17/11/2026
 
-**Hand-in list: [SUBMISSION.md](../../SUBMISSION.md)** (run8 only).
+**Hand-in list: [SUBMISSION.md](../../SUBMISSION.md)** (run9).
+
+## 17/11/2026 (late): data-only simulation zip
+- New `submission/JalHugo_simulation.zip` (591 MB): the Fluent EnSight export of the last beat, the Fluent case/data (+ `.sf`), and a short `README.txt`. No scripts and no derived analysis.
+- It opens in pvbatch.
+- It is the one to send to Joel or the professor, separately from the Aula zip. The old package zip is kept.
+- `SUBMISSION.md` was updated.
+
+## 17/11/2026 (later): LA segmentation v3, RSPV trunk added
+- New: `1_segmentation/la_v3_17112026/Case3_LA_segmentation_HugoJal_17112026.seg.nrrd`. It is v2 plus the RSPV trunk up to just past its division (+1.68 mL, 157.7 mL, genus 0); script `fix_rspv_trunk.py`; README and QC are in the same folder.
+- `submission/Case3_LA_segmentation_HugoJal.seg.nrrd` has been replaced with v3. `make_submission.py` and `SUBMISSION.md` now point to v3.
+- Meshes and simulation are unchanged by the user's decision: they are built from v2, and the PV inlets are cylinders anyway.
+- Not done:
+  - the LSPV horn vein (minor);
+  - report `main.tex` l.71 ("four PVs up to their first branch") was not edited. With v3 it holds for the RSPV; consider half a sentence saying the segmentation was extended after meshing.
+  - The ParaView zip was not rebuilt; it does not contain the segmentation.
+
+## 17/11/2026: mock grade of the final `submission/` package
+- Review: [reviews/rubric_review_17112026.md](reviews/rubric_review_17112026.md); raw findings, defence table and `checks.json` are in `reviews/rubric_review_17112026_raw/`.
+- Score: likely 7.8/10 + 0.5 extra (harsh 6.0 + 0.3). No hard fails.
+- Blocking:
+  - the ParaView download link (still missing);
+  - the device STL handed in as "manual" is the closed, filled envelope (2.1 mL of non-wire material, 65 % blood-level voxels), which breaks "only the wireframe". Hand in a wire-only STL instead.
+- New finding, confirmed by the defence in the CT: the **RSPV trunk** above the flat roof cut is a pulmonary vein. Its lumen is continuous with the LA, a wall separates it from the RPA, and it is not segmented for 13–15 mm before its division.
+- Corrections to `SUBMISSION.md`:
+  - the zip is 605 MB, not 564 MB;
+  - steps 346–350 did converge: the parser misses iteration numbers ≥ 10000 written as "!10003", so the true count is 349/350.
+- Nothing in the deliverables was changed.
+- The skill's checker now reads a flat hand-in folder (`--root submission`, with a zip inventory and device-STL overlap).
 
 
 
 
+
+
+## 16/11/2026 (later): closed, smoothed device in the submission
+The device handed in and drawn in Fig. 1c and the pathline figures is `1_segmentation/device/gamma/Device_gamma_wire_v4_edited_closed_both_16112026.stl` (edited gamma segmentation, closed and smoothed; script `make_closed_smooth_16112026.py`). Streamline figures do not draw the device. Distances to the device, near-device zones and the wall bands were then recomputed with this closed device (`device_analysis_model_m.stl`; the unsmoothed wire is `device_wire_edited_model_m.stl`; log `logs/post_run9_closed_device_16112026.log`; previous outputs in `4_postprocessing/run9/before_closed_device_16112026/`). The numbers did not change in practice (TAWSS 0.48 / OSI 0.25 / ECAP 0.57 within 5 mm; speed 0.080 vs 0.122 m/s; Q share 18 / 33 %). Report text revised after a second blind review (sandbox, no web, beats 3-4 only): verdict YES, the flow near the device is thrombogenic (OSI, RRT, ECAP about the 95th percentile in both beats; speed deficit mostly a near-wall effect; no stagnation or trapped vortex; particle washout inconclusive; confidence about 65 %); no follow-up CT sentence.
+
+## 16/11/2026: run9 (new mesh, new simulation, report and package updated)
+- The user disliked the LA surface of run8 (a conical spur next to the RIPV, ragged inlet rims, a step where each PV extension meets the atrium). New surface `2_mesh/run9_15112026/` (`build_surface_run9v2.py`: spur removed, atrium smoothed with Taubin, each PV extension rebuilt as a smooth loft ending in an exact circular cylinder, slivers repaired); approved by the user; volume mesh in Gmsh (`build_volume_run9v2.py`, 274 425 tets, skewness max 0.88). README there.
+- Fluent: `setup_case_run9.py`, then `run_cycle.py` 350 steps (log `logs/run9_run_15112026.log`). Results and what changed against run8: `4_postprocessing/run9/README.md`. Wall metrics near the device are somewhat worse (OSI 0.25 vs 0.17, ECAP x2.4); the report text and conclusion were revised ('possible but moderate'); the pathline 'moves least' and '60 vs 40 %' statements were reworded. The author must re-read Sections 3.2-5.
+- Report `5_report/main.tex` now uses `figures_run9/`; backup before: `5_report/archive/main_before_run9_16112026.tex`. Package and `submission/` rebuilt (`make_submission.py`).
+
+## 14/11/2026: submission package assembled, repo cleaned
+- **Report** (`5_report/main.tex`, 2 pages + 5 references): Fig. 1d now says "thrombus" instead of "clot"; the two small dark regions are argued to be a metal streak artefact (flat, thin, no stalk); Fig. 2 = streamlines, Fig. 3 = pathlines of the last beat (the 4th), no vorticity; streamlines vs pathlines explained in 3.2; claims softened after the independent review (OSI not raised, retention ~60 % at the device vs ~40 % in the body, "possible but low" risk). References: Vogl 2024, U-Net, nnInteractive, Korsholm 2024, Boas 2012.
+- **Independent review** of each variable (subagent, data only): `4_postprocessing/run8/independent_review_10112026/REVIEW.md`: inconclusive, leaning mildly thrombogenic.
+- **Package:** `python 4_postprocessing/make_submission.py` builds `submission/` (names in SUBMISSION.md). `6_paraview_package/` gained `pathlines/`.
+- **Cleanup:** one-column and draft PDFs, the rejected washout/mean-speed/slow-blood/long-axis scripts and their outputs moved to `archive/cleanup_14112026/`.
+- **Open:** ParaView zip upload and link; Slicer check of segmentation v2.
+- **Mock grade (14/11/2026):** `docs/agents/reviews/rubric_review_14112026.md`: likely 8.9/10 + 0.75 extra (harsh 7.4 + 0.5); no hard fails; one blocking item (the ParaView download link); fix plan and document corrections in the file.
 
 ## 09/11/2026: edited device segmentation used for the analysis; report simplified on the user's feedback
 - **Device:** the user corrected `1_segmentation/device/gamma/Device_gamma_wire_v4_06112026.seg.nrrd` by hand in Slicer (19 518 → 38 664 voxels).

@@ -1,0 +1,283 @@
+{
+ "root": "C:\\Users\\hugoj\\Desktop\\UNI\\3er\\MOs\\DRT_LAAO_Case3\\submission",
+ "case_id": "3",
+ "layout": "flat submission folder",
+ "zips": [
+  {
+   "file": "HugoJal_Case3_ParaView_package.zip",
+   "size_MB": 605.2,
+   "entries": 1547,
+   "uncompressed_GB": 1.14,
+   "unsafe_paths": [],
+   "suspect_patient_files": [],
+   "by_suffix": {
+    ".csv": 5,
+    ".encas": 1,
+    ".geo": 88,
+    ".h5": 2,
+    ".json": 5,
+    ".md": 2,
+    ".pdf": 6,
+    ".png": 15,
+    ".py": 3,
+    ".scl1": 88,
+    ".scl10": 88,
+    ".scl11": 88,
+    ".scl12": 88,
+    ".scl13": 88,
+    ".scl14": 88,
+    ".scl15": 88,
+    ".scl2": 88,
+    ".scl3": 88,
+    ".scl4": 88,
+    ".scl5": 88,
+    ".scl6": 88,
+    ".scl7": 88,
+    ".scl8": 88,
+    ".scl9": 88,
+    ".sf": 3,
+    ".stl": 5,
+    ".vel": 88,
+    ".vtp": 4
+   },
+   "top_level_files": [
+    "HugoJal_Case3_ParaView/README.md",
+    "HugoJal_Case3_ParaView/flows.csv",
+    "HugoJal_Case3_ParaView/mitral_bc.json",
+    "HugoJal_Case3_ParaView/open_device_sections.py",
+    "HugoJal_Case3_ParaView/open_in_paraview.py",
+    "HugoJal_Case3_ParaView/transform_LPS_to_model.json"
+   ]
+  }
+ ],
+ "inventory": {
+  "nrrd": [
+   "Case3_LA_segmentation_HugoJal.seg.nrrd"
+  ],
+  "stl": [
+   "HugoJal_Case3_device_segmentation_manual.stl",
+   "HugoJal_Case3_device_segmentation_unet.stl",
+   "HugoJal_Case3_LA_surface_mesh.stl"
+  ],
+  "bdf": [
+   "HugoJal_Case3_LA_volume_mesh.bdf"
+  ],
+  "pdf_in_5_report": [
+   "HugoJal_Case3_report.pdf"
+  ]
+ },
+ "nrrd": [
+  {
+   "file": "Case3_LA_segmentation_HugoJal.seg.nrrd",
+   "size_MB": 0.2,
+   "name_has_case_id": true,
+   "shape": [
+    512,
+    512,
+    274
+   ],
+   "dtype": "int16",
+   "header_keys_looking_like_patient_data": {},
+   "segments": {
+    "Segment0_Name": "LA_Case3"
+   },
+   "voxel_mm": [
+    0.4453,
+    0.4453,
+    0.5
+   ],
+   "is_label_map": true,
+   "labels": {
+    "1": {
+     "voxels": 1573655,
+     "volume_mL": 156.03,
+     "connected_components": 1,
+     "largest_component_fraction": 1.0,
+     "components_under_50_voxels": 0
+    }
+   }
+  }
+ ],
+ "la_device_overlap": [],
+ "la_device_stl_vertex_overlap": [
+  {
+   "la_file": "Case3_LA_segmentation_HugoJal.seg.nrrd",
+   "stl": "HugoJal_Case3_device_segmentation_manual.stl",
+   "vertices": 51878,
+   "vertices_inside_CT_grid": 51878,
+   "vertices_inside_LA_mask": 259,
+   "fraction_inside": 0.005
+  },
+  {
+   "la_file": "Case3_LA_segmentation_HugoJal.seg.nrrd",
+   "stl": "HugoJal_Case3_device_segmentation_unet.stl",
+   "vertices": 28143,
+   "vertices_inside_CT_grid": 28143,
+   "vertices_inside_LA_mask": 0,
+   "fraction_inside": 0.0
+  }
+ ],
+ "stl": [
+  {
+   "file": "HugoJal_Case3_device_segmentation_manual.stl",
+   "triangles": 103752,
+   "points": 51878,
+   "extent": [
+    27.1,
+    26.8,
+    26.86
+   ],
+   "units_guess": "mm",
+   "open_edges": 0,
+   "non_manifold_edges": 0,
+   "connected_pieces": 1,
+   "degenerate_triangles(area<1e-6 mm2)": 0,
+   "closed_volume_mL": 5.827,
+   "angle_separation_30deg": {
+    "regions": 1,
+    "largest_8": [
+     {
+      "faces": 103752,
+      "area_mm2": 2044.8,
+      "eq_diameter_mm": 51.0,
+      "planarity": 0.0
+     }
+    ]
+   },
+   "angle_separation_regions_at": {
+    "20deg": 2,
+    "40deg": 1
+   }
+  },
+  {
+   "file": "HugoJal_Case3_device_segmentation_unet.stl",
+   "triangles": 56426,
+   "points": 28143,
+   "extent": [
+    27.61,
+    28.05,
+    27.0
+   ],
+   "units_guess": "mm",
+   "open_edges": 0,
+   "non_manifold_edges": 0,
+   "connected_pieces": 6,
+   "degenerate_triangles(area<1e-6 mm2)": 0,
+   "closed_volume_mL": 2.432
+  },
+  {
+   "file": "HugoJal_Case3_LA_surface_mesh.stl",
+   "triangles": 44166,
+   "points": 22085,
+   "extent": [
+    87.18,
+    75.61,
+    82.3
+   ],
+   "units_guess": "mm",
+   "open_edges": 0,
+   "non_manifold_edges": 0,
+   "connected_pieces": 1,
+   "degenerate_triangles(area<1e-6 mm2)": 0,
+   "closed_volume_mL": 156.512,
+   "angle_separation_30deg": {
+    "regions": 6,
+    "largest_8": [
+     {
+      "faces": 41537,
+      "area_mm2": 16631.8,
+      "eq_diameter_mm": 145.5,
+      "planarity": 0.0354
+     },
+     {
+      "faces": 1292,
+      "area_mm2": 529.0,
+      "eq_diameter_mm": 26.0,
+      "planarity": 1.0
+     },
+     {
+      "faces": 550,
+      "area_mm2": 246.8,
+      "eq_diameter_mm": 17.7,
+      "planarity": 1.0
+     },
+     {
+      "faces": 329,
+      "area_mm2": 143.3,
+      "eq_diameter_mm": 13.5,
+      "planarity": 1.0
+     },
+     {
+      "faces": 307,
+      "area_mm2": 133.2,
+      "eq_diameter_mm": 13.0,
+      "planarity": 1.0
+     },
+     {
+      "faces": 151,
+      "area_mm2": 63.0,
+      "eq_diameter_mm": 9.0,
+      "planarity": 1.0
+     }
+    ]
+   },
+   "angle_separation_regions_at": {
+    "20deg": 6,
+    "40deg": 6
+   }
+  }
+ ],
+ "bdf": [
+  {
+   "file": "HugoJal_Case3_LA_volume_mesh.bdf",
+   "size_MB": 18.8,
+   "nodes": 57361,
+   "tetrahedra": 274425,
+   "other_cards": {},
+   "under_500k": true,
+   "negative_volume_tets": 0,
+   "zero_volume_tets(|V|<1e-12)": 0,
+   "total_volume": 156511.66,
+   "equivolume_skewness": {
+    "max": 0.8754,
+    "mean": 0.2413,
+    "p99": 0.6169,
+    "n_above_0.8": 30,
+    "n_above_0.9": 0,
+    "n_above_0.95": 0
+   }
+  }
+ ],
+ "pdf": [
+  {
+   "file": "HugoJal_Case3_report.pdf",
+   "pages": 3,
+   "references_heading_on_page": 3,
+   "body_pages_before_references": 2,
+   "images_per_page": [
+    5,
+    10,
+    0
+   ],
+   "words_per_page": [
+    793,
+    758,
+    230
+   ],
+   "mentions": {
+    "thrombus": 13,
+    "DRT": 4,
+    "no device-related thrombus": 1,
+    "risk": 2,
+    "Watchman": 0,
+    "Amulet": 0,
+    "ParaView": 0,
+    "ECAP": 8,
+    "TAWSS": 5,
+    "OSI": 8,
+    "streamline": 1,
+    "mitral": 1
+   }
+  }
+ ]
+}

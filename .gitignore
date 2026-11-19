@@ -49,3 +49,14 @@ __pycache__/
 # mesh build cache (MeshLab remesh of the segmentation surface)
 2_mesh/*/_seg_remeshed_cache*.stl
 2_mesh/*/build_run*.log
+
+# submission folder (assembled by 4_postprocessing/make_submission.py)
+submission/
+
+# large simulation-derived data and caches (19/11/2026)
+6_paraview_basic_18112026/
+4_postprocessing/run9/**/*.npz
+4_postprocessing/paraview/run9_wall_metrics.vtp
+5_report/chk-*.png
+5_report/pg-*.png
+5_report/figures_run9/ct_unet_enface.png

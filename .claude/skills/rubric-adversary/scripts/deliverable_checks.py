@@ -140,6 +140,31 @@ def overlap(la: dict, dev: dict) -> dict:
     }
 
 
+def stl_in_mask(la: dict, stl_path: Path, root: Path) -> dict:
+    """Share of an STL's vertices that fall inside the LA mask (assumes STL in the CT frame, mm)."""
+    import nrrd
+    import pyvista as pv
+
+    m = pv.read(str(stl_path))
+    P = np.asarray(m.points, float)
+    out = {"la_file": la["file"], "stl": rel(stl_path, root), "vertices": int(len(P))}
+    if np.ptp(P, axis=0).max() < 1:
+        out["note"] = "STL looks like metres / model frame: not compared"
+        return out
+    la_d, _ = nrrd.read(la["_path"])
+    la_m = la_d > 0 if la_d.ndim == 3 else la_d.any(axis=0)
+    ijk = np.rint(np.linalg.inv(np.asarray(la["_affine"])) @ np.c_[P, np.ones(len(P))].T).T[:, :3].astype(int)
+    ok = np.all((ijk >= 0) & (ijk < np.array(la_m.shape)), axis=1)
+    out["vertices_inside_CT_grid"] = int(ok.sum())
+    if ok.sum() == 0:
+        out["note"] = "no vertex inside the LA grid: STL not in the CT frame?"
+        return out
+    inside = la_m[tuple(ijk[ok].T)]
+    out["vertices_inside_LA_mask"] = int(inside.sum())
+    out["fraction_inside"] = round(float(inside.sum() / ok.sum()), 4)
+    return out
+
+
 # ---------------------------------------------------------------- STL
 def angle_regions(mesh, angle_deg: float = 30.0, to_mm: float = 1.0) -> list[dict]:
     """Flood-fill faces across edges whose dihedral angle is below angle_deg."""
@@ -317,11 +342,33 @@ def main() -> int:
     case_patterns = [rf"case[ _-]?0*{cid}(?!\d)"]
 
     res: dict = {"root": str(root), "case_id": cid}
-    nrrds = walk(root / "1_segmentation", (".nrrd",)) if (root / "1_segmentation").exists() else []
+    # project layout, or a flat hand-in folder (e.g. submission/) with everything at top level
+    flat = not (root / "1_segmentation").exists()
+    res["layout"] = "flat submission folder" if flat else "project"
+    nrrds = walk(root if flat else root / "1_segmentation", (".nrrd",))
     stls = walk(root, (".stl",))
     bdfs = walk(root, (".bdf",))
-    pdfs = walk(root / "5_report", (".pdf",)) if (root / "5_report").exists() else []
+    pdfs = walk(root if flat else root / "5_report", (".pdf",))
     pv_dir = root / "6_paraview_package"
+    zips = walk(root, (".zip",))
+    if zips:
+        import zipfile
+        res["zips"] = []
+        for zp in zips:
+            z = zipfile.ZipFile(zp)
+            names = z.namelist()
+            infos = z.infolist()
+            res["zips"].append({
+                "file": rel(zp, root), "size_MB": round(zp.stat().st_size / 1e6, 1),
+                "entries": len(names),
+                "uncompressed_GB": round(sum(i.file_size for i in infos) / 1e9, 2),
+                "unsafe_paths": [n for n in names if n.startswith("/") or ".." in n][:5],
+                "suspect_patient_files": [n for n in names if re.search(
+                    r"\.mrml$|\.dcm$|DS_Coronaires|/data/|Case_003/", n, re.I)][:10],
+                "by_suffix": {s: sum(1 for n in names if n.lower().endswith(s)) for s in sorted(
+                    {Path(n).suffix.lower() for n in names if Path(n).suffix})},
+                "top_level_files": sorted(n for n in names if n.count("/") <= 1 and not n.endswith("/")),
+            })
     res["inventory"] = {
         "nrrd": [rel(p, root) for p in nrrds],
         "stl": [rel(p, root) for p in stls],
@@ -347,6 +394,10 @@ def main() -> int:
                and "device" not in n["file"].lower() and "experiment" not in n["file"]]
         devs = [n for n in res["nrrd"] if n.get("is_label_map") and "device" in n["file"].lower()]
         res["la_device_overlap"] = [overlap(l, d) for l in las for d in devs]
+        # device handed in only as STL: share of its vertices inside the LA mask (CT frame, mm)
+        dev_stls = [p for p in stls if "device" in p.name.lower()]
+        if las and dev_stls:
+            res["la_device_stl_vertex_overlap"] = [stl_in_mask(l, p, root) for l in las for p in dev_stls]
         for n in res["nrrd"]:
             n.pop("_affine", None); n.pop("_path", None)
 

@@ -12,7 +12,7 @@ usage: python make_paraview_package.py [run]"""
 import os, sys, shutil, re, glob
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUN = sys.argv[1] if len(sys.argv) > 1 else "run8"; RES = os.path.join(ROOT, "3_simulation", "results", f"{RUN}_4cycles"); PKG = os.path.join(ROOT, "6_paraview_package")
-MESHDIR = {"run7": "run7_06112026", "run8": "run8_07112026"}[RUN]
+MESHDIR = {"run7": "run7_06112026", "run8": "run8_07112026", "run9": "run9_15112026"}[RUN]
 for f in glob.glob(os.path.join(PKG, "simulation", "step_*")) + glob.glob(os.path.join(PKG, "simulation", "*_last_beat.encas")) + glob.glob(os.path.join(PKG, "fluent", "case_*")):
     os.remove(f)                                          # copies only; the originals are in 3_simulation/
 FIRST, LAST, DT = 263, 350, 0.01
@@ -32,7 +32,7 @@ for f in os.listdir(cases):
 srf = os.path.join(PKG, "surfaces"); os.makedirs(srf, exist_ok=True)
 PV = os.path.join(ROOT, "4_postprocessing", "paraview")
 for src, dst in ((f"{RUN}_wall_metrics.vtp", "wall_metrics_last_beat.vtp"), ("la_surface_model_m.stl", "la_surface.stl"),
-                 ("device_gamma_wire_model_m.stl", "device_wire_frame.stl"), ("device_manual_model_m.stl", "device_manual_mask.stl"), ("device_analysis_model_m.stl", "device_segmentation.stl"),
+                 ("device_gamma_wire_model_m.stl", "device_wire_frame.stl"), ("device_manual_model_m.stl", "device_manual_mask.stl"), ("device_display_model_m.stl", "device_segmentation.stl"),
                  ("device_unet_wire_model_m.stl", "device_unet.stl")):
     shutil.copy2(os.path.join(PV, src), os.path.join(srf, dst))
 shutil.copy2(os.path.join(RES, "flows.csv"), PKG)
@@ -43,3 +43,7 @@ if os.path.isdir(conv): shutil.copytree(conv, os.path.join(PKG, "convergence"), 
 ds = os.path.join(ROOT, "4_postprocessing", RUN, "device_sections")          # cross-sections in front of the device (device_sections.py)
 if os.path.isdir(ds): shutil.copytree(ds, os.path.join(PKG, "device_sections"), dirs_exist_ok=True)
 print("package written:", PKG)
+# pathlines of the last beat (Fig. 3 of the report; made by pv_pathlines.py, 10/11/2026)
+pth = os.path.join(PKG, "pathlines"); os.makedirs(pth, exist_ok=True)
+for f in glob.glob(os.path.join(ROOT, "4_postprocessing", RUN, "pathlines", "paths_*_t2.63.vtp")): shutil.copy2(f, pth)
+shutil.copy2(os.path.join(ROOT, "4_postprocessing", "pv_pathlines.py"), pth)

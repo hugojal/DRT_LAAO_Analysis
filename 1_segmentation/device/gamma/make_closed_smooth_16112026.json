@@ -1,0 +1,19 @@
+{
+ "mask_mL": 3.834,
+ "closed_mask_mL": 5.83,
+ "mesh_mL": 5.827,
+ "triangles": 103752,
+ "open_edges": 0,
+ "pieces": 1,
+ "footprint_cells_added": 2883,
+ "base": {
+  "triangles": 49740,
+  "mL": 1.624,
+  "open_edges": 0
+ },
+ "dome": {
+  "triangles": 57128,
+  "mL": 4.203,
+  "open_edges": 0
+ }
+}

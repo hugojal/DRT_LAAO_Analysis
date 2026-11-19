@@ -1,45 +1,45 @@
 {
  "planes": {
   "2": {
-   "area_mm2_median": 295.7401845869398,
-   "vmean_beat": 0.040582540357768565,
-   "frac_stag_beat": 0.697404517821576,
-   "frac_time_recirculating": 0.09090909090909091,
-   "net_axial_velocity_beat": 0.0026820546057125085
+   "area_mm2_median": 297.0680130313074,
+   "vmean_beat": 0.03766716148546625,
+   "frac_stag_beat": 0.7452571678784132,
+   "frac_time_recirculating": 0.13636363636363635,
+   "net_axial_velocity_beat": 0.002929831488717682
   },
   "5": {
-   "area_mm2_median": 618.0647224238459,
-   "vmean_beat": 0.08817467919513867,
-   "frac_stag_beat": 0.2922053444333656,
-   "frac_time_recirculating": 0.9886363636363636,
-   "net_axial_velocity_beat": 0.0014383018396807795
+   "area_mm2_median": 621.3707832517912,
+   "vmean_beat": 0.09040689780674195,
+   "frac_stag_beat": 0.3050839276268698,
+   "frac_time_recirculating": 0.875,
+   "net_axial_velocity_beat": 0.0031737782306904857
   },
   "8": {
-   "area_mm2_median": 787.055485457948,
-   "vmean_beat": 0.11195229817400372,
-   "frac_stag_beat": 0.19110105249224327,
-   "frac_time_recirculating": 0.9090909090909091,
-   "net_axial_velocity_beat": 0.0025929723255833535
+   "area_mm2_median": 790.4330224298825,
+   "vmean_beat": 0.11302981119684889,
+   "frac_stag_beat": 0.19171203890575314,
+   "frac_time_recirculating": 0.8863636363636364,
+   "net_axial_velocity_beat": 0.00476492865276179
   },
   "12": {
-   "area_mm2_median": 889.1945284019318,
-   "vmean_beat": 0.1264229787149544,
-   "frac_stag_beat": 0.12498864212282337,
-   "frac_time_recirculating": 0.9204545454545454,
-   "net_axial_velocity_beat": 0.002180474459764567
+   "area_mm2_median": 890.7856225845317,
+   "vmean_beat": 0.12177242330553974,
+   "frac_stag_beat": 0.1294203492344163,
+   "frac_time_recirculating": 0.875,
+   "net_axial_velocity_beat": 0.005341173123268918
   },
   "16": {
-   "area_mm2_median": 1050.7420374319738,
-   "vmean_beat": 0.13164660256632707,
-   "frac_stag_beat": 0.15624050063955597,
-   "frac_time_recirculating": 1.0,
-   "net_axial_velocity_beat": -0.014654969145832995
+   "area_mm2_median": 1055.6623636074937,
+   "vmean_beat": 0.12822179287575156,
+   "frac_stag_beat": 0.13710575526098912,
+   "frac_time_recirculating": 0.9659090909090909,
+   "net_axial_velocity_beat": -0.011589368007783329
   }
  },
  "near_device_10mm": {
-  "vol_mL": 8.355804967046804,
-  "frac_stag_beat": 0.2505199493391114,
-  "frac_vortex_beat": 0.2492555174793805,
-  "vmean_beat": 0.10873056276957556
+  "vol_mL": 7.8319733823780515,
+  "frac_stag_beat": 0.2848836658757623,
+  "frac_vortex_beat": 0.249049174695123,
+  "vmean_beat": 0.1062851418831277
  }
 }

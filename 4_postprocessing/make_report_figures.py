@@ -78,7 +78,7 @@ if EXTRA:
 TC = os.path.join(ROOT, "4_postprocessing", RUN, "near_device_timecourse.csv")
 if os.path.exists(TC):
     r_ = list(csv.DictReader(open(TC))); A_ = {k: np.array([float(x[k]) for x in r_]) for k in r_[0]}; t_ = A_["t_in_beat"]
-    fig, ax = plt.subplots(figsize=(3.3, 1.55))
+    fig, ax = plt.subplots(figsize=(3.3, 1.3))
     for lab, c, nm in (("all", "k", "whole atrium"), ("10mm", "tab:orange", "within 10 mm"), ("5mm", "tab:red", "within 5 mm of the device")):
         ax.plot(t_, 100 * A_["vmean_" + lab], color=c, lw=1.1, label=nm)
     ax.set_ylabel("mean blood speed (cm/s)", labelpad=2); ax.set_xlabel("time in the heartbeat (s)"); ax.set_xlim(0, 0.875); ax.set_ylim(0, None)

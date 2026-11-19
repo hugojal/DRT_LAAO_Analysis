@@ -88,3 +88,43 @@ Beat averages, volume-weighted:
 | within 10 mm | 0.109 m/s | 26 % | 49 1/s | 24 % |
 
 Vorticity is higher next to the device because next to a wall it mostly measures shear. The Q-criterion separates swirl from shear and shows fewer vortices there.
+
+> **14/11/2026:** the scripts and outputs of the sections *Extra flow figures* and *Long-axis plane* (`extra/`, `device_planes/`, `pv_extract_extra.py`, `pv_slow_blood.py`, `pv_washout_views.py`, `plot_extra_figures.py`, `render_device_planes.py`) were not used in the report and moved to `archive/cleanup_14112026/` (git-ignored).
+
+## Extra flow figures (`extra/`, 09/11/2026; candidates, not yet in the report)
+- **Washout test** (`pv_extract_extra.py washout`, `pv_washout_views.py`, `plot_extra_figures.py`):
+  - Particles were released at the start of beat 3 (t = 1.75 s) in two spheres of r = 8 mm and traced for two beats. One sphere sits 6 mm in front of the device (1056 particles inside the blood); the other sits in the middle of the atrial body (1500 particles).
+  - Particles that leave through the mitral valve stop being counted. Losses during systole, when the valve is closed, are small (about 2–4 %); they are particles that cross the wall numerically.
+  - **Still in the LA after one beat:** 61 % of the blood released in front of the device, against 28 % of the atrial-body blood.
+  - **After two beats:** 44 % against 12 %.
+  - Outputs: `fig_washout.pdf` (curve) and `washout_{release,1beat,2beats}.png` (3D: red = released in front of the device, grey = released in the atrial body).
+- **Beat-averaged speed** on the plane through the mitral axis and the device centre (`pv_extract_extra.py mean`) → `fig_mean_speed.pdf`.
+  - The blood next to the device is slower, but only in a thin rim, and the vortex centres in the atrial body are also slow. It is weaker evidence than the washout test.
+- **Slowest 10 % of the blood** (`pv_slow_blood.py`, `slow_blood.json`):
+  - Within 15 mm of the device, 24 % of the blood belongs to the slowest 10 % of the atrium.
+  - In 3D, this slow blood is a thin layer along the whole wall, so the 3D view was not kept (archived).
+
+## Long-axis plane in front of the device (`device_planes/`, 09/11/2026; candidates)
+- **Script:** `render_device_planes.py`.
+- **Plane:** contains the device axis and the mitral axis. The device is on the right, drawn as its cut by the same plane (filled orange; gamma + manual segmentation).
+- **Locator:** `longaxis_locator.png` shows the transparent atrium, the device in orange, and the part of the plane shown in blue.
+- **Kept for the report (user, 09/11/2026):** both rows, speed and vorticity.
+- **Content:** speed or vorticity magnitude, with arrows showing the in-plane flow direction, at 2.90 / 3.06 / 3.40 s.
+- **What the images show:**
+  - **Valve closed and late diastole:** in front of the device the blood is slow and turns on itself.
+  - **E-wave peak:** the jet from the veins passes on the left of this region.
+  - **Vorticity:** high only in the thin shear layer along the wall and at the edge of the jet. Inside the region in front of the device it stays low, so no vortex sweeps it.
+- **Dropped:** cross-sections perpendicular to the device axis (archived). They cut through the whole atrial body.
+- **Disliked:** the washout and beat-averaged speed figures (`extra/`) were rejected by the user on 09/11/2026.
+- **In the report (09/11/2026, revised):** Fig. 2 is back to one row of streamlines. A separate column figure (`fig:plane`) shows the locator and the late-diastole vorticity only (ParaView colour bar below the image). The speed row and the other two phases are not used. The 2x3 layout, the matplotlib colour bars and `make_fig2_panels.py` are in `archive/fig2_unused_09112026/`.
+- **Vorticity near the device** (`run8/extra/vorticity_near_device.npy`, columns t, 0-5 mm slab, 0-10 mm slab, whole LA, LA p95, slab speed): the volume mean in the 0-5 mm slab is above the LA mean (diastole 76 vs 56 1/s). This comes from the shear layer on the wall (vorticity magnitude includes shear). The Q-criterion shows fewer vortices there (18 vs 33 %). Literature (Albors et al. 2024, PLoS Comput Biol, PMID 39325818) links DRT to low velocity and recirculation around the device, not to high vorticity.
+
+## Pathlines (10/11/2026)
+- `4_postprocessing/pv_pathlines.py` -> `run8/pathlines/`. Particles are released once at the start of a beat and followed for one beat (ParticleTracer, one position per 0.01 s step); the lines are built from each ParticleId. Colour = time after release. ParaView's ParticlePath filter drew straight artefacts from the vein inlets (archived in `archive/pathlines_particlepath_10112026/`).
+- Seeds: sphere r 8 mm, 5 mm in front of the device (as the device streamlines); the same sphere at the centroid of the atrial body; points just inside the four vein inlets.
+- **Still in the LA after one beat** (`pathlines_summary.txt`):
+  - last beat (release 2.63 s): in front of the device 25 %, atrial body 42 %, vein blood 99 %.
+  - beat 3 (release 1.75 s): in front of the device 61 %, atrial body 32 % (same as the washout test of 09/11/2026).
+- The whole-atrium flow repeats from beat to beat (mean LA speed 0.083 / 0.086 / 0.083 m/s in beats 2-4, `extra/mean_speed_per_step_beats2to4.npy`), but the fate of the blood in front of the device does not: in the last beat most of it leaves with the E wave. A one-beat washout of this region is therefore not a reliable measure; it depends on the beat.
+- **In the report (10/11/2026):** Fig. 3 = pathlines of the last beat only (device, atrial body, PV inlets; `make_pathline_panels.py` -> `path_*.png`, one shared colour bar). It replaces the locator + vorticity figure (archived). Beat 3 is not shown: the analysed beat is the 4th. The text now contrasts streamlines (direction of the flow at one instant) with pathlines (where the blood goes during the beat); "least renewed" was replaced by "rarely reached by fresh blood" (7 % of the vein pathlines reach the device region in the last beat).
+- **Retention reconciled (10/11/2026, `pathlines/retention_check_seeds.py`):** with 400 evenly spread seeds, still in the LA after one beat: 5 mm layer in front of the device face (radius 16 mm) 62 % (release 1.76 s) / 58 % (2.63 s); 8 mm sphere 5 mm in front 64 % / 27 %. Seeds on mesh nodes give higher values (nodes crowd near the wall). The earlier 25 % came from the sphere, whose outer part the E wave sweeps out in the last beat; the blood at the device itself stays ~60 % in both beats, against ~40 % of the body blood (independent review agrees). Report text revised: retention 60 vs 40 %, no OSI rise, "possible rather than clear" risk, flat-device limitation.

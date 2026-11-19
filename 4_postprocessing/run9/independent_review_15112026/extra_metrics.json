@@ -1,0 +1,78 @@
+{
+ "beat3": {
+  "dev0-5": {
+   "vol_mL": 2.414619952734176,
+   "beatmean_speed": 0.09104696871247316,
+   "coherence_|<u>|/<|u|>": 0.6174339698709247,
+   "time_frac_flow_towards_device(u.N>0)": 0.4740483724464312
+  },
+  "dev0-10": {
+   "vol_mL": 5.45588866034813,
+   "beatmean_speed": 0.11262936980285321,
+   "coherence_|<u>|/<|u|>": 0.6705332715546357,
+   "time_frac_flow_towards_device(u.N>0)": 0.482548659889834
+  },
+  "nearwall0-5_far(>30mm)": {
+   "vol_mL": 44.783409763018284,
+   "beatmean_speed": 0.10376055676643024,
+   "coherence_|<u>|/<|u|>": 0.7086629329963243,
+   "time_frac_flow_towards_device(u.N>0)": 0.5471354877994752
+  },
+  "body(wall>10mm)": {
+   "vol_mL": 43.03064510206844,
+   "beatmean_speed": 0.136167140225473,
+   "coherence_|<u>|/<|u|>": 0.5843805177643147,
+   "time_frac_flow_towards_device(u.N>0)": 0.5819189921924838
+  },
+  "sphere40mm_ostium": {
+   "vol_mL": 12.259611776980345,
+   "beatmean_speed": 0.11712822873554381,
+   "coherence_|<u>|/<|u|>": 0.6401131952116446,
+   "time_frac_flow_towards_device(u.N>0)": 0.4855086517540591
+  },
+  "LA": {
+   "vol_mL": 158.47113990211972,
+   "beatmean_speed": 0.1233684371976173,
+   "coherence_|<u>|/<|u|>": 0.6838050402287537,
+   "time_frac_flow_towards_device(u.N>0)": 0.5459074648158597
+  }
+ },
+ "beat4": {
+  "dev0-5": {
+   "vol_mL": 2.4201430309650496,
+   "beatmean_speed": 0.08339695947757773,
+   "coherence_|<u>|/<|u|>": 0.7395070732000992,
+   "time_frac_flow_towards_device(u.N>0)": 0.4346192250523609
+  },
+  "dev0-10": {
+   "vol_mL": 5.477148401166615,
+   "beatmean_speed": 0.10141116243574096,
+   "coherence_|<u>|/<|u|>": 0.7785646615730832,
+   "time_frac_flow_towards_device(u.N>0)": 0.4339445867074733
+  },
+  "nearwall0-5_far(>30mm)": {
+   "vol_mL": 45.33410020636941,
+   "beatmean_speed": 0.1018698406609475,
+   "coherence_|<u>|/<|u|>": 0.7026640337715223,
+   "time_frac_flow_towards_device(u.N>0)": 0.5588835820210245
+  },
+  "body(wall>10mm)": {
+   "vol_mL": 43.174340250869136,
+   "beatmean_speed": 0.13721203854290376,
+   "coherence_|<u>|/<|u|>": 0.560061266574785,
+   "time_frac_flow_towards_device(u.N>0)": 0.5810780583696722
+  },
+  "sphere40mm_ostium": {
+   "vol_mL": 12.366413572419132,
+   "beatmean_speed": 0.10823564646606634,
+   "coherence_|<u>|/<|u|>": 0.7018685794371987,
+   "time_frac_flow_towards_device(u.N>0)": 0.4481864852503442
+  },
+  "LA": {
+   "vol_mL": 160.21407359578973,
+   "beatmean_speed": 0.12166345034474373,
+   "coherence_|<u>|/<|u|>": 0.6778566324751356,
+   "time_frac_flow_towards_device(u.N>0)": 0.551629739940663
+  }
+ }
+}

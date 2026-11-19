@@ -1,0 +1,28 @@
+{
+ "manual/Device_manual_smooth_16112026.stl": {
+  "triangles": 61766,
+  "pieces_before": 18,
+  "pieces_after": 18,
+  "volume_before_mL": 5.025,
+  "volume_after_mL": 5.0288,
+  "displacement_mm": {
+   "median": 0.142,
+   "p99": 0.295,
+   "max": 0.417
+  },
+  "open_or_nonmanifold_edges": 0
+ },
+ "gamma/Device_gamma_wire_v4_edited_smooth_16112026.stl": {
+  "triangles": 60444,
+  "pieces_before": 20,
+  "pieces_after": 20,
+  "volume_before_mL": 3.8405,
+  "volume_after_mL": 3.8443,
+  "displacement_mm": {
+   "median": 0.136,
+   "p99": 0.285,
+   "max": 0.417
+  },
+  "open_or_nonmanifold_edges": 0
+ }
+}

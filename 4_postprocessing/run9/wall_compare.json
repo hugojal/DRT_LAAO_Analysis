@@ -1,0 +1,53 @@
+{
+ "near_area_cm2": 8.180671845082564,
+ "patch_area_cm2": 8.890551437868833,
+ "n_patches": 3000,
+ "beat4_TAWSS": {
+  "near": 0.49200010299682617,
+  "rest": 0.7003986835479736,
+  "ratio": 0.7024571895599365,
+  "share_of_patches_as_extreme": 0.167
+ },
+ "beat4_OSI": {
+  "near": 0.25156038999557495,
+  "rest": 0.16798138618469238,
+  "ratio": 1.4975491762161255,
+  "share_of_patches_as_extreme": 0.11166666666666666
+ },
+ "beat4_RRT": {
+  "near": 5.058765411376953,
+  "rest": 2.272024154663086,
+  "ratio": 2.226545572280884,
+  "share_of_patches_as_extreme": 0.029333333333333333
+ },
+ "beat4_ECAP": {
+  "near": 0.5774080753326416,
+  "rest": 0.23961694538593292,
+  "ratio": 2.40971302986145,
+  "share_of_patches_as_extreme": 0.05266666666666667
+ },
+ "beat3_TAWSS": {
+  "near": 0.5482327342033386,
+  "rest": 0.6952112913131714,
+  "ratio": 0.7885843515396118,
+  "share_of_patches_as_extreme": 0.214
+ },
+ "beat3_OSI": {
+  "near": 0.2663458287715912,
+  "rest": 0.1603192538022995,
+  "ratio": 1.661346435546875,
+  "share_of_patches_as_extreme": 0.0
+ },
+ "beat3_RRT": {
+  "near": 4.229377746582031,
+  "rest": 2.2099809646606445,
+  "ratio": 1.913762092590332,
+  "share_of_patches_as_extreme": 0.07133333333333333
+ },
+ "beat3_ECAP": {
+  "near": 0.5100969076156616,
+  "rest": 0.2322015017271042,
+  "ratio": 2.1967854499816895,
+  "share_of_patches_as_extreme": 0.060333333333333336
+ }
+}

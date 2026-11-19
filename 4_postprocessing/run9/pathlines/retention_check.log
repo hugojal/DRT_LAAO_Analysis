@@ -1,0 +1,4 @@
+uni_slab 1.76 seeds 400 start 400 end 192 retained 48% min 192
+uni_sphere 1.76 seeds 400 start 400 end 179 retained 45% min 179
+uni_slab 2.63 seeds 400 start 400 end 222 retained 56% min 222
+uni_sphere 2.63 seeds 400 start 400 end 298 retained 74% min 298
